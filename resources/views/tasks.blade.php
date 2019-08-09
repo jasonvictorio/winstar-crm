@@ -48,7 +48,8 @@
                                         'is_sortable' => true,
                                         'set_size' => '-sm',
                                         'paginate' => 5,
-                                        'enable_filter' => true
+                                        'enable_filter' => true,
+                                        'enable_add' => true
                                     ))
                                 );
                                 $newgrid->display();

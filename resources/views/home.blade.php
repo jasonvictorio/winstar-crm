@@ -64,6 +64,15 @@
                                     onmouseout="this.src='storage/settings.png'" />
                                 <p>Settings</p>
                             </div>
+
+                            <div class="col-6 col-sm-4 col-md-3" id="column6">
+                                <a href="{{ route('tasks') }}">
+                                    <img class="img-fluid" src=" {{ asset('storage/User.png') }}"
+                                    onmouseover="this.src='storage/User2.png'"
+                                    onmouseout="this.src='storage/User.png'" />
+                                </a>
+                                <p>Tasks</p>
+                            </div>
                         </div>
                     </div>
                 </div>
