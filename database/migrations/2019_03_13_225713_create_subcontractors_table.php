@@ -14,12 +14,14 @@ class CreateSubcontractorsTable extends Migration
     public function up()
     {
         Schema::create('subcontractors', function (Blueprint $table) {
-            $table->Increments('subcontractors_id');
-            $table->Integer('company_id')->references('id')->on('companies');
+            $table->Increments('id');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->String('name');
             $table->Integer('mobile');
             $table->String('email');
-            $table->String('status')->references('id')->on('status');
+            $table->integer('status_id')->unsigned();
+            $table->foreign('status_id')->references('id')->on('status');
         });
     }
 

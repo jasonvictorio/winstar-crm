@@ -15,9 +15,12 @@ class CreateTimesheetTable extends Migration
     {
         Schema::create('timesheet', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('task_id')->references('id')->on('tasks');
-            $table->integer('company_id')->references('id')->on('companies');
-            $table->integer('user_id')->references('id')->on('users');
+            $table->integer('task_id')->unsigned();
+            $table->foreign('task_id')->references('id')->on('tasks');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->date('date');
             $table->timestamp('start_time');
             $table->integer('actual_time_spent');

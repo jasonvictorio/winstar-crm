@@ -8,13 +8,15 @@ class CreateQuoteTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     * Intentionally not running.
+     * 
+     * 
      * @return void
      */
     public function up()
     {
         Schema::create('quote', function (Blueprint $table) {
-            $table->Increments('quote_id');
+            $table->Increments('id');
             $table->Integer('customer_id')->references('id')->on('customer');
             $table->Integer('quote_item_id')->references('id')->on('quote_item');
             $table->Integer('company_id')->references('id')->on('company');

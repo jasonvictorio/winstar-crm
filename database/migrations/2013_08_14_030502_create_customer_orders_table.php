@@ -13,8 +13,8 @@ class CreateCustomerOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('customer_orders', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('customer_order', function (Blueprint $table) {
+            $table->increments('id');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ class CreateCustomerOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customer_orders');
+        Schema::dropIfExists('customer_order');
     }
 }

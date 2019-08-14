@@ -14,10 +14,11 @@ class CreateGstTable extends Migration
     public function up()
     {
         Schema::create('gst', function (Blueprint $table) {
-            $table->Increments('gst_id');
+            $table->Increments('id');
             $table->Integer('gst_range');
             $table->Integer('gst_amount');
-            $table->Integer('company_id')->references('id')->on('company');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 

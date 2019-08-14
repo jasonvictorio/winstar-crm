@@ -14,14 +14,18 @@ class CreateSubcontractorItemsTable extends Migration
     public function up()
     {
         Schema::create('subcontractor_items', function (Blueprint $table) {
-            $table->Increments('subcontractor_item_id');
-            $table->Integer('subcontractor_order_id')->references('id')->on('subcontractor_order');
-            $table->Integer('product_id')->references('id')->on('product');
+            $table->Increments('id');
+            $table->integer('subcontractor_order_id')->unsigned();
+            $table->foreign('subcontractor_order_id')->references('id')->on('subcontractor_order');
+            $table->integer('product_id')->unsigned();
+            $table->foreign('product_id')->references('id')->on('product');
             $table->Integer('price');
             $table->Integer('line_number');
             $table->Integer('invoice_frequency');
-            $table->Integer('gst_amount')->references('id')->on('gst');
-            $table->Integer('company_id')->references('id')->on('companies');
+            $table->integer('gst_id')->unsigned();
+            $table->foreign('gst_id')->references('id')->on('gst');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 

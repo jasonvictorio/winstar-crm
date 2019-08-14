@@ -15,7 +15,8 @@ class CreateTaskCategoryTable extends Migration
     {
         Schema::create('task_category', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('company_id')->references('id')->on('companies');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->string('category_name');
         });
     }

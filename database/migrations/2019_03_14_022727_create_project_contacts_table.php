@@ -15,9 +15,12 @@ class CreateProjectContactsTable extends Migration
     {
         Schema::create('project_contacts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('project_id')->references('id')->on('projects');
-            $table->integer('company_id')->references('id')->on('companies');
-            $table->integer('contact_id')->references('id')->on('contacts');
+            $table->integer('project_id')->unsigned();
+            $table->foreign('project_id')->references('id')->on('projects');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->integer('contact_id')->unsigned();
+            $table->foreign('contact_id')->references('id')->on('contacts');
         });
     }
 

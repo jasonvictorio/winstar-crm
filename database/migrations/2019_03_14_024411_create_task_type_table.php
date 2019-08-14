@@ -15,7 +15,8 @@ class CreateTaskTypeTable extends Migration
     {
         Schema::create('task_type', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('company_id')->references('id')->on('companies');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->string('task_type');
         });
     }

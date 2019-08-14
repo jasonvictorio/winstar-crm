@@ -14,9 +14,11 @@ class CreateInvoiceTable extends Migration
     public function up()
     {
         Schema::create('invoice', function (Blueprint $table) {
-            $table->Increments('invoice_id');
-            $table->integer('customer_order_id')->references('id')->on('customer_order');
-            $table->integer('company_id')->references('id')->on('companies');
+            $table->Increments('id');
+            $table->integer('customer_order_id')->unsigned();
+            $table->foreign('customer_order_id')->references('id')->on('customer_order');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->date('invoice_date');
             $table->String('payment_method');
             $table->integer('amount_paid');

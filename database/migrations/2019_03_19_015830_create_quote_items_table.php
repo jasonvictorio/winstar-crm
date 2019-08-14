@@ -14,7 +14,7 @@ class CreateQuoteItemsTable extends Migration
     public function up()
     {
         Schema::create('quote_items', function (Blueprint $table) {
-            $table->Increments('quote_items_id');
+            $table->Increments('id');
             $table->Integer('quote_id')->references('id')->on('quote');
             $table->Integer('product_id')->references('id')->on('product');
             $table->Integer('invoice_frequency');

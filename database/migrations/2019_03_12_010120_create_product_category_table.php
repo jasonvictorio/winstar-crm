@@ -14,9 +14,10 @@ class CreateProductCategoryTable extends Migration
     public function up()
     {
         Schema::create('product_category', function (Blueprint $table) {
-            $table->Increments('product_category_id');
+            $table->Increments('id');
             $table->String('Category_name');
-            $table->Integer('company_id')->references('id')->on('company');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 

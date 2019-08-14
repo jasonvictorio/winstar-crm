@@ -15,10 +15,12 @@ class CreateTaskReminderTable extends Migration
     {
         Schema::create('task_reminder', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('task_id')->references('id')->on('tasks');
+            $table->integer('task_id')->unsigned();
+            $table->foreign('task_id')->references('id')->on('tasks');
             $table->date('remind_date_time');
             $table->string('subject');
-            $table->integer('company_id')->references('id')->on('companies');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 
