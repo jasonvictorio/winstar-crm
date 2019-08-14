@@ -15,7 +15,8 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('company_id')->references('id')->on('companies');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->date('next_follow_up_date');
             $table->string('latest_contact_or_actions');
             $table->string('nature_of_contact');
@@ -23,7 +24,8 @@ class CreateCustomersTable extends Migration
             $table->date('first_contacted');
             $table->date('last_contacted');
             $table->integer('days_since_last_contact');
-            $table->integer('status_id')->references('id')->on('status');
+            $table->integer('status_id')->unsigned();
+            $table->foreign('status_id')->references('id')->on('status');
             $table->string('month_ordered');
             $table->string('package_ordered');
             $table->string('hear_about_us');
