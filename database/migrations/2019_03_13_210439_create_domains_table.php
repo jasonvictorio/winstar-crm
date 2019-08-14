@@ -22,7 +22,7 @@ class CreateDomainsTable extends Migration
             $table->string('url');
             $table->date('renewal_date');
             $table->integer('status_id')->unsigned();
-            $table->foreign('status')->references('id')->on('status');
+            $table->foreign('status_id')->references('id')->on('status');
         });
     }
 
