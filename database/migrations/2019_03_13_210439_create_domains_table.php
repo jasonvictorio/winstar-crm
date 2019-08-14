@@ -15,11 +15,14 @@ class CreateDomainsTable extends Migration
     {
         Schema::create('domains', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('company_id');
-            $table->integer('customer_id');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->integer('customer_id')->unsigned();
+            $table->foreign('customer_id')->references('id')->on('customers');
             $table->string('url');
             $table->date('renewal_date');
-            $table->integer('status_id')->references('id')->on('status');
+            $table->integer('status_id')->unsigned();
+            $table->foreign('status')->references('id')->on('status');
         });
     }
 
