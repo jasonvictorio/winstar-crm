@@ -29,17 +29,15 @@ class CRMGrid
         // Initialise variables
         $this->table_name = $table_name;
         $this->model_class = $model;
-        $this->grid_config_array = $grid_config_array == '' || $grid_config_array == null
-            ? $this->get_default_grid_config_array($model)
+        $this->grid_config_array = ($grid_config_array == '') || ($grid_config_array == null)
+            ? $this->get_default_grid_config_array($this->model_class)
             : $grid_config_array;
 
         // Set table config
         $this->set_table_config( $this->grid_config_array);
 
-        $model = $this->paginate($this->model_class);
-
         // Get all data from model
-        $this->data = $model->toArray();
+        $this->data = $this->paginate($this->model_class)->toArray();
 
         $model_columns = Schema::getColumnListing($this->get_table());
 
