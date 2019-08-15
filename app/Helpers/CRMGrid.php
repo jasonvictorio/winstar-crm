@@ -571,7 +571,7 @@ class CRMGrid
      *
      * @param bool $is_editable
      */
-    public function is_editable(bool $is_editable)
+    public function is_editable(bool $is_editable = false)
     {
         $this->is_editable = $is_editable;
     }
@@ -581,7 +581,7 @@ class CRMGrid
      *
      * @param bool $enable_delete
      */
-    public function enable_delete(bool $enable_delete)
+    public function enable_delete(bool $enable_delete = false)
     {
         $this->enable_delete = $enable_delete;
     }
@@ -591,7 +591,7 @@ class CRMGrid
      *
      * @param bool $is_sortable
      */
-    public function is_sortable(bool $is_sortable)
+    public function is_sortable(bool $is_sortable = false)
     {
         $this->is_sortable = $is_sortable;
     }
@@ -601,7 +601,7 @@ class CRMGrid
      *
      * @param string $size
      */
-    public function set_size(string $size)
+    public function set_size(string $size = '-sm')
     {
         if($size == '-sm')
         {
@@ -626,7 +626,7 @@ class CRMGrid
      *
      * @param int $paginate
      */
-    public function enable_paginate(int $paginate)
+    public function enable_paginate($paginate = false)
     {
         $this->paginate = $paginate;
     }
@@ -636,7 +636,7 @@ class CRMGrid
      *
      * @param bool $enable_filter
      */
-    public function enable_filter(bool $enable_filter)
+    public function enable_filter(bool $enable_filter = false)
     {
         $this->enable_filter = $enable_filter;
     }
@@ -646,7 +646,7 @@ class CRMGrid
      *
      * @param mixed $enable_add
      */
-    public function enable_add($enable_add)
+    public function enable_add($enable_add = false)
     {
         $this->enable_add = $enable_add;
     }
@@ -656,7 +656,7 @@ class CRMGrid
      *
      * @param mixed $enable_add
      */
-    public function enable_edit($enable_edit)
+    public function enable_edit($enable_edit = false)
     {
         $this->enable_edit =  $enable_edit;
     }
@@ -666,7 +666,7 @@ class CRMGrid
      *
      * @param mixed $constraint
      */
-    public function set_constraint($constraint)
+    public function set_constraint($constraint = false)
     {
         $this->constraint = $constraint;
     }
