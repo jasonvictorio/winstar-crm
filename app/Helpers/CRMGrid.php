@@ -62,32 +62,7 @@ class CRMGrid
         }
 
         // Set table config
-        if(isset($grid_config_array['table_config']['is_editable']))
-            $this->is_editable($grid_config_array['table_config']['is_editable']);
-
-        if(isset($grid_config_array['table_config']['enable_delete']))
-            $this->enable_delete($grid_config_array['table_config']['enable_delete']);
-
-        if(isset($grid_config_array['table_config']['is_sortable']))
-            $this->is_sortable($grid_config_array['table_config']['is_sortable']);
-
-        if(isset($grid_config_array['table_config']['set_size']))
-            $this->set_size($grid_config_array['table_config']['set_size']);
-
-        if(isset($grid_config_array['table_config']['paginate']))
-            $this->enable_paginate($grid_config_array['table_config']['paginate']);
-
-        if(isset($grid_config_array['table_config']['enable_filter']))
-            $this->enable_filter($grid_config_array['table_config']['enable_filter']);
-        
-        if(isset($grid_config_array['table_config']['enable_add']))
-            $this->enable_add($grid_config_array['table_config']['enable_add']);
-
-        if(isset($grid_config_array['table_config']['enable_edit']))
-            $this->enable_edit($grid_config_array['table_config']['enable_edit']);
-
-        if(isset($grid_config_array['table_config']['constraint']))
-            $this->set_constraint($grid_config_array['table_config']['constraint']);
+        $this->set_table_config($grid_config_array);
 
         if($this->paginate)
         {
@@ -947,5 +922,34 @@ class CRMGrid
     {
         $obj = new $this->model_class;
         return $obj->getTable();
+    }
+
+    private function set_table_config ($grid_config_array) {
+        if(isset($grid_config_array['table_config']['is_editable']))
+            $this->is_editable($grid_config_array['table_config']['is_editable']);
+
+        if(isset($grid_config_array['table_config']['enable_delete']))
+            $this->enable_delete($grid_config_array['table_config']['enable_delete']);
+
+        if(isset($grid_config_array['table_config']['is_sortable']))
+            $this->is_sortable($grid_config_array['table_config']['is_sortable']);
+
+        if(isset($grid_config_array['table_config']['set_size']))
+            $this->set_size($grid_config_array['table_config']['set_size']);
+
+        if(isset($grid_config_array['table_config']['paginate']))
+            $this->enable_paginate($grid_config_array['table_config']['paginate']);
+
+        if(isset($grid_config_array['table_config']['enable_filter']))
+            $this->enable_filter($grid_config_array['table_config']['enable_filter']);
+
+        if(isset($grid_config_array['table_config']['enable_add']))
+            $this->enable_add($grid_config_array['table_config']['enable_add']);
+
+        if(isset($grid_config_array['table_config']['enable_edit']))
+            $this->enable_edit($grid_config_array['table_config']['enable_edit']);
+
+        if(isset($grid_config_array['table_config']['constraint']))
+            $this->set_constraint($grid_config_array['table_config']['constraint']);
     }
 }
