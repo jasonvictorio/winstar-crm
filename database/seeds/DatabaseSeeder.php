@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $companies = factory(WinstarCRM\Company::class, 3)->create();
-        $users = factory(WinstarCRM\User::class, 3)->create();
+        $companies = factory(WinstarCRM\Company::class, 30)->create();
+        $users = factory(WinstarCRM\User::class, 30)->create();
     }
 }
