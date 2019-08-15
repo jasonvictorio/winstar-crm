@@ -10,19 +10,19 @@ class CRMGrid
     private $model_class;
     private $grid_config_array;
 
-    private $columns;
-    private $modal;
-    private $data;
+    private $columns = array();
+    private $modal = array();
+    private $data = array();
 
-    private $is_editable;
-    private $enable_delete;
-    private $is_sortable;
-    private $size;
-    private $paginate;
-    private $enable_filter;
-    private $enable_add;
-    private $enable_edit;
-    private $constraint;
+    private $is_editable = false;
+    private $enable_delete = false;
+    private $is_sortable = false;
+    private $paginate = false;
+    private $enable_filter = false;
+    private $enable_add = false;
+    private $enable_edit = false;
+    private $constraint = false;
+    private $size = '';
 
     public function __construct($model, $table_name, $grid_config_array = null)
     {
@@ -60,20 +60,6 @@ class CRMGrid
         {
             $this->grid_config_array = $grid_config_array;
         }
-
-        $this->columns = array();
-        $this->data = array();
-        $this->modal = array();
-
-        $this->is_editable = false;
-        $this->enable_delete = false;
-        $this->is_sortable = false;
-        $this->size = '';
-        $this->paginate = false;
-        $this->enable_filter = false;
-        $this->enable_add = false;
-        $this->enable_edit = false;
-        $this->constraint = false;
 
         // Set table config
         if(isset($grid_config_array['table_config']['is_editable']))
