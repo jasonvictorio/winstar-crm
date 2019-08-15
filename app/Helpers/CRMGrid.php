@@ -29,40 +29,12 @@ class CRMGrid
         // Initialise variables
         $this->table_name = $table_name;
         $this->model_class = $model;
-
-        // If $grid_config_array is not passed use default config
-        // will display all table columns
-        if($grid_config_array == '' || $grid_config_array == null)
-        {
-            $temp_model = $model::all()->toArray();
-            $temp_array = array_keys($temp_model[0]);
-
-            $default_columns = array();
-            foreach($temp_array as $column_name)
-            {
-                $default_columns[$column_name]['header'] = $column_name;
-            }
-
-            $grid_config_array = array(
-                'column_configs' => $default_columns,
-                'table_config' => array(
-                    'is_editable' => true,
-                    'enable_delete' => true,
-                    'is_sortable' => true,
-                    'set_size' => '-sm',
-                    'paginate' => 5,
-                    'enable_filter' => true,
-                    'enable_add' => true
-            ));
-            $this->grid_config_array = $grid_config_array;
-        }
-        else
-        {
-            $this->grid_config_array = $grid_config_array;
-        }
+        $this->grid_config_array = $grid_config_array == '' || $grid_config_array == null
+            ? $this->get_default_grid_config_array($model)
+            : $grid_config_array;
 
         // Set table config
-        $this->set_table_config($grid_config_array);
+        $this->set_table_config( $this->grid_config_array);
 
         if($this->paginate)
         {
@@ -922,6 +894,29 @@ class CRMGrid
     {
         $obj = new $this->model_class;
         return $obj->getTable();
+    }
+
+    private function get_default_grid_config_array($model) {
+        $temp_model = $model::all()->toArray();
+        $temp_array = array_keys($temp_model[0]);
+        $default_columns = array();
+
+        foreach($temp_array as $column_name) {
+            $default_columns[$column_name]['header'] = $column_name;
+        }
+
+        return array(
+            'column_configs' => $default_columns,
+            'table_config' => array(
+                'is_editable' => true,
+                'enable_delete' => true,
+                'is_sortable' => true,
+                'set_size' => '-sm',
+                'paginate' => 5,
+                'enable_filter' => true,
+                'enable_add' => true,
+            )
+        );
     }
 
     private function set_table_config ($grid_config_array) {
