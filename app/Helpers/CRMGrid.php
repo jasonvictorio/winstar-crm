@@ -37,7 +37,7 @@ class CRMGrid
         $this->set_table_config( $this->grid_config_array);
 
         // Get all data from model
-        $this->data = $this->paginate($this->model_class)->toArray();
+        $this->change_page($this->model_class);
 
         $model_columns = Schema::getColumnListing($this->get_table());
 
@@ -727,12 +727,10 @@ class CRMGrid
      * @param string $currentPage
      *
      */
-    public function change_page($model_class, $currentPage)
+    public function change_page($model_class, $currentPage = 0)
     {
         // Paginate and set current page
-        $model = $this->paginate($model_class, $currentPage);
-
-        $this->data = $model->toArray();
+        $this->data = $this->paginate($model_class, $currentPage)->toArray();
     }
 
     /**
