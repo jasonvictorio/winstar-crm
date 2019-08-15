@@ -865,6 +865,7 @@ class CRMGrid
         return $obj->getTable();
     }
 
+    // TODO: make this work with empty model
     private function get_default_grid_config_array($model) {
         $temp_model = $model::all()->toArray();
         $temp_array = array_keys($temp_model[0]);
@@ -883,7 +884,7 @@ class CRMGrid
                 'set_size' => '-sm',
                 'paginate' => 5,
                 'enable_filter' => true,
-                'enable_add' => true,
+                'enable_add' => true,[0]
             )
         );
     }
