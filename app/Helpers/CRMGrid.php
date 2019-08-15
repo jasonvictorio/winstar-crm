@@ -36,36 +36,7 @@ class CRMGrid
         // Set table config
         $this->set_table_config( $this->grid_config_array);
 
-        if($this->paginate)
-        {
-            // If constraint set, use constraint then call paginate
-            if($this->constraint)
-            {
-                $constraint = $this->constraint;
-                $model = $model::where($constraint[0],$constraint[1],$constraint[2])->paginate($this->paginate);
-            }
-            else
-            {
-                $model = $model::paginate($this->paginate);
-            }
-        }
-        else
-        {
-            // Set paginate to result total row count to show all records
-            // in one page
-            $total_rows = count($model::all()->toArray());
-
-            // If constraint set, use constraint then call paginate
-            if($this->constraint)
-            {
-                $constraint = $this->constraint;
-                $model = $model::where($constraint[0],$constraint[1],$constraint[2])->paginate($total_rows);
-            }
-            else
-            {
-                $model = $model::paginate($total_rows);
-            }
-        }
+        $model = $this->paginate($this->model_class);
 
         // Get all data from model
         $this->data = $model->toArray();
@@ -710,7 +681,7 @@ class CRMGrid
      *
      * @return LengthAwarePaginator $model
      */
-    public function paginate($model_class, $currentPage)
+    public function paginate($model_class, $currentPage = 0)
     {
         if($this->paginate)
         {
