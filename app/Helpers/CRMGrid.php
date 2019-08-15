@@ -34,9 +34,9 @@ class CRMGrid
         // will display all table columns
         if($grid_config_array == '' || $grid_config_array == null)
         {
-            $temp_model = $model::all()->toArray(); 
+            $temp_model = $model::all()->toArray();
             $temp_array = array_keys($temp_model[0]);
-            
+
             $default_columns = array();
             foreach($temp_array as $column_name)
             {
@@ -60,7 +60,7 @@ class CRMGrid
         {
             $this->grid_config_array = $grid_config_array;
         }
-        
+
         $this->columns = array();
         $this->data = array();
         $this->modal = array();
@@ -115,12 +115,12 @@ class CRMGrid
             {
                 $model = $model::paginate($this->paginate);
             }
-        }      
+        }
         else
         {
             // Set paginate to result total row count to show all records
             // in one page
-            $total_rows = count($model::all()->toArray()); 
+            $total_rows = count($model::all()->toArray());
 
             // If constraint set, use constraint then call paginate
             if($this->constraint)
@@ -133,7 +133,7 @@ class CRMGrid
                 $model = $model::paginate($total_rows);
             }
         }
-        
+
         // Get all data from model
         $this->data = $model->toArray();
 
@@ -150,7 +150,7 @@ class CRMGrid
                     $this->columns[$column_name]['header'] = $column_config['header'];
                 else
                     $this->columns[$column_name]['header'] = $column_name;
-                
+
                 // Set input type
                 if(isset($column_config['type']))
                     $this->columns[$column_name]['type'] = $column_config['type'];
@@ -168,7 +168,7 @@ class CRMGrid
                     $this->columns[$column_name]['regex'] = $column_config['regex'];
                 else
                     $this->columns[$column_name]['regex'] = null;
-            }   
+            }
         }
 
         // Set modal config from enable_add or enable_edit
@@ -411,7 +411,7 @@ class CRMGrid
                     echo '<tr>';
                         foreach($this->columns as $column_name => $column_data)
                         {
-                            echo '<td><input class="table_input '.$identifer.'_'.$column_name.'" regex="'.$column_data['regex'].'" type="'.$column_data['type'].'" id ="'.$column_name.'-'.$data['id'].'" model_class="'.$this->model_class.'"'; 
+                            echo '<td><input class="table_input '.$identifer.'_'.$column_name.'" regex="'.$column_data['regex'].'" type="'.$column_data['type'].'" id ="'.$column_name.'-'.$data['id'].'" model_class="'.$this->model_class.'"';
                             echo 'value="'.$data[$column_name].'" size="'.strlen($data[$column_name]).'" maxlength="'.$column_data['length'].'"';
                             if(!$this->is_editable)
                             {
@@ -420,7 +420,7 @@ class CRMGrid
                             echo '></td>';
                         }
                         if($this->enable_edit || $this->enable_delete)
-                        {       
+                        {
                             echo '<td>';
 
                             // Set button width to 45% or 94%
@@ -496,18 +496,18 @@ class CRMGrid
                                 $disabled_class = "";
                                 if($this->data['current_page'] == $this->data['last_page'])
                                     $disabled_class = "disabled";
-                                echo '<li id="'.$identifer.'_last" class="page-item '.$disabled_class.'"><a class="page-link" table_name="'.$this->table_name.'" model_class="'.$this->model_class.'" page_no="'.$this->data['last_page'].'" onclick="change_page(this)">Last</a></li>'; 
+                                echo '<li id="'.$identifer.'_last" class="page-item '.$disabled_class.'"><a class="page-link" table_name="'.$this->table_name.'" model_class="'.$this->model_class.'" page_no="'.$this->data['last_page'].'" onclick="change_page(this)">Last</a></li>';
                             echo '</ul>';
                         echo '</nav>';
                     echo '</td>';
                 echo '</tr>';
-            echo '</table>';  
+            echo '</table>';
         echo '</div>';
     }
 
     /**
      * Return grid html as string
-     * 
+     *
      * @param string $size
      * @return string $html
      */
@@ -516,7 +516,7 @@ class CRMGrid
         // Create unique identifer for each table
         $identifer = str_replace(' ', '', $this->table_name);
         $identifer = strtolower($identifer);
-        
+
         $html = '<input type="hidden" id="'.$identifer.'-current_page" value="'.$currentPage.'">';
         $html .= '<table id="_table" class="table table-bordered table-responsive'.$this->size.'">';
             // Create row for the table name
@@ -571,7 +571,7 @@ class CRMGrid
                 $html .= '<tr>';
                     foreach($this->columns as $column_name => $column_data)
                     {
-                        $html .= '<td><input class="table_input '.$identifer.'_'.$column_name.'" regex="'.$column_data['regex'].'" type="'.$column_data['type'].'" id ="'.$column_name.'-'.$data['id'].'" model_class="'.$model_class.'"'; 
+                        $html .= '<td><input class="table_input '.$identifer.'_'.$column_name.'" regex="'.$column_data['regex'].'" type="'.$column_data['type'].'" id ="'.$column_name.'-'.$data['id'].'" model_class="'.$model_class.'"';
                         $html .= 'value="'.$data[$column_name].'" size="'.strlen($data[$column_name]).'" maxlength="'.$column_data['length'].'"';
                         if(!$this->is_editable)
                         {
@@ -580,7 +580,7 @@ class CRMGrid
                         $html .= '></td>';
                     }
                     if($this->enable_edit || $this->enable_delete)
-                    {       
+                    {
                         $html .= '<td>';
 
                         // Set button width to 45% or 94%
@@ -630,13 +630,13 @@ class CRMGrid
                             if($currentPage == 1)
                                 $disabled_class = "disabled";
                             $html .= '<li id="first" class="page-item '.$disabled_class.'"><a class="page-link" table_name="'.$this->table_name.'" model_class="'.$model_class.'" page_no="1" onclick="change_page(this)">First</a></li>';
-                            
+
                             // If first page disable previous
                             $disabled_class = "";
                             if($currentPage == 1)
                                 $disabled_class = "disabled";
                             $html .= '<li id="previous" class="page-item '.$disabled_class.'"><a class="page-link" table_name="'.$this->table_name.'" model_class="'.$model_class.'" page_no="previous" onclick="change_page(this)">Previous</a></li>';
-                            
+
                             // Set page links
                             for($count=1; $count<=$this->data['last_page']; $count++)
                             {
@@ -650,23 +650,23 @@ class CRMGrid
                             if($currentPage == $this->data['last_page'])
                                 $disabled_class = "disabled";
                             $html .= '<li id="next" class="page-item '.$disabled_class.'"><a class="page-link" table_name="'.$this->table_name.'" model_class="'.$model_class.'" page_no="next" onclick="change_page(this)">Next</a></li>';
-                            
+
                             // If last page disable last
                             $disabled_class = "";
                             if($currentPage == $this->data['last_page'])
                                 $disabled_class = "disabled";
                             $html .= '<li id="'.$identifer.'_last" class="page-item '.$disabled_class.'"><a class="page-link" table_name="'.$this->table_name.'" model_class="'.$model_class.'" page_no="'.$this->data['last_page'].'" onclick="change_page(this)">Last</a></li>';
                         $html .= '</ul>';
-                    $html .= '</nav>'; 
+                    $html .= '</nav>';
                 $html .= '</td>';
             $html .= '</tr>';
-        $html .= '</table>'; 
+        $html .= '</table>';
         return $html;
     }
 
     /**
      * If true table contents editable
-     * 
+     *
      * @param bool $is_editable
      */
     public function is_editable(bool $is_editable)
@@ -676,7 +676,7 @@ class CRMGrid
 
     /**
      * Enable row deletion
-     * 
+     *
      * @param bool $enable_delete
      */
     public function enable_delete(bool $enable_delete)
@@ -686,7 +686,7 @@ class CRMGrid
 
     /**
      * Enable column sorting
-     * 
+     *
      * @param bool $is_sortable
      */
     public function is_sortable(bool $is_sortable)
@@ -696,7 +696,7 @@ class CRMGrid
 
     /**
      * Set table size, accepts -sm|-md|-lg|-xl
-     * 
+     *
      * @param string $size
      */
     public function set_size(string $size)
@@ -721,7 +721,7 @@ class CRMGrid
 
     /**
      * Set table pagination size
-     * 
+     *
      * @param int $paginate
      */
     public function enable_paginate(int $paginate)
@@ -731,7 +731,7 @@ class CRMGrid
 
     /**
      * Enable column filtering
-     * 
+     *
      * @param bool $enable_filter
      */
     public function enable_filter(bool $enable_filter)
@@ -741,7 +741,7 @@ class CRMGrid
 
     /**
      * Enable row addition through modal
-     * 
+     *
      * @param mixed $enable_add
      */
     public function enable_add($enable_add)
@@ -751,7 +751,7 @@ class CRMGrid
 
     /**
      * Enable row editing through modal
-     * 
+     *
      * @param mixed $enable_add
      */
     public function enable_edit($enable_edit)
@@ -761,7 +761,7 @@ class CRMGrid
 
     /**
      * Set model constraint
-     * 
+     *
      * @param mixed $constraint
      */
     public function set_constraint($constraint)
@@ -771,10 +771,10 @@ class CRMGrid
 
     /**
      * Paginate and return model
-     * 
+     *
      * @param string $model_class
      * @param string $currentPage
-     * 
+     *
      * @return LengthAwarePaginator $model
      */
     public function paginate($model_class, $currentPage)
@@ -804,7 +804,7 @@ class CRMGrid
         else
         {
             // If pagination not set, show all records in one page
-            $total_rows = count($model_class::all()->toArray()); 
+            $total_rows = count($model_class::all()->toArray());
             if($this->constraint)
             {
                 $constraint = $this->constraint;
@@ -820,23 +820,23 @@ class CRMGrid
 
     /**
      * Set current page data
-     * 
+     *
      * @param string $model
      * @param string $currentPage
-     * 
+     *
      */
     public function change_page($model_class, $currentPage)
     {
         // Paginate and set current page
         $model = $this->paginate($model_class, $currentPage);
 
-        $this->data = $model->toArray(); 
+        $this->data = $model->toArray();
     }
 
     /**
      * Add record to model
      * Set current page data
-     * 
+     *
      * @param string $model_class
      * @param string $inputs
      * @param string $currentPage
@@ -848,12 +848,12 @@ class CRMGrid
 
         foreach($inputs as $input_name => $input_data)
         {
-            // Ignore _token 
+            // Ignore _token
             if(strpos($input_name, "input-") !== false)
             {
                 $exploded_value = explode('-', $input_name);
                 $column_name = $exploded_value[1];
-                
+
                 // Add data to object
                 $obj[$column_name] = $input_data;
             }
@@ -870,7 +870,7 @@ class CRMGrid
     /**
      * Update record in model
      * Set current page data
-     * 
+     *
      * @param string $model_class
      * @param string $inputs
      * @param string $currentPage
@@ -895,7 +895,7 @@ class CRMGrid
              {
                  $exploded_value = explode('-', $input_name);
                  $column_name = $exploded_value[1];
-                 
+
                  // Add data to object
                  $obj[$column_name] = $input_data;
              }
@@ -910,7 +910,7 @@ class CRMGrid
     /**
      * Delete record from model
      * Set current page data
-     * 
+     *
      * @param string $model_class
      * @param string $id
      * @param string $currentPage
@@ -929,18 +929,18 @@ class CRMGrid
 
     /**
      * Sort model and set new data
-     * 
+     *
      * @param string $model_class
      * @param string $column_name
      * @param string $type
      * @param string $currentPage
      */
     public function sort($model_class, $column_name, $type, $currentPage)
-    { 
+    {
         // Do this only is pagination is disabled
         // Paginate before sort to only sort on current page
         $model = $this->paginate($model_class, $currentPage);
-        
+
         if($type == 'ASC')
             $model = $model->sortBy($column_name);
         else if($type == 'DESC')
@@ -954,7 +954,7 @@ class CRMGrid
     // TODO: FOR return html use passed in model class
     /**
      * Return current model class table name
-     * 
+     *
      * @return string
      */
     private function get_table()
