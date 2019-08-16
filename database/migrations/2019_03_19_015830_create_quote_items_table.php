@@ -9,8 +9,8 @@ class CreateQuoteItemsTable extends Migration
     /**
      * Run the migrations.
      * Intentionally not running.
-     * 
-     * 
+     *
+     *
      * @return void
      */
     public function up()
@@ -23,7 +23,7 @@ class CreateQuoteItemsTable extends Migration
             $table->Integer('invoice_frequency');
             $table->Integer('price');
             $table->Integer('line number');
-            $table->Integer('gst_id')->unasigned();
+            $table->Integer('gst_id')->unsigned();
             $table->foreign('gst_id')->references('id')->on('gst');
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies');
