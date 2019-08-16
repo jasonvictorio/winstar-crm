@@ -36,6 +36,7 @@ class CreateCustomersTable extends Migration
             $table->integer('invoiced');
             $table->date('annual_renewal_date');
             $table->integer('annual_renewal_amount');
+            $table->timestamps();
 
         });
     }

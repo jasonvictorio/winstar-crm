@@ -24,6 +24,7 @@ class CreateProjectsTable extends Migration
             $table->foreign('status_id')->references('id')->on('status');
             $table->integer('customer_id')->unsigned();
             $table->foreign('customer_id')->references('id')->on('customers');
+            $table->timestamps();
             
         });
     }

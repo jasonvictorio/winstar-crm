@@ -18,6 +18,8 @@ class CreateTaskCategoryTable extends Migration
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies');
             $table->string('category_name');
+            $table->timestamps();
+
         });
     }
 

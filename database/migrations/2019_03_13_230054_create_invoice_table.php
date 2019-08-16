@@ -22,6 +22,7 @@ class CreateInvoiceTable extends Migration
             $table->date('invoice_date');
             $table->String('payment_method');
             $table->integer('amount_paid');
+            $table->timestamps();
 
         });
     }

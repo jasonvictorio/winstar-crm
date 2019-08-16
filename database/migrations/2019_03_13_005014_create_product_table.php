@@ -21,6 +21,7 @@ class CreateProductTable extends Migration
             $table->foreign('company_id')->references('id')->on('companies');
             $table->String('product_name');
             $table->Integer('price');
+            $table->timestamps();
         });
     }
 

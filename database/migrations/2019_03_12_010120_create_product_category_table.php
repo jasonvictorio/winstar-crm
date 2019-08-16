@@ -18,6 +18,7 @@ class CreateProductCategoryTable extends Migration
             $table->String('Category_name');
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->timestamps();
         });
     }
 

@@ -21,6 +21,8 @@ class CreateProjectContactsTable extends Migration
             $table->foreign('company_id')->references('id')->on('companies');
             $table->integer('contact_id')->unsigned();
             $table->foreign('contact_id')->references('id')->on('contacts');
+            $table->timestamps();
+
         });
     }
 
