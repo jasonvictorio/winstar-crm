@@ -12,7 +12,11 @@ class Subcontractor extends Model
      * @var array
      */
     protected $fillable = [
-        'company_id','name','mobile','email','status'
+        'company_id',
+        'name',
+        'mobile',
+        'email',
+        'status'
     ];
 
     public $timestamps = false;

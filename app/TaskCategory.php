@@ -13,7 +13,8 @@ class TaskCategory extends Model
      * @var array
      */
     protected $fillable = [
-        'company_id','category_name'
+        'company_id',
+        'category_name'
     ];
 
     public $timestamps = false;

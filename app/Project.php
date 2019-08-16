@@ -12,7 +12,11 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'name','start_date','estimated_end_date','status_id','customer_id'
+        'name',
+        'start_date',
+        'estimated_end_date',
+        'status_id',
+        'customer_id'
     ];
 
     public $timestamps = false;

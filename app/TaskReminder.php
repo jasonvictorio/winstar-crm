@@ -13,7 +13,10 @@ class TaskReminder extends Model
      * @var array
      */
     protected $fillable = [
-        'task_id','remind_date_time','subject','company_id'
+        'task_id',
+        'remind_date_time',
+        'subject',
+        'company_id'
     ];
 
     public $timestamps = false;

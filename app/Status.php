@@ -13,7 +13,9 @@ class Status extends Model
      * @var array
      */
     protected $fillable = [
-        'company_id','status','type'
+        'company_id',
+        'status',
+        'type'
     ];
 
     public $timestamps = false;

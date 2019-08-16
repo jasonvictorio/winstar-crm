@@ -12,7 +12,12 @@ class TaskReassignment extends Model
      * @var array
      */
     protected $fillable = [
-        'task_id','reason','previous_user_id','current_user_id','date_time','company_id'
+        'task_id',
+        'reason',
+        'previous_user_id',
+        'current_user_id',
+        'date_time',
+        'company_id'
     ];
 
     public $timestamps = false;
