@@ -35,6 +35,7 @@
                                         'access' => array('header'=>'Access', 'length' => 1)
                                     ),
                                     'table_config' => array(
+                                        'show_created_at' => false,
                                         'is_editable' => true,
                                         'enable_delete' => true,
                                         'is_sortable' => true,
