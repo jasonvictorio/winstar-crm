@@ -13,6 +13,5 @@ class DatabaseSeeder extends Seeder
     {
         $companies = factory(WinstarCRM\Company::class, 30)->create();
         $users = factory(WinstarCRM\User::class, 30)->create();
-        $task = factory(WinstarCRM\User::class, 30)->create();
     }
 }
