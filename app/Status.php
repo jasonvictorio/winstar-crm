@@ -17,8 +17,6 @@ class Status extends Model
         'status',
         'type'
     ];
-
-    public $timestamps = false;
 }
 
 ?>

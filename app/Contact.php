@@ -12,10 +12,15 @@ class Contact extends Model
      * @var array
      */
     protected $fillable = [
-        'company_id','user_id','customer_id','first_name','surname','email','mobile'
+        'company_id',
+        'user_id',
+        'customer_id',
+        'first_name',
+        'surname',
+        'email',
+        'mobile'
     ];
 
-    public $timestamps = false;
 }
 
 ?>

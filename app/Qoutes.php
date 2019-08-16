@@ -15,5 +15,4 @@ class Qoutes extends Model
         'qoute_by',
 
     ];
-
 }

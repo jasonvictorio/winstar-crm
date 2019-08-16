@@ -19,8 +19,6 @@ class TaskReassignment extends Model
         'date_time',
         'company_id'
     ];
-
-    public $timestamps = false;
 }
 
 ?>

@@ -18,8 +18,6 @@ class Project extends Model
         'status_id',
         'customer_id'
     ];
-
-    public $timestamps = false;
 }
 
 ?>

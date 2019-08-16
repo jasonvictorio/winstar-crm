@@ -19,7 +19,6 @@ class Domain extends Model
         'status_id'
     ];
 
-    public $timestamps = false;
 }
 
 ?>

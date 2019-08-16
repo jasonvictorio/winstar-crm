@@ -12,10 +12,11 @@ class Company extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'address',
+        'name',
+        'address'
     ];
 
-    public $timestamps = false;
+
 }
 
 ?>

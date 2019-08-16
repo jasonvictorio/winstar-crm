@@ -24,8 +24,6 @@ class Task extends Model
         'status', 
         'company_id'
     ];
-
-    public $timestamps = false;
 }
 
 ?>

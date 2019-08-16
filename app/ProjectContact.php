@@ -16,8 +16,6 @@ class ProjectContact extends Model
         'company_id',
         'contact_id'
     ];
-
-    public $timestamps = false;
 }
 
 ?>

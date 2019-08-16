@@ -21,8 +21,6 @@ class TimeSheet extends Model
         'actual_time_spent', 
         'notes'
     ];
-
-    public $timestamps = false;
 }
 
 ?>

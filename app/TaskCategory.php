@@ -16,8 +16,6 @@ class TaskCategory extends Model
         'company_id',
         'category_name'
     ];
-
-    public $timestamps = false;
 }
 
 ?>

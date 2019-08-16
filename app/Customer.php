@@ -31,8 +31,6 @@ class Customer extends Model
         'annual_renewal_date', 
         'annual_renewal_amount'
     ];
-
-    public $timestamps = false;
 }
 
 ?>

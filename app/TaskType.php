@@ -16,8 +16,6 @@ class TaskType extends Model
         'company_id',
         'task_type'
     ];
-
-    public $timestamps = false;
 }
 
 ?>

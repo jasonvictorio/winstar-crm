@@ -18,8 +18,6 @@ class TaskReminder extends Model
         'subject',
         'company_id'
     ];
-
-    public $timestamps = false;
 }
 
 ?>

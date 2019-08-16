@@ -16,5 +16,4 @@ class SubcontractorItems extends Model
         'gst_id',
         'company_id'
     ];
-
 }
