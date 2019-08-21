@@ -42,7 +42,7 @@
                                         'paginate' => 5,
                                         'enable_filter' => true,
                                         'enable_add'=> array(
-                                            'name'=>array(),
+                                            'name'=>array('header'=>'Name'),
                                             'email' => array('header'=>'Email', 'type'=>'text'),
                                             'access'=>array('header'=>'Access'),
                                             'password' => array('header'=>'Password'),
