@@ -23,6 +23,8 @@ class CRMGrid
     private $enable_edit = false;
     private $constraint = false;
     private $size = '';
+    private $show_created_at = false;
+    private $show_updated_at = false;
 
     public function __construct($model, $table_name, $grid_config_array = null)
     {
@@ -40,6 +42,18 @@ class CRMGrid
         $this->change_page($this->model_class);
 
         $model_columns = Schema::getColumnListing($this->get_table());
+
+        //add created at
+        if($this->show_created_at)
+        {
+            $grid_config_array['column_configs']['created_at'] = array('header' => 'Created At');
+        }
+
+        //add updated at
+        if($this->show_updated_at)
+        {
+            $grid_config_array['column_configs']['updated_at'] = array('header' => 'Updated At');
+        }
 
         // Set column config
         foreach($grid_config_array['column_configs'] as $column_name => $column_config)
@@ -606,6 +620,26 @@ class CRMGrid
     }
 
     /**
+     * Show created at
+     *
+     * @param bool $show_created_at
+     */
+    public function set_show_created_at($show_created_at = true)
+    {
+        $this->show_created_at = $show_created_at;
+    }
+
+    /**
+     * Show updated at
+     *
+     * @param bool $show_updated_at
+     */
+    public function set_show_updated_at($show_updated_at = true)
+    {
+        $this->show_updated_at = $show_updated_at;
+    }
+
+    /**
      * Paginate and return model
      *
      * @param string $model_class
@@ -848,6 +882,12 @@ class CRMGrid
 
         if(isset($grid_config_array['table_config']['constraint']))
             $this->set_constraint($grid_config_array['table_config']['constraint']);
+        
+        if(isset($grid_config_array['table_config']['show_created_at']))
+            $this->set_show_created_at($grid_config_array['table_config']['show_created_at']);
+
+        if(isset($grid_config_array['table_config']['show_updated_at']))
+            $this->set_show_updated_at($grid_config_array['table_config']['show_updated_at']);
     }
 
     private function set_modal_config($config, $model_columns) {

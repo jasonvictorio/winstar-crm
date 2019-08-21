@@ -19,6 +19,7 @@ class CreateStatusTable extends Migration
             $table->foreign('company_id')->references('id')->on('companies');
             $table->string('status');
             $table->string('type');
+            $table->timestamps();
         });
     }
 

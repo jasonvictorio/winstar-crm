@@ -26,6 +26,7 @@ class CreateSubcontractorOrderTable extends Migration
             $table->foreign('status_id')->references('id')->on('status');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->timestamps();
 
         });
     }

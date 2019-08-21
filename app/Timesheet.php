@@ -13,10 +13,14 @@ class TimeSheet extends Model
      * @var array
      */
     protected $fillable = [
-        'task_id', 'company_id', 'user_id', 'date', 'start_time', 'actual_time_spent', 'notes'
+        'task_id', 
+        'company_id', 
+        'user_id', 
+        'date', 
+        'start_time', 
+        'actual_time_spent', 
+        'notes'
     ];
-
-    public $timestamps = false;
 }
 
 ?>

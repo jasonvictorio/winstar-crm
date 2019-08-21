@@ -13,10 +13,9 @@ class TaskType extends Model
      * @var array
      */
     protected $fillable = [
-        'company_id','task_type'
+        'company_id',
+        'task_type'
     ];
-
-    public $timestamps = false;
 }
 
 ?>

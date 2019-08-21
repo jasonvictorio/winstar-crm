@@ -23,6 +23,8 @@ class CreateQuoteTable extends Migration
             $table->Date('date_placed');
             $table->String('status_id')->references('id')->on('status');
             $table->String('quote_by');
+            $table->timestamps();
+
         });
     }
 

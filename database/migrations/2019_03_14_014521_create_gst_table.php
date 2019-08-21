@@ -19,6 +19,7 @@ class CreateGstTable extends Migration
             $table->Integer('gst_amount');
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->timestamps();
         });
     }
 

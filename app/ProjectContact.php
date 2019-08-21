@@ -12,10 +12,10 @@ class ProjectContact extends Model
      * @var array
      */
     protected $fillable = [
-        'project_id','company_id','contact_id'
+        'project_id',
+        'company_id',
+        'contact_id'
     ];
-
-    public $timestamps = false;
 }
 
 ?>

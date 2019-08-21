@@ -25,6 +25,8 @@ class CreateTimesheetTable extends Migration
             $table->timestamp('start_time');
             $table->integer('actual_time_spent');
             $table->string('notes');
+            $table->timestamps();
+
         });
     }
 

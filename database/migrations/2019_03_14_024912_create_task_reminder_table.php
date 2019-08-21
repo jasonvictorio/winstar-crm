@@ -21,6 +21,8 @@ class CreateTaskReminderTable extends Migration
             $table->string('subject');
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->timestamps();
+
         });
     }
 

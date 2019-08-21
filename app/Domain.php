@@ -12,10 +12,13 @@ class Domain extends Model
      * @var array
      */
     protected $fillable = [
-        'company_id','customer_id','url','renewal_date','status_id'
+        'company_id',
+        'customer_id',
+        'url',
+        'renewal_date',
+        'status_id'
     ];
 
-    public $timestamps = false;
 }
 
 ?>

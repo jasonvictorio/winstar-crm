@@ -23,6 +23,7 @@ class CreateDomainsTable extends Migration
             $table->date('renewal_date');
             $table->integer('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('status');
+            $table->timestamps();
         });
     }
 

@@ -12,11 +12,18 @@ class Task extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'project_id', 'task_description', 'task_type_id', 'task_category_id', 'created_date', 
-        'deadline_date', 'estimated_duration', 'priority_level', 'status', 'company_id'
+        'user_id', 
+        'project_id', 
+        'task_description', 
+        'task_type_id', 
+        'task_category_id', 
+        'created_date', 
+        'deadline_date', 
+        'estimated_duration', 
+        'priority_level', 
+        'status', 
+        'company_id'
     ];
-
-    public $timestamps = false;
 }
 
 ?>
