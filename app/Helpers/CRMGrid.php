@@ -77,85 +77,11 @@ class CRMGrid
         // If enable_add is set, array from enable_add used even for edit modal
         if($this->enable_add)
         {
-            foreach($model_columns as $column_name)
-            {
-                // Get column header from enable_add array/column_configs
-                // or use column name from table
-                if(isset($this->enable_add[$column_name]['header']))
-                    $this->modal[$column_name]['header'] = $this->enable_add[$column_name]['header'];
-                else if(isset($this->columns[$column_name]['header']))
-                    $this->modal[$column_name]['header'] = $this->columns[$column_name]['header'];
-                else
-                    $this->modal[$column_name]['header'] = $column_name;
-
-                // Get column type from enable_add array/column_configs
-                // or use text
-                if(isset($this->enable_add[$column_name]['type']))
-                    $this->modal[$column_name]['type'] = $this->enable_add[$column_name]['type'];
-                else if(isset($this->columns[$column_name]['type']))
-                    $this->modal[$column_name]['type'] = $this->columns[$column_name]['type'];
-                else
-                    $this->modal[$column_name]['type'] = 'text';
-
-                // Get column length from enable_add array/column_configs
-                // or set length to 10
-                if(isset($this->enable_add[$column_name]['length']))
-                    $this->modal[$column_name]['length'] = $this->enable_add[$column_name]['length'];
-                else if(isset($this->columns[$column_name]['length']))
-                    $this->modal[$column_name]['length'] = $this->columns[$column_name]['length'];
-                else
-                    $this->modal[$column_name]['length'] = 10;
-
-                // Get column regex from enable_add array/column_configs
-                // or set null
-                if(isset($this->enable_add[$column_name]['regex']))
-                    $this->modal[$column_name]['regex'] = $this->enable_add[$column_name]['regex'];
-                else if(isset($this->columns[$column_name]['regex']))
-                    $this->modal[$column_name]['regex'] = $this->columns[$column_name]['regex'];
-                else
-                    $this->modal[$column_name]['regex'] = null;
-            }
+            $this->set_modal_config($this->enable_add, $model_columns);
         }
         else if($this->enable_edit)
         {
-            foreach($model_columns as $column_name)
-            {
-                // Get column header from enable_edit array/column_configs
-                // or use column name from table
-                if(isset($this->enable_edit[$column_name]['header']))
-                    $this->modal[$column_name]['header'] = $this->enable_edit[$column_name]['header'];
-                else if(isset($this->columns[$column_name]['header']))
-                    $this->modal[$column_name]['header'] = $this->columns[$column_name]['header'];
-                else
-                    $this->modal[$column_name]['header'] = $column_name;
-
-                // Get column type from enable_edit array/column_configs
-                // or use text
-                if(isset($this->enable_edit[$column_name]['type']))
-                    $this->modal[$column_name]['type'] = $this->enable_edit[$column_name]['type'];
-                else if(isset($this->columns[$column_name]['type']))
-                    $this->modal[$column_name]['type'] = $this->columns[$column_name]['type'];
-                else
-                    $this->modal[$column_name]['type'] = 'text';
-
-                // Get column length from enable_edit array/column_configs
-                // or set length to 10
-                if(isset($this->enable_edit[$column_name]['length']))
-                    $this->modal[$column_name]['length'] = $this->enable_edit[$column_name]['length'];
-                else if(isset($this->columns[$column_name]['length']))
-                    $this->modal[$column_name]['length'] = $this->columns[$column_name]['length'];
-                else
-                    $this->modal[$column_name]['length'] = 10;
-
-                // Get column regex from enable_edit array/column_configs
-                // or set null
-                if(isset($this->enable_edit[$column_name]['regex']))
-                    $this->modal[$column_name]['regex'] = $this->enable_edit[$column_name]['regex'];
-                else if(isset($this->columns[$column_name]['regex']))
-                    $this->modal[$column_name]['regex'] = $this->columns[$column_name]['regex'];
-                else
-                    $this->modal[$column_name]['regex'] = null;
-            }
+            $this->set_modal_config($this->enable_edit, $model_columns);
         }
     }
 
@@ -914,5 +840,46 @@ class CRMGrid
 
         if(isset($grid_config_array['table_config']['constraint']))
             $this->set_constraint($grid_config_array['table_config']['constraint']);
+    }
+
+    private function set_modal_config($config, $model_columns) {
+        foreach($model_columns as $column_name)
+        {
+            // Get column header from enable_add array/column_configs
+            // or use column name from table
+            if(isset($config[$column_name]['header']))
+                $this->modal[$column_name]['header'] = $config[$column_name]['header'];
+            else if(isset($this->columns[$column_name]['header']))
+                $this->modal[$column_name]['header'] = $this->columns[$column_name]['header'];
+            else
+                $this->modal[$column_name]['header'] = $column_name;
+
+            // Get column type from enable_add array/column_configs
+            // or use text
+            if(isset($config[$column_name]['type']))
+                $this->modal[$column_name]['type'] = $config[$column_name]['type'];
+            else if(isset($this->columns[$column_name]['type']))
+                $this->modal[$column_name]['type'] = $this->columns[$column_name]['type'];
+            else
+                $this->modal[$column_name]['type'] = 'text';
+
+            // Get column length from enable_add array/column_configs
+            // or set length to 10
+            if(isset($config[$column_name]['length']))
+                $this->modal[$column_name]['length'] = $config[$column_name]['length'];
+            else if(isset($this->columns[$column_name]['length']))
+                $this->modal[$column_name]['length'] = $this->columns[$column_name]['length'];
+            else
+                $this->modal[$column_name]['length'] = 10;
+
+            // Get column regex from enable_add array/column_configs
+            // or set null
+            if(isset($config[$column_name]['regex']))
+                $this->modal[$column_name]['regex'] = $config[$column_name]['regex'];
+            else if(isset($this->columns[$column_name]['regex']))
+                $this->modal[$column_name]['regex'] = $this->columns[$column_name]['regex'];
+            else
+                $this->modal[$column_name]['regex'] = null;
+        }
     }
 }
