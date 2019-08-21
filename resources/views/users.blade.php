@@ -22,11 +22,11 @@
                     </div>
                     @endif
                     <div class="col-md-12">
-                        <?php 
+                        <?php
                                 use WinstarCRM\User;
                                 use WinstarCRM\Helpers\CRMGrid;
 
-                                $newgrid = new CRMGrid(User::class, 'Users Table', 
+                                $newgrid = new CRMGrid(User::class, 'Users Table',
                                     array(
                                     'column_configs' => array(
                                         'id' => array('header'=>'ID', 'type' => 'text', 'length' => 5),
@@ -42,16 +42,16 @@
                                         'paginate' => 5,
                                         'enable_filter' => true,
                                         'enable_add'=> array(
-                                            'name'=>array('header'=>'Name'),
+                                            'name'=>array(),
                                             'email' => array('header'=>'Email', 'type'=>'text'),
                                             'access'=>array('header'=>'Access'),
                                             'password' => array('header'=>'Password'),
-                                            'company_id' => array('header'=>'Company ID')
+                                            'company_id' => array('header'=>'Company ID', 'type'=>'relation', 'displayColumn'=>'name'),
                                         ),
                                         'enable_edit' => true
                                     ))
                                 );
-                                $newgrid->display();                        
+                                $newgrid->display();
                             ?>
                     </div>
                 </div>
