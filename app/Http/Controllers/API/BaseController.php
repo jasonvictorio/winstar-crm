@@ -9,11 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 class BaseController extends Controller
 {
-    private $modelString = '';
+    protected $modelString;
 
-    public function __construct($modelString) {
-        $this->modelString = $modelString;
-    }
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +19,6 @@ class BaseController extends Controller
     public function index()
     {
         return  DB::table($this->modelString)->paginate(15);
-        // return  DB::table('companies')->paginate(15);
     }
 
     /**

@@ -6,7 +6,5 @@ use WinstarCRM\Http\Controllers\API\BaseController;
 
 class CompaniesController extends BaseController
 {
-    function __construct() {
-        parent::__construct('companies');
-    }
+    protected $modelString = 'companies';
 }
