@@ -29,7 +29,7 @@ function change_page(element)
         data: data,
         dataType: 'JSON',
         contentType: "application/json; charset=utf-8",
-        async: true, 
+        async: true,
         complete: function(data) {
             grid_html = data['responseText'];
             document.getElementById(identifer+"-crm_grid").innerHTML = grid_html;
@@ -47,7 +47,7 @@ function edit_row(element, id){
     // If id passed as parameter use it to _modal_edit_form inputs
     if (id !== undefined){
         element_id = id;
-    } 
+    }
 
     var identifer = table_name.replace(/\s/g, "");
     identifer = identifer.toLowerCase();
@@ -59,11 +59,11 @@ function edit_row(element, id){
         data: data,
         dataType: 'JSON',
         contentType: "application/json; charset=utf-8",
-        async: true, 
+        async: true,
         complete: function(data) {
             responseJSON = data['responseJSON'];
             // For each column in response
-            for (var key in responseJSON){  
+            for (var key in responseJSON){
 
                 // Set and validate input values
                 var validation_success = true;
@@ -73,12 +73,12 @@ function edit_row(element, id){
                     // If input for column exists set value
                     if(this.id == "input-"+key)
                         this.value = responseJSON[key];
-                    
+
                     var regex = this.getAttribute('regex');
 
                     if(validate(this, regex)){
                         this.style.backgroundColor = '';
-                    }      
+                    }
                     else{
                         validation_success = false;
                         failed_input = this;
@@ -87,19 +87,19 @@ function edit_row(element, id){
 
                 if(validation_success == false){
                     failed_input.style.backgroundColor = '#ffa4a4';
-                }                             
+                }
             }
             //TODO: maybe add back button here if id is set to go back to add modal?
 
             // If _add_new_record modal is open, close it first
             if(id !== undefined){
-                // Create event _add_new_record modal 
+                // Create event _add_new_record modal
                 // to only show _edit_record modal when _add_new_record is fully hidden
                 $('#'+identifer+'_add_new_record').on('hidden.bs.modal', function(){
                     // Show edit modal
                     $('#'+identifer+'_edit_record').modal('show');
 
-                    // Remove event 
+                    // Remove event
                     $('#'+identifer+'_add_new_record').off('hidden.bs.modal');
                 });
 
@@ -135,7 +135,7 @@ function delete_row(element){
             data: data,
             dataType: 'JSON',
             contentType: "application/json; charset=utf-8",
-            async: true, 
+            async: true,
             complete: function(data) {
                 grid_html = data['responseText'];
                 document.getElementById(identifer+"-crm_grid").innerHTML = grid_html;
@@ -152,7 +152,7 @@ function delete_row(element){
 function sort(element){
     var id = element.getAttribute("id");
     var class_name = element.getAttribute("class");
-    
+
     $('.fa fa-fw').removeClass().addClass('fa fa-fw fa-sort');
 
     var type;
@@ -248,7 +248,7 @@ function filterGrid(element){
         if(checkbox[i].checked == true)
             checked_values.push(checkbox[i].value.replace(/\s/g, ""));
     }
-    
+
     // Sort Grid
     if(checked_values.length != 0){
         $(".table_input").filter(function(){
@@ -295,14 +295,14 @@ function submit_modal(element){
 
     var validation_success = true;
     var failed_input;
-    $('#'+identifer+'_modal_form > div > div > input').each(function()
+    $('#'+identifer+'_modal_form .form-group .form-control').each(function()
     {
         var regex = this.getAttribute('regex');
 
         if(validate(this, regex)){
             data[this.name] = this.value;
             this.style.backgroundColor = '';
-        }      
+        }
         else{
             validation_success = false;
             failed_input = this;
@@ -321,14 +321,14 @@ function submit_modal(element){
     data['grid_config_array'] = grid_config_array;
 
     data = JSON.stringify(data);
-    
+
     $.ajax({
         method: 'POST',
         url: '/postadd',
         data: data,
         dataType: 'JSON',
         contentType: "application/json; charset=utf-8",
-        async: true, 
+        async: true,
         complete: function(data) {
             grid_html = data['responseJSON']['return_html'];
             document.getElementById(identifer+"-crm_grid").innerHTML = grid_html;
@@ -351,19 +351,19 @@ function submit_modal(element){
 
             // Add click event for alert view link
             $("#"+identifer+"_modal_alert_view").click(function(element) {
-                element.preventDefault(); 
+                element.preventDefault();
 
                 var last_children = document.getElementById(""+identifer+"_last").children;
                 var last_a = last_children[0];
 
-                change_page( last_a );  
+                change_page( last_a );
                 $('#'+identifer+'_add_new_record').modal('hide');
             });
 
             // Add click event for alert edit link
             submit_modal_element = element;
             $("#"+identifer+"_modal_alert_edit").click(function(element) {
-                element.preventDefault(); 
+                element.preventDefault();
 
                 var new_id = data['responseJSON']['new_id'];
                 edit_row( submit_modal_element, new_id );
@@ -396,7 +396,7 @@ function save_modal(element){
         if(validate(this, regex)){
             data[this.name] = this.value;
             this.style.backgroundColor = '';
-        }      
+        }
         else{
             validation_success = false;
             failed_input = this;
@@ -422,7 +422,7 @@ function save_modal(element){
         data: data,
         dataType: 'JSON',
         contentType: "application/json; charset=utf-8",
-        async: true, 
+        async: true,
         complete: function(data) {
             grid_html = data['responseText'];
             document.getElementById(identifer+"-crm_grid").innerHTML = grid_html;
@@ -440,7 +440,7 @@ function save_modal(element){
 // TODO: refresh combo box values to match new edit
 $(document).ready(function()
 {
-    // Hide success alerts 
+    // Hide success alerts
     var modal_alerts_to_hide = document.querySelectorAll("[id*='_success_alert']")
     for (count = 0; count < modal_alerts_to_hide.length; count++)
         modal_alerts_to_hide[count].style.display = "none";
@@ -450,7 +450,7 @@ $(document).ready(function()
 
 function attach_events(){
     // Store inital background color to reset to
-    var field_background_color; 
+    var field_background_color;
 
     $('.table_input').on('input',function(element){
         var regex = element.target.getAttribute('regex');
@@ -486,15 +486,15 @@ function attach_events(){
 
 /**
  * Validates given field against a given regex string
- * 
+ *
  * @param object field
  * @param string regex
- * 
+ *
  * @return boolean
  */
 function validate(field, regex){
     // Check if regex is set
-    if(regex == null || regex == ""){    
+    if(regex == null || regex == ""){
         return true;
     }
     else{
@@ -509,4 +509,3 @@ function validate(field, regex){
         }
     }
 }
-

@@ -22,11 +22,11 @@
                     </div>
                     @endif
                     <div class="col-md-12">
-                        <?php 
+                        <?php
                                 use WinstarCRM\Company;
                                 use WinstarCRM\Helpers\CRMGrid;
 
-                                $newgrid = new CRMGrid(Company::class, 'Companies Table', 
+                                $newgrid = new CRMGrid(Company::class, 'Companies Table',
                                     array(
                                     'column_configs' => array(
                                         'id' => array('header'=>'ID', 'type' => 'text', 'length' => 5),
@@ -34,6 +34,7 @@
                                         'address' => array('header'=>'Address', 'length' => 50)
                                     ),
                                     'table_config' => array(
+                                        'enable_add' => true,
                                         'enable_edit' => true,
                                         'is_editable' => true,
                                         'enable_delete' => true,

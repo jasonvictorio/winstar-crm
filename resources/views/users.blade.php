@@ -47,7 +47,7 @@
                                             'email' => array('header'=>'Email', 'type'=>'text'),
                                             'access'=>array('header'=>'Access'),
                                             'password' => array('header'=>'Password'),
-                                            'company_id' => array('header'=>'Company ID', 'type'=>'relation', 'displayColumn'=>'name'),
+                                            'company_id' => array('header'=>'Company ID', 'relation'=>'companies', 'displayColumn'=>'name'),
                                         ),
                                         'enable_edit' => true
                                     ))

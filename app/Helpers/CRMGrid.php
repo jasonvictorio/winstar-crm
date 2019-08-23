@@ -137,8 +137,8 @@ class CRMGrid
                                     echo '<div class="form-group row">';
                                         echo '<label for="input-'.$column_name.'" class="col-sm-3 col-form-label">'.$column_data['header'].'</label>';
                                         echo '<div class="col-sm-9">';
-                                            if($column_data['type'] == 'relation') {
-                                                echo '<example-component />';
+                                            if($column_data['relation']) {
+                                                echo '<autocomplete-component css-class="form-control" placeholder="'.$column_data['header'].'" name="input-'.$column_name.'" relation="'.$column_data['relation'].'" />';
                                             } else {
                                                 echo '<input regex="'.$column_data['regex'].'" type="'.$column_data['type'].'" maxlength="'.$column_data['length'].'" class="form-control" name="input-'.$column_name.'" id="input-'.$column_name.'" placeholder="'.$column_data['header'].'">';
                                             }
@@ -882,7 +882,7 @@ class CRMGrid
 
         if(isset($grid_config_array['table_config']['constraint']))
             $this->set_constraint($grid_config_array['table_config']['constraint']);
-        
+
         if(isset($grid_config_array['table_config']['show_created_at']))
             $this->set_show_created_at($grid_config_array['table_config']['show_created_at']);
 
@@ -915,6 +915,11 @@ class CRMGrid
             // or set null
             $this->modal[$column_name]['regex'] = $config[$column_name]['regex']
                 ?? $this->columns[$column_name]['regex']
+                ?? null;
+
+            // get relation for foreign keys
+            $this->modal[$column_name]['relation'] = $config[$column_name]['relation']
+                ?? $this->columns[$column_name]['relation']
                 ?? null;
 
             // get column to be displayed for relations
