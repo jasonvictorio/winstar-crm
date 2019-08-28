@@ -59,7 +59,7 @@
             },
             populateOptions () {
                 axios.get(`/api/${this.relation}`)
-                    .then(response => (this.options = response.data.data))
+                    .then(response => (this.options = response.data))
             }
         },
         mounted () {

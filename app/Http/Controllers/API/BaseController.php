@@ -18,7 +18,7 @@ class BaseController extends Controller
      */
     public function index()
     {
-        return  DB::table($this->modelString)->paginate(15);
+        return  DB::table($this->modelString)->get();
     }
 
     /**
@@ -40,7 +40,8 @@ class BaseController extends Controller
      */
     public function show($id)
     {
-        //
+        $show = DB::table($this->modelString)->find($id);
+        return json_encode($show);
     }
 
     /**

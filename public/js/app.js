@@ -1761,7 +1761,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("/api/".concat(this.relation)).then(function (response) {
-        return _this.options = response.data.data;
+        return _this.options = response.data;
       });
     }
   },
