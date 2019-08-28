@@ -1,6 +1,7 @@
 <template>
     <div class="autocomplete-container">
         <input v-model="selectedOptionDisplay"
+            readonly
             ref="textbox"
             :class="cssClass"
             :placeholder="placeholder"
@@ -14,7 +15,7 @@
                 :key="option.id"
                 @mousedown="selectOption(option)"
             >
-                {{ option.name }}
+                {{ option[displayColumn] }}
             </li>
         </ul>
     </div>
@@ -36,7 +37,7 @@
         methods: {
             selectOption (option) {
                 this.selectedOption = option;
-                this.selectedOptionDisplay = option.name;
+                this.selectedOptionDisplay = option[this.displayColumn];
                 this.selectedOptionId = option.id
             },
             showOptions () {
@@ -55,23 +56,26 @@
                     left: `${inputBoundingClient.left}px `,
                     width: `${inputBoundingClient.width}px `,
                 }
+            },
+            populateOptions () {
+                axios.get(`/api/${this.relation}`)
+                    .then(response => (this.options = response.data.data))
             }
         },
         mounted () {
-            axios.get('http://localhost:8000/api/companies')
-                .then(response => (this.options = response.data.data))
+            this.populateOptions()
         },
         props: [
             'cssClass',
-            'name',
             'placeholder',
-            'modelString',
-            'relation',
+            'name', // model property name
+            'relation', // api to use
+            'displayColumn', // column to be displayed as option
         ],
     }
 </script>
 
-<style>
+<style scoped>
     .options {
         position: fixed;
         visibility: hidden;
@@ -99,5 +103,9 @@
 
     .options li:hover {
         background-color: gainsboro;
+    }
+
+    input:read-only {
+        background: #fff;
     }
 </style>
