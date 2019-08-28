@@ -1741,7 +1741,6 @@ __webpack_require__.r(__webpack_exports__);
       this.selectedOptionId = option.id;
     },
     showOptions: function showOptions() {
-      console.log(this);
       this.updateOptionsPosition();
       this.isOptionsVisible = true;
     },
@@ -1750,7 +1749,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateOptionsPosition: function updateOptionsPosition() {
       var inputBoundingClient = this.$refs.textbox.getBoundingClientRect();
-      console.log(inputBoundingClient);
       this.optionsPosition = {
         top: "".concat(inputBoundingClient.top + inputBoundingClient.height, "px "),
         left: "".concat(inputBoundingClient.left, "px "),

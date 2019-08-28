@@ -41,7 +41,6 @@
                 this.selectedOptionId = option.id
             },
             showOptions () {
-                console.log(this)
                 this.updateOptionsPosition()
                 this.isOptionsVisible = true
             },
@@ -50,7 +49,6 @@
             },
             updateOptionsPosition () {
                 const inputBoundingClient = this.$refs.textbox.getBoundingClientRect()
-                console.log(inputBoundingClient);
                 this.optionsPosition = {
                     top: `${inputBoundingClient.top + inputBoundingClient.height}px `,
                     left: `${inputBoundingClient.left}px `,

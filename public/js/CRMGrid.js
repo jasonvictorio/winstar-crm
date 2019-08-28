@@ -64,13 +64,14 @@ function edit_row(element, id){
             responseJSON = data['responseJSON'];
             // For each column in response
             for (var key in responseJSON){
-
+                console.log(key)
                 // Set and validate input values
                 var validation_success = true;
                 var failed_input;
-                $('#'+identifer+'_modal_edit_form > div > div > input').each(function()
+                $('#'+identifer+'_modal_edit_form .form-control').each(function()
                 {
                     // If input for column exists set value
+                    console.log(this.id, key, this)
                     if(this.id == "input-"+key)
                         this.value = responseJSON[key];
 
