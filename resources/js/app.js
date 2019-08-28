@@ -6,6 +6,8 @@
  */
 
 require('./bootstrap');
+require('./adminlte');
+require('./scrollbar');
 
 window.Vue = require('vue');
 
