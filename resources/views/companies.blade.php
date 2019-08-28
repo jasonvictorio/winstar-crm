@@ -1,19 +1,7 @@
-@extends('layouts.app')
+@extends('adminlte.layout   ')
 
 @section('content')
 <!-- Styles -->
-<link href="{{ asset('css/home.css') }}" rel="stylesheet">
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('home') }}" id="breadcrumbid">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Companies</li>
-                    </ol>
-                </nav>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -49,8 +37,4 @@
                             ?>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
