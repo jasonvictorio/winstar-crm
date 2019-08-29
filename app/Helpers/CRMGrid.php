@@ -211,7 +211,6 @@ class CRMGrid
             echo '<input type="hidden" id="'.$identifer.'-current_page" value="'.$this->data['current_page'].'">';
             echo '<table id="_table" class="table table-bordered table-responsive'.$this->size.'">';
                 // Create row for the table name
-                echo '<td class="table_name" colspan="'.(count($this->columns)+1).'">'.$this->table_name.'</td>';
                 echo '<tr class="header_row">';
                     foreach($this->columns as $column_name => $column_data)
                     {
@@ -371,7 +370,6 @@ class CRMGrid
         $html = '<input type="hidden" id="'.$identifer.'-current_page" value="'.$currentPage.'">';
         $html .= '<table id="_table" class="table table-bordered table-responsive'.$this->size.'">';
             // Create row for the table name
-            $html .= '<td class="table_name" colspan="'.(count($this->columns)+1).'">'.$this->table_name.'</td>';
             $html .= '<tr class="header_row">';
                 foreach($this->columns as $column_name => $column_data)
                 {

@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
+    <div class="wrapper" id=app>
 
     @include('adminlte.navbar')
     @include('adminlte.sidebar')
@@ -34,7 +34,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Dashboard</h1>
+              <h1 class="m-0 text-dark">@yield('title')</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
