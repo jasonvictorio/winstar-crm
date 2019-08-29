@@ -24,6 +24,8 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('autocomplete-component', require('./components/AutocompleteComponent.vue').default);
+Vue.component('table-component', require('./components/TableComponent.vue').default);
+Vue.component('pagination-component', require('./components/PaginationComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

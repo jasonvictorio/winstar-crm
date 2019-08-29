@@ -19,6 +19,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home2', 'HomeController@index2')->name('home2');
+Route::get('/table', 'HomeController@table')->name('table');
 Route::get('/users', 'UsersController@index')->name('users');
 Route::get('/companies', 'CompaniesController@index')->name('companies');
 Route::get('/customers', 'CustomersController@index')->name('customers');

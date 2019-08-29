@@ -8,6 +8,7 @@
       [ 'route' => 'projects', 'name' => 'Projects', 'icon' => 'folder' ],
       [ 'route' => 'contacts', 'name' => 'Contacts', 'icon' => 'address-book' ],
       [ 'route' => 'tasks', 'name' => 'Tasks', 'icon' => 'tasks' ],
+      [ 'route' => 'table', 'name' => 'Table', 'icon' => 'tasks' ],
     ]
 @endphp
 
