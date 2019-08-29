@@ -1,19 +1,9 @@
-@extends('layouts.app')
+@extends('adminlte.layout   ')
+
+@section('title', 'Contacts')
 
 @section('content')
 <!-- Styles -->
-<link href="{{ asset('css/home.css') }}" rel="stylesheet">
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('home') }}" id="breadcrumbid">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Contacts</li>
-                    </ol>
-                </nav>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -22,11 +12,11 @@
                     </div>
                     @endif
                     <div class="col-md-12">
-                        <?php 
+                        <?php
                                 use WinstarCRM\Contact;
                                 use WinstarCRM\Helpers\CRMGrid;
 
-                                $newgrid = new CRMGrid(Contact::class, 'Contacts Table', 
+                                $newgrid = new CRMGrid(Contact::class, 'Contacts Table',
                                     array(
                                     'column_configs' => array(
                                         'id' => array('header'=>'ID', 'type' => 'text', 'length' => 5),
@@ -37,7 +27,7 @@
                                         'surname' => array('header'=>'Surname', 'length' => 15),
                                         'email' => array('header'=>'Email', 'length' => 15),
                                         'mobile' => array('header'=>'Mobile', 'length' => 15),
-                                       
+
                                     ),
                                     'table_config' => array(
                                         'is_editable' => true,
@@ -61,8 +51,4 @@
                             ?>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
