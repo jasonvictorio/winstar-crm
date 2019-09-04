@@ -4,12 +4,12 @@
 
 // Variables
 @import 'variables';
-@import 'adminlte';
+@import 'adminlte/adminlte';
 @import 'fontawesome';
 @import 'scrollbar';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// @import '~bootstrap/scss/bootstrap';
 
 .navbar-laravel {
   background-color: #fff;
