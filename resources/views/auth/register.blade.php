@@ -21,33 +21,23 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input id="email" type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Email">
+            <input id="email" type="email" name="email" autocomplete="off" value="{{ old('email') }}" class="form-control" placeholder="Email">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
               </div>
             </div>
           </div>
-          <div class="input-group mb-3">
-            {{-- <autocomplete-component css-class="form-control" placeholder="company" display-column="name" name="company_id" relation="companies" /> --}}
-            <input type="text" name="company_id" id="company_id">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-              </div>
-            </div>
-          </div>
+            <autocomplete-component class="input-group mb-3" css-class="form-control" placeholder="company" display-column="name" name="company_id" relation="companies">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-building"></span>
+                  </div>
+                </div>
+            </autocomplete-component>
 
           <div class="input-group mb-3">
-            <input id="access" type="number" name="access" value="{{ old('access') }}" class="form-control" placeholder="Email">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-              </div>
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <input id="password" type="password" class="form-control" placeholder="Password" name="password" required>
+            <input id="password" type="password" class="form-control" placeholder="Password" name="password" required autocomplete="off">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>

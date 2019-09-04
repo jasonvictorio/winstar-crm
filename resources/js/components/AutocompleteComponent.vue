@@ -8,6 +8,7 @@
             @focus="showOptions()"
             @blur="hideOptions()"
         />
+        <slot></slot>
         <input class="form-control" :name="name" hidden v-model="selectedOptionId">
         <ul class="list-group options" :style="optionsPosition" :class="{ active: isOptionsVisible }">
             <li v-for="option in options"

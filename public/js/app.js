@@ -1720,6 +1720,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -37784,89 +37785,96 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "autocomplete-container" }, [
-    _c("input", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.selectedOptionDisplay,
-          expression: "selectedOptionDisplay"
-        }
-      ],
-      ref: "textbox",
-      class: _vm.cssClass,
-      attrs: { readonly: "", placeholder: _vm.placeholder },
-      domProps: { value: _vm.selectedOptionDisplay },
-      on: {
-        focus: function($event) {
-          return _vm.showOptions()
-        },
-        blur: function($event) {
-          return _vm.hideOptions()
-        },
-        input: function($event) {
-          if ($event.target.composing) {
-            return
-          }
-          _vm.selectedOptionDisplay = $event.target.value
-        }
-      }
-    }),
-    _vm._v(" "),
-    _c("input", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.selectedOptionId,
-          expression: "selectedOptionId"
-        }
-      ],
-      staticClass: "form-control",
-      attrs: { name: _vm.name, hidden: "" },
-      domProps: { value: _vm.selectedOptionId },
-      on: {
-        input: function($event) {
-          if ($event.target.composing) {
-            return
-          }
-          _vm.selectedOptionId = $event.target.value
-        }
-      }
-    }),
-    _vm._v(" "),
-    _c(
-      "ul",
-      {
-        staticClass: "list-group options",
-        class: { active: _vm.isOptionsVisible },
-        style: _vm.optionsPosition
-      },
-      _vm._l(_vm.options, function(option) {
-        return _c(
-          "li",
+  return _c(
+    "div",
+    { staticClass: "autocomplete-container" },
+    [
+      _c("input", {
+        directives: [
           {
-            key: option.id,
-            staticClass: "list-group-item",
-            on: {
-              mousedown: function($event) {
-                return _vm.selectOption(option)
-              }
-            }
+            name: "model",
+            rawName: "v-model",
+            value: _vm.selectedOptionDisplay,
+            expression: "selectedOptionDisplay"
+          }
+        ],
+        ref: "textbox",
+        class: _vm.cssClass,
+        attrs: { readonly: "", placeholder: _vm.placeholder },
+        domProps: { value: _vm.selectedOptionDisplay },
+        on: {
+          focus: function($event) {
+            return _vm.showOptions()
           },
-          [
-            _vm._v(
-              "\n            " +
-                _vm._s(option[_vm.displayColumn]) +
-                "\n        "
-            )
-          ]
-        )
+          blur: function($event) {
+            return _vm.hideOptions()
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.selectedOptionDisplay = $event.target.value
+          }
+        }
       }),
-      0
-    )
-  ])
+      _vm._v(" "),
+      _vm._t("default"),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.selectedOptionId,
+            expression: "selectedOptionId"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: { name: _vm.name, hidden: "" },
+        domProps: { value: _vm.selectedOptionId },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.selectedOptionId = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "ul",
+        {
+          staticClass: "list-group options",
+          class: { active: _vm.isOptionsVisible },
+          style: _vm.optionsPosition
+        },
+        _vm._l(_vm.options, function(option) {
+          return _c(
+            "li",
+            {
+              key: option.id,
+              staticClass: "list-group-item",
+              on: {
+                mousedown: function($event) {
+                  return _vm.selectOption(option)
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\n            " +
+                  _vm._s(option[_vm.displayColumn]) +
+                  "\n        "
+              )
+            ]
+          )
+        }),
+        0
+      )
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
