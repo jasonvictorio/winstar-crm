@@ -1,82 +1,66 @@
-@extends('layouts.app')
+@extends('adminlte.layout')
 
 @section('content')
-<!-- Styles -->
-<link href="{{ asset('css/home.css') }}" rel="stylesheet">
-<script src="{{ asset('js/home.js') }}"></script>
+  <div class="row">
+    <div class="col-lg-3 col-6">
+      <!-- small box -->
+      <div class="small-box bg-info">
+        <div class="inner">
+          <h3>150</h3>
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a id="breadcrumbid">Dashboard</a></li>
-                    </ol>
-                </nav>
-
-                <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                    @endif
-
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="col-6 col-sm-4 col-md-3" id="column1">
-                                <a href="{{ route('companies') }}">
-                                <img class="img-fluid" src=" {{ asset('storage/company.png') }}"
-                                    onmouseover="this.src='storage/company2.png'"
-                                    onmouseout="this.src='storage/company.png'"/>
-                                </a>
-                                <p>Companies</p>
-                            </div>
-                            <div class="col-6 col-sm-4 col-md-3" id="column2">
-                                <div id="extra_options_1"></div>
-                                <div id="extra_options_2"></div>
-                                 <a href="{{ route('customers') }}">
-                                <img class="img-fluid" src=" {{ asset('storage/contacts.png') }}"
-                                    onmouseover="this.src='storage/contacts2.png'"
-                                    onmouseout="this.src='storage/contacts.png'" />
-                                </a>
-                                <p>Contacts</p>
-                            </div>
-                            <div class="col-6 col-sm-4 col-md-3" id="column3">
-                                 <a href="{{ route('projects') }}"> 
-                                <img class="img-fluid" src=" {{ asset('storage/projects.png') }}"
-                                    onmouseover="this.src='storage/projects2.png'"
-                                    onmouseout="this.src='storage/projects.png'" />
-                                </a>
-                                <p>Projects</p>
-                            </div>
-                            <div class="col-6 col-sm-4 col-md-3" id="column4">
-                                <a href="{{ route('users') }}">
-                                    <img class="img-fluid" src=" {{ asset('storage/User.png') }}"
-                                    onmouseover="this.src='storage/User2.png'"
-                                    onmouseout="this.src='storage/User.png'" />
-                                </a>
-                                <p>Users</p>
-                            </div>
-                            <div class="col-6 col-sm-4 col-md-3" id="column5">
-                                <img class="img-fluid" src=" {{ asset('storage/settings.png') }}"
-                                    onmouseover="this.src='storage/settings2.png'"
-                                    onmouseout="this.src='storage/settings.png'" />
-                                <p>Settings</p>
-                            </div>
-
-                            <div class="col-6 col-sm-4 col-md-3" id="column6">
-                                <a href="{{ route('tasks') }}">
-                                    <img class="img-fluid" src=" {{ asset('storage/User.png') }}"
-                                    onmouseover="this.src='storage/User2.png'"
-                                    onmouseout="this.src='storage/User.png'" />
-                                </a>
-                                <p>Tasks</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <p>New Orders</p>
         </div>
+        <div class="icon">
+          <i class="ion ion-bag"></i>
+        </div>
+        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
     </div>
-    @endsection
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+      <!-- small box -->
+      <div class="small-box bg-success">
+        <div class="inner">
+          <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+          <p>Bounce Rate</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-stats-bars"></i>
+        </div>
+        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+      <!-- small box -->
+      <div class="small-box bg-warning">
+        <div class="inner">
+          <h3>44</h3>
+
+          <p>User Registrations</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-person-add"></i>
+        </div>
+        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+      <!-- small box -->
+      <div class="small-box bg-danger">
+        <div class="inner">
+          <h3>65</h3>
+
+          <p>Unique Visitors</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-pie-graph"></i>
+        </div>
+        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <!-- ./col -->
+  </div>
+@endsection
