@@ -8,6 +8,7 @@
     <!-- /.login-logo -->
     <div class="card">
         <div class="card-body login-card-body">
+        <p class="login-box-msg">Login</p>
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
@@ -38,7 +39,7 @@
                 </span>
             </div>
             <div class="row">
-            <div class="col-8">
+            <div class="col-8 d-flex align-items-center">
                 <div class="icheck-primary">
                     <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
