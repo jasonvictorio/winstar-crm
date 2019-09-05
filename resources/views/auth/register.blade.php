@@ -53,6 +53,22 @@
             </div>
           </div>
           <div class="row">
+              <div class="mb-2 col-12 text-danger" role="alert">
+                  @if ($errors->has('name'))
+                      <div>{{ $errors->first('name') }}</div>
+                  @endif
+                  @if ($errors->has('email'))
+                      <div>{{ $errors->first('email') }}</div>
+                  @endif
+                  @if ($errors->has('company_id'))
+                      <div>{{ $errors->first('company_id') }}</div>
+                  @endif
+                  @if ($errors->has('password'))
+                      <div>{{ $errors->first('password') }}</div>
+                  @endif
+              </div>
+          </div>
+          <div class="row">
             <div class="col-8 d-flex align-items-center">
                 <a href="/login" class="text-center">I already have a membership</a>
             </div>

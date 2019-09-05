@@ -27,6 +27,12 @@
                 </div>
             </div>
 
+            @if ($errors->has('email'))
+                <div class="mb-2 mb-3 text-center text-danger">
+                    <span>{{ $errors->first('email') }}</span>
+                </div>
+            @endif
+
                 <button type="submit" class="btn btn-primary btn-block btn-flat">
                         {{ __('Send Password Reset Link') }}
                 </button>

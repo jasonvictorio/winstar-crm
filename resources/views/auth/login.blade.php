@@ -13,7 +13,7 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="input-group mb-3">
-            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required placeholder="Email" autofocus>
             <div class="input-group-append">
                 <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
@@ -21,7 +21,7 @@
             </div>
             </div>
             <div class="input-group mb-3">
-            <input id="password" type="password" class="form-control" name="password" required>
+            <input id="password" type="password" class="form-control" name="password" required placeholder="Password">
             <div class="input-group-append">
                 <div class="input-group-text">
                 <span class="fas fa-lock"></span>
@@ -29,14 +29,14 @@
             </div>
             </div>
             <div class="row">
-                <span class="mb-2 col-12 text-danger" role="alert">
+                <div class="mb-2 col-12 text-danger" role="alert">
                     @if ($errors->has('email'))
-                        <strong>{{ $errors->first('email') }}</strong>
+                        <span>{{ $errors->first('email') }}</span>
                     @endif
                     @if ($errors->has('password'))
-                        <strong>{{ $errors->first('password') }}</strong>
+                        <span>{{ $errors->first('password') }}</span>
                     @endif
-                </span>
+                </div>
             </div>
             <div class="row">
             <div class="col-8 d-flex align-items-center">
