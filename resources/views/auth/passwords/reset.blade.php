@@ -1,3 +1,77 @@
+@extends('auth.guest')
+
+@section('content')
+<div class="login-box" style="width: 500px">
+    <div class="login-logo">
+        <a href="/">{{ config('app.name', 'Winstar CRM') }}</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body">
+        <p class="login-box-msg">{{ __('Reset Password') }}</p>
+
+        @if (session('status'))
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('password.update') }}">
+            @csrf
+            <input type="hidden" name="token" value="{{ $token }}">
+            <div class="input-group mb-3">
+                <input placeholder="Email" id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autocomplete="off">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-envelope"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group mb-3">
+                <input placeholder="Password" id="password" type="password" class="form-control" name="password" value="{{ old('email') }}" required autocomplete="off">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group mb-3">
+                <input id="password-confirm" type="password" placeholder="Password confirm" class="form-control"name="password_confirmation" required>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 col-12 text-danger" role="alert">
+                @if ($errors->has('email'))
+                    <div>{{ $errors->first('email') }}</div>
+                @endif
+                @if ($errors->has('password'))
+                    <div>{{ $errors->first('password') }}</div>
+                @endif
+            </div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-flat">
+                    {{ __('Reset Password') }}
+                </button>
+            <!-- /.col -->
+            </div>
+
+        </form>
+
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+</div>
+<!-- /.login-box -->
+@endsection
+
+
+{{--
 @extends('layouts.app')
 
 @section('content')
@@ -62,4 +136,4 @@
         </div>
     </div>
 </div>
-@endsection
+@endsection --}}
