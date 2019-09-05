@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\DB;
 class BaseController extends Controller
 {
     protected $modelString;
+    protected $model;
+
+    function __construct() {
+        $modelString = '\WinstarCRM\\'.$this->modelString;
+        $this->model = new $modelString;
+    }
 
     /**
      * Display a listing of the resource.
@@ -18,7 +24,7 @@ class BaseController extends Controller
      */
     public function index()
     {
-        return  DB::table($this->modelString)->get();
+        return $this->model::all();
     }
 
     /**
@@ -40,8 +46,7 @@ class BaseController extends Controller
      */
     public function show($id)
     {
-        $show = DB::table($this->modelString)->find($id);
-        return json_encode($show);
+        return $this->model::find($id);
     }
 
     /**

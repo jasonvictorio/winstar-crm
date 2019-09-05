@@ -6,5 +6,5 @@ use WinstarCRM\Http\Controllers\API\BaseController;
 
 class CompaniesController extends BaseController
 {
-    protected $modelString = 'companies';
+    protected $modelString = 'Company';
 }
