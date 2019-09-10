@@ -3,7 +3,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th v-for="column in columns" :key="column.property">
+          <th v-for="column in computedColumns" :key="column.property">
             {{ column.label }}
           </th>
           <th v-if="editable || deleteable">
@@ -12,8 +12,10 @@
       </thead>
       <tbody>
         <tr v-for="data in data" :key="data.id">
-          <td v-for="column in columns" :key="column.property">
-            {{ getProperty(data, column.property) }}
+          <td v-for="column in computedColumns" :key="column.property">
+            <input type="text" class="form-control" :value="getProperty(data, column.property)" :disabled="!column.editable">
+            <!-- <input class="form-control" type="text" value="aaa"> -->
+            <!-- {{ getProperty(data, column.property) }} -->
           </td>
           <td v-if="editable || deleteable">
             <button v-if="editable" class="btn btn-primary" @click="editData(data)"><i class="far fa-edit"></i></button>
@@ -33,6 +35,7 @@
     props: {
       apiEndpoint: String,
       columns: Array,
+      editable: Array,
       displayProperty: String,
       editable: { type: Boolean, default: true },
       deleteable: { type: Boolean, default: true },
@@ -47,6 +50,12 @@
         limit: 15,
       },
     }),
+    computed: {
+      computedColumns () {
+        let columns =  [{ property: 'id', label: 'ID', editable: false }, ...this.columns]
+        return columns.map(column => _.assign({ editable: true }, column))
+      }
+    },
     mounted () {
       this.fetchData();
     },
@@ -81,4 +90,19 @@
 </script>
 
 <style scoped>
+  table input {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    margin-left: -13px;
+    border: 1px solid transparent;
+  }
+
+  table input:disabled {
+    background-color: transparent;
+  }
+
+  table input:focus {
+    border-color: #a1cbef;
+  }
 </style>
