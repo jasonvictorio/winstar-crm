@@ -8,15 +8,16 @@
             <div class="modal-header">
               <div class="modal-title" id="exampleModalLabel">{{ title }}</div>
               <button type="button" class="close" @click="close">
-                <span >&times;</span>
+                <span>&times;</span>
               </button>
             </div>
             <div class="modal-body">
               <form>
-                <div class="form-group row">
-                  <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
+                <div class="form-group row" v-for="field in fields" :key="field.property">
+                  <label for="inputEmail3" class="col-sm-3 col-form-label">{{ field.label }}</label>
                   <div class="col-sm-9">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                    <input v-if="!field.relation" v-model="data[field.property]" type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                    <autocomplete-component v-model="data[field.property]"  v-if="field.relation" css-class="form-control" :name="field.property" :relation="field.relation" :displayColumn="field.relationDisplay"/>
                   </div>
                 </div>
               </form>
@@ -36,6 +37,8 @@
     props: {
       visible: Boolean,
       title: String,
+      fields: Array,
+      data: Object,
     },
     computed: {
 

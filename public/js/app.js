@@ -1780,6 +1780,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.populateOptions();
+    this.selectOption(this.value);
   },
   props: ['cssClass', 'placeholder', 'name', // model property name
   'relation', // api to use
@@ -1864,15 +1865,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     visible: Boolean,
-    title: String
+    title: String,
+    fields: Array,
+    data: Object
   },
   computed: {},
   methods: {
     close: function close() {
       this.$emit('hideModal');
+    },
+    save: function save() {
+      this.$emit('save', data);
     }
   }
 });
@@ -2013,12 +2020,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }), _defineProperty(_props, "deleteable", {
     type: Boolean,
     "default": true
+  }), _defineProperty(_props, "showUpdatedAt", {
+    type: Boolean,
+    "default": false
+  }), _defineProperty(_props, "showCreatedAt", {
+    type: Boolean,
+    "default": false
   }), _props),
   data: function data() {
     return {
       data: [],
       modalTitle: '',
       modalVisible: false,
+      modalData: null,
       pagination: {
         total: 0,
         current: 1,
@@ -2033,10 +2047,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         label: 'ID',
         editable: false
       }].concat(_toConsumableArray(this.columns));
+      if (this.showCreatedAt) columns.push({
+        property: 'created_at',
+        label: 'Date created',
+        editable: false
+      });
+      if (this.showUpdatedAt) columns.push({
+        property: 'updated_at',
+        label: 'Date updated',
+        editable: false
+      });
       return columns.map(function (column) {
         return _.assign({
           editable: true
         }, column);
+      });
+    },
+    editableFields: function editableFields() {
+      return this.computedColumns.filter(function (column) {
+        return column.editable;
       });
     }
   },
@@ -2080,6 +2109,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }(),
     editData: function editData(data) {
       this.modalTitle = this.getProperty(data, this.displayProperty);
+      this.modalData = _.cloneDeep(data);
       this.showModal();
     },
     showModal: function showModal() {
@@ -2097,6 +2127,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         current: response.current_page,
         limit: response.per_page
       };
+    },
+    formatDate: function formatDate(date) {
+      return;
     }
   }
 });
@@ -39071,29 +39104,92 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-body" }, [
-                    _c("form", [
-                      _c("div", { staticClass: "form-group row" }, [
-                        _c(
-                          "label",
+                    _c(
+                      "form",
+                      _vm._l(_vm.fields, function(field) {
+                        return _c(
+                          "div",
                           {
-                            staticClass: "col-sm-3 col-form-label",
-                            attrs: { for: "inputEmail3" }
+                            key: field.property,
+                            staticClass: "form-group row"
                           },
-                          [_vm._v("Email")]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-9" }, [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "email",
-                              id: "inputEmail3",
-                              placeholder: "Email"
-                            }
-                          })
-                        ])
-                      ])
-                    ])
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "col-sm-3 col-form-label",
+                                attrs: { for: "inputEmail3" }
+                              },
+                              [_vm._v(_vm._s(field.label))]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "col-sm-9" },
+                              [
+                                !field.relation
+                                  ? _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.data[field.property],
+                                          expression: "data[field.property]"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "email",
+                                        id: "inputEmail3",
+                                        placeholder: "Email"
+                                      },
+                                      domProps: {
+                                        value: _vm.data[field.property]
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.data,
+                                            field.property,
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                field.relation
+                                  ? _c("autocomplete-component", {
+                                      attrs: {
+                                        "css-class": "form-control",
+                                        name: field.property,
+                                        relation: field.relation,
+                                        displayColumn: field.relationDisplay
+                                      },
+                                      model: {
+                                        value: _vm.data[field.property],
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.data,
+                                            field.property,
+                                            $$v
+                                          )
+                                        },
+                                        expression: "data[field.property]"
+                                      }
+                                    })
+                                  : _vm._e()
+                              ],
+                              1
+                            )
+                          ]
+                        )
+                      }),
+                      0
+                    )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-footer" }, [
@@ -39326,7 +39422,12 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("modal-component", {
-        attrs: { visible: _vm.modalVisible, title: _vm.modalTitle },
+        attrs: {
+          visible: _vm.modalVisible,
+          title: _vm.modalTitle,
+          fields: _vm.editableFields,
+          data: _vm.modalData
+        },
         on: { hideModal: _vm.hideModal }
       })
     ],

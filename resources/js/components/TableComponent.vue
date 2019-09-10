@@ -25,7 +25,7 @@
     </table>
 
     <pagination-component class="mt-3" :pagination="pagination" @paginate="fetchData"/>
-    <modal-component :visible="modalVisible" @hideModal="hideModal" :title="modalTitle" />
+    <modal-component :visible="modalVisible" @hideModal="hideModal" :title="modalTitle" :fields="editableFields" :data="modalData" />
   </div>
 </template>
 
@@ -45,6 +45,7 @@
       data: [],
       modalTitle: '',
       modalVisible: false,
+      modalData: null,
       pagination: {
         total: 0,
         current: 1,
@@ -58,6 +59,9 @@
         if (this.showUpdatedAt) columns.push({ property: 'updated_at', label: 'Date updated', editable: false })
         return columns.map(column => _.assign({ editable: true }, column))
       },
+      editableFields () {
+        return this.computedColumns.filter(column => column.editable)
+      },
     },
     mounted () {
       this.fetchData();
@@ -70,6 +74,7 @@
       },
       editData (data) {
         this.modalTitle = this.getProperty(data, this.displayProperty)
+        this.modalData = _.cloneDeep(data)
         this.showModal()
       },
       showModal () {
@@ -88,6 +93,9 @@
           limit: response.per_page,
         }
       },
+      formatDate (date) {
+        return
+      }
     },
   }
 </script>
