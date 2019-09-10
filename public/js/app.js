@@ -1862,16 +1862,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['columns'],
+  props: {
+    apiEndpoint: String,
+    columns: Array,
+    editable: {
+      type: Boolean,
+      "default": true
+    },
+    deleteable: {
+      type: Boolean,
+      "default": true
+    }
+  },
   data: function data() {
     return {
-      apiEndpoint: 'users',
-      data: [],
-      columns: [{
-        property: 'id',
-        label: 'ID'
-      }]
+      data: []
     };
   },
   mounted: function mounted() {
@@ -1893,9 +1920,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 2:
                 response = _context.sent;
                 this.data = response.data.data;
-                console.log(this.data);
 
-              case 5:
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -1908,7 +1934,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return fetchData;
-    }()
+    }(),
+    getProperty: function getProperty(data, property) {
+      return _.get(data, property);
+    }
   }
 });
 
@@ -38781,15 +38810,66 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("h1", [_vm._v("this is the table component")]),
+  return _c("div", { staticClass: "table-responsive card card-body" }, [
+    _c("table", { staticClass: "table table-hover" }, [
+      _c("thead", [
+        _c(
+          "tr",
+          [
+            _vm._l(_vm.columns, function(column) {
+              return _c("th", { key: column.property }, [
+                _vm._v("\n          " + _vm._s(column.label) + "\n        ")
+              ])
+            }),
+            _vm._v(" "),
+            _vm.editable || _vm.deleteable ? _c("th") : _vm._e()
+          ],
+          2
+        )
+      ]),
       _vm._v(" "),
-      _c("pagination-component")
-    ],
-    1
-  )
+      _c(
+        "tbody",
+        _vm._l(_vm.data, function(data) {
+          return _c(
+            "tr",
+            { key: data.id },
+            [
+              _vm._l(_vm.columns, function(column) {
+                return _c("td", { key: column.property }, [
+                  _vm._v(
+                    "\n          " +
+                      _vm._s(_vm.getProperty(data, column.property)) +
+                      "\n        "
+                  )
+                ])
+              }),
+              _vm._v(" "),
+              _vm.editable || _vm.deleteable
+                ? _c("td", [
+                    _vm.editable
+                      ? _c("button", { staticClass: "btn btn-primary" }, [
+                          _c("i", { staticClass: "far fa-edit" })
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.deleteable
+                      ? _c(
+                          "button",
+                          { staticClass: "btn btn-outline-danger" },
+                          [_c("i", { staticClass: "far fa-trash-alt" })]
+                        )
+                      : _vm._e()
+                  ])
+                : _vm._e()
+            ],
+            2
+          )
+        }),
+        0
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
