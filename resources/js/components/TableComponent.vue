@@ -76,7 +76,7 @@
         this.fetchData(this.pagination.current)
       },
       editData (data) {
-        this.modalTitle = this.getProperty(data, this.displayProperty)
+        this.modalTitle = `${data.id} - ${this.getProperty(data, this.displayProperty)}`
         this.modalData = _.cloneDeep(data)
         this.showModal()
       },

@@ -2119,7 +2119,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.fetchData(this.pagination.current);
     },
     editData: function editData(data) {
-      this.modalTitle = this.getProperty(data, this.displayProperty);
+      this.modalTitle = "".concat(data.id, " - ").concat(this.getProperty(data, this.displayProperty));
       this.modalData = _.cloneDeep(data);
       this.showModal();
     },
