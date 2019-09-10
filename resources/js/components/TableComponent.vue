@@ -38,6 +38,8 @@
       displayProperty: String,
       editable: { type: Boolean, default: true },
       deleteable: { type: Boolean, default: true },
+      showUpdatedAt: { type: Boolean, default: false },
+      showCreatedAt: { type: Boolean, default: false },
     },
     data: () => ({
       data: [],
@@ -51,9 +53,11 @@
     }),
     computed: {
       computedColumns () {
-        let columns =  [{ property: 'id', label: 'ID', editable: false }, ...this.columns]
+        let columns = [{ property: 'id', label: 'ID', editable: false }, ...this.columns]
+        if (this.showCreatedAt) columns.push({ property: 'created_at', label: 'Date created', editable: false })
+        if (this.showUpdatedAt) columns.push({ property: 'updated_at', label: 'Date updated', editable: false })
         return columns.map(column => _.assign({ editable: true }, column))
-      }
+      },
     },
     mounted () {
       this.fetchData();
