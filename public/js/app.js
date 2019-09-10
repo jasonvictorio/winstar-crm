@@ -2126,7 +2126,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     deleteData: function deleteData(data) {
-      Vue.$toast.open('aaaaa');
+      var _this2 = this;
+
+      axios["delete"]("/api/".concat(this.apiEndpoint, "/").concat(data.id)).then(function (response) {
+        _this2.notificationSuccess('Delete success');
+      });
     },
     getProperty: function getProperty(data, property) {
       return _.get(data, property);

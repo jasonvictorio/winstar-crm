@@ -18,7 +18,7 @@
           </td>
           <td v-if="editable || deleteable">
             <button v-if="editable" class="btn btn-primary" @click="editData(data)"><i class="far fa-edit"></i></button>
-            <button v-if="deleteable" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button>
+            <button v-if="deleteable" class="btn btn-outline-danger" @click="deleteData(data)"><i class="far fa-trash-alt"></i></button>
           </td>
         </tr>
       </tbody>
@@ -87,6 +87,12 @@
         axios.put(`/api/${this.apiEndpoint}/${data.id}`, data)
           .then(response => {
             this.notificationSuccess('Update saved')
+          })
+      },
+      deleteData(data) {
+        axios.delete(`/api/${this.apiEndpoint}/${data.id}`)
+          .then(response => {
+            this.notificationSuccess('Delete success')
           })
       },
       getProperty (data, property) {
