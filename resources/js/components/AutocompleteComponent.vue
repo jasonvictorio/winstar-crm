@@ -35,12 +35,19 @@
                 left: 0,
             },
         }),
+        watch: {
+            value (newValue) {
+                this.selectOption(newValue, false)
+            },
+        },
         methods: {
-            selectOption (option) {
+            selectOption (option, emit = true) {
                 this.selectedOption = option;
                 this.selectedOptionDisplay = option[this.displayColumn];
                 this.selectedOptionId = option.id
-                this.$emit('input', this.selectedOption)
+                if (emit) {
+                    this.$emit('input', this.selectedOption)
+                }
             },
             showOptions () {
                 this.populateOptions()
@@ -64,7 +71,7 @@
             }
         },
         mounted () {
-            this.selectOption(this.value)
+            this.selectOption(this.value, false)
         },
         props: [
             'cssClass',

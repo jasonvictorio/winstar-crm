@@ -72,6 +72,9 @@
         this.data = response.data.data
         this.updatePagination(response.data)
       },
+      refreshData () {
+        this.fetchData(this.pagination.current)
+      },
       editData (data) {
         this.modalTitle = this.getProperty(data, this.displayProperty)
         this.modalData = _.cloneDeep(data)
@@ -86,12 +89,14 @@
       saveModal(data) {
         axios.put(`/api/${this.apiEndpoint}/${data.id}`, data)
           .then(response => {
+            this.refreshData()
             this.notificationSuccess('Update saved')
           })
       },
       deleteData(data) {
         axios.delete(`/api/${this.apiEndpoint}/${data.id}`)
           .then(response => {
+            this.refreshData()
             this.notificationSuccess('Delete success')
           })
       },

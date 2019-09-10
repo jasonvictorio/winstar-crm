@@ -1747,12 +1747,21 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  watch: {
+    value: function value(newValue) {
+      this.selectOption(newValue, false);
+    }
+  },
   methods: {
     selectOption: function selectOption(option) {
+      var emit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
       this.selectedOption = option;
       this.selectedOptionDisplay = option[this.displayColumn];
       this.selectedOptionId = option.id;
-      this.$emit('input', this.selectedOption);
+
+      if (emit) {
+        this.$emit('input', this.selectedOption);
+      }
     },
     showOptions: function showOptions() {
       this.populateOptions();
@@ -1779,7 +1788,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.selectOption(this.value);
+    this.selectOption(this.value, false);
   },
   props: ['cssClass', 'placeholder', 'name', // model property name
   'relation', // api to use
@@ -2106,6 +2115,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return fetchData;
     }(),
+    refreshData: function refreshData() {
+      this.fetchData(this.pagination.current);
+    },
     editData: function editData(data) {
       this.modalTitle = this.getProperty(data, this.displayProperty);
       this.modalData = _.cloneDeep(data);
@@ -2121,6 +2133,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       axios.put("/api/".concat(this.apiEndpoint, "/").concat(data.id), data).then(function (response) {
+        _this.refreshData();
+
         _this.notificationSuccess('Update saved');
       });
     },
@@ -2128,6 +2142,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this2 = this;
 
       axios["delete"]("/api/".concat(this.apiEndpoint, "/").concat(data.id)).then(function (response) {
+        _this2.refreshData();
+
         _this2.notificationSuccess('Delete success');
       });
     },
