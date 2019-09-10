@@ -26,6 +26,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('autocomplete-component', require('./components/AutocompleteComponent.vue').default);
 Vue.component('table-component', require('./components/TableComponent.vue').default);
 Vue.component('pagination-component', require('./components/PaginationComponent.vue').default);
+Vue.component('modal-component', require('./components/ModalComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

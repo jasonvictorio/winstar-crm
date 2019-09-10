@@ -5,6 +5,7 @@
 @section('content')
   <table-component
     api-endpoint="users"
+    display-property="name"
     :columns="[
       { property: 'id', label: 'ID' },
       { property: 'name', label: 'Name' },
