@@ -85,6 +85,9 @@
       },
       saveModal(data) {
         axios.put(`/api/${this.apiEndpoint}/${data.id}`, data)
+          .then(response => {
+            this.notificationSuccess('Update saved')
+          })
       },
       getProperty (data, property) {
         return _.get(data, property)
@@ -98,7 +101,14 @@
       },
       formatDate (date) {
         return
-      }
+      },
+      notificationSuccess (message) {
+        Vue.$toast.open({
+          message: message,
+          position: 'top-right',
+          type: 'success',
+        })
+      },
     },
   }
 </script>

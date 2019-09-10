@@ -28,6 +28,8 @@ Vue.component('table-component', require('./components/TableComponent.vue').defa
 Vue.component('pagination-component', require('./components/PaginationComponent.vue').default);
 Vue.component('modal-component', require('./components/ModalComponent.vue').default);
 
+Vue.use(require('vue-toast-notification'))
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
