@@ -25,7 +25,7 @@
     </table>
 
     <pagination-component class="mt-3" :pagination="pagination" @paginate="fetchData"/>
-    <modal-component :visible="modalVisible" @hideModal="hideModal" :title="modalTitle" :fields="editableFields" :data="modalData" />
+    <modal-component :visible="modalVisible" @hideModal="hideModal" @save="saveModal" :title="modalTitle" :fields="editableFields" :data="modalData" />
   </div>
 </template>
 
@@ -82,6 +82,9 @@
       },
       hideModal () {
         this.modalVisible = false
+      },
+      saveModal(data) {
+        axios.put(`/api/${this.apiEndpoint}/${data.id}`, data)
       },
       getProperty (data, property) {
         return _.get(data, property)

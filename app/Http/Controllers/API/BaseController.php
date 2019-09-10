@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use WinstarCRM\Http\Controllers\Controller;
 use \WinstarCRM\Company;
 use Illuminate\Support\Facades\DB;
+use Log;
 
 class BaseController extends Controller
 {
@@ -58,7 +59,17 @@ class BaseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $model = $this->model::findOrFail($id);
+        $updatedModel = [];
+        foreach ($request->all() as $property => $value) {
+            if (is_array($value)) {
+                $updatedModel[$property.'_id'] = $value['id'];
+            } else {
+                $updatedModel[$property] = $value;
+            }
+        }
+        $model->update($updatedModel);
+        return $this->model::findOrFail($id);
     }
 
     /**

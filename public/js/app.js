@@ -1879,7 +1879,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('hideModal');
     },
     save: function save() {
-      this.$emit('save', data);
+      this.$emit('save', this.data);
     }
   }
 });
@@ -2117,6 +2117,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     hideModal: function hideModal() {
       this.modalVisible = false;
+    },
+    saveModal: function saveModal(data) {
+      axios.put("/api/".concat(this.apiEndpoint, "/").concat(data.id), data);
     },
     getProperty: function getProperty(data, property) {
       return _.get(data, property);
@@ -39106,6 +39109,7 @@ var render = function() {
                   _c("div", { staticClass: "modal-body" }, [
                     _c(
                       "form",
+                      { on: { submit: _vm.save } },
                       _vm._l(_vm.fields, function(field) {
                         return _c(
                           "div",
@@ -39193,9 +39197,15 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-footer" }, [
-                    _c("button", { staticClass: "btn btn-success" }, [
-                      _vm._v("Save")
-                    ])
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success",
+                        attrs: { type: "submit" },
+                        on: { click: _vm.save }
+                      },
+                      [_vm._v("Save")]
+                    )
                   ])
                 ])
               ])
@@ -39428,7 +39438,7 @@ var render = function() {
           fields: _vm.editableFields,
           data: _vm.modalData
         },
-        on: { hideModal: _vm.hideModal }
+        on: { hideModal: _vm.hideModal, save: _vm.saveModal }
       })
     ],
     1

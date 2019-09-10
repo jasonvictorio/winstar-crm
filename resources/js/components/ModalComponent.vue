@@ -12,7 +12,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form>
+              <form @submit="save">
                 <div class="form-group row" v-for="field in fields" :key="field.property">
                   <label for="inputEmail3" class="col-sm-3 col-form-label">{{ field.label }}</label>
                   <div class="col-sm-9">
@@ -23,7 +23,7 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-success">Save</button>
+              <button class="btn btn-success" type="submit" @click="save">Save</button>
             </div>
           </div>
         </div>
@@ -46,7 +46,10 @@
     methods: {
       close () {
         this.$emit('hideModal')
-      }
+      },
+      save () {
+        this.$emit('save', this.data)
+      },
     }
   }
 </script>
