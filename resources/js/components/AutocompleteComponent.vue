@@ -10,7 +10,6 @@
         />
         <slot></slot>
         <input class="form-control" :name="name" hidden v-model="selectedOptionId">
-
         <ul class="list-group options" :style="optionsPosition" :class="{ active: isOptionsVisible }">
             <li v-for="option in options"
                 class="list-group-item"
@@ -44,6 +43,7 @@
                 this.$emit('input', this.selectedOption)
             },
             showOptions () {
+                this.populateOptions()
                 this.updateOptionsPosition()
                 this.isOptionsVisible = true
             },
@@ -64,7 +64,6 @@
             }
         },
         mounted () {
-            this.populateOptions()
             this.selectOption(this.value)
         },
         props: [

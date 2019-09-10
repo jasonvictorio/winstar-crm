@@ -1733,7 +1733,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1756,6 +1755,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('input', this.selectedOption);
     },
     showOptions: function showOptions() {
+      this.populateOptions();
       this.updateOptionsPosition();
       this.isOptionsVisible = true;
     },
@@ -1779,7 +1779,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.populateOptions();
     this.selectOption(this.value);
   },
   props: ['cssClass', 'placeholder', 'name', // model property name
