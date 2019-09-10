@@ -1834,7 +1834,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    pagination: {
+      type: Object,
+      "default": {
+        current: 1,
+        total: 1,
+        limit: 1
+      }
+    }
+  },
+  computed: {
+    pages: function pages() {
+      var pages = [];
+      var lastPage = Math.round(this.pagination.total / this.pagination.limit);
+
+      for (var index = 0; index < lastPage; index++) {
+        pages[index] = index + 1;
+      }
+
+      return pages;
+    },
+    disableNext: function disableNext() {
+      var lastPage = Math.round(this.pagination.total / this.pagination.limit);
+      var currentPage = this.pagination.current;
+      return currentPage == lastPage;
+    }
+  },
+  methods: {
+    paginate: function paginate(page) {
+      this.$emit('paginate', page);
+    }
+  }
+});
 
 /***/ }),
 
@@ -1883,6 +1926,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     apiEndpoint: String,
@@ -1898,7 +1942,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      data: []
+      data: [],
+      pagination: {
+        total: 0,
+        current: 1,
+        limit: 15
+      }
     };
   },
   mounted: function mounted() {
@@ -1909,19 +1958,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _fetchData = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
+        var page,
+            response,
+            _args = arguments;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return axios.get("/api/".concat(this.apiEndpoint));
+                page = _args.length > 0 && _args[0] !== undefined ? _args[0] : 1;
+                _context.next = 3;
+                return axios.get("/api/".concat(this.apiEndpoint, "?page=").concat(page));
 
-              case 2:
+              case 3:
                 response = _context.sent;
                 this.data = response.data.data;
+                this.updatePagination(response.data);
 
-              case 4:
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -1937,6 +1990,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }(),
     getProperty: function getProperty(data, property) {
       return _.get(data, property);
+    },
+    updatePagination: function updatePagination(response) {
+      this.pagination = {
+        total: response.total,
+        current: response.current_page,
+        limit: response.per_page
+      };
     }
   }
 });
@@ -38779,16 +38839,73 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c(
+      "ul",
+      { staticClass: "pagination" },
+      [
+        _c("li", { staticClass: "paginate_button page-item previous" }, [
+          _c(
+            "button",
+            {
+              staticClass: "page-link",
+              attrs: { disabled: this.pagination.current == 1 },
+              on: {
+                click: function($event) {
+                  return _vm.paginate(_vm.pagination.current - 1)
+                }
+              }
+            },
+            [_vm._v("Previous")]
+          )
+        ]),
+        _vm._v(" "),
+        _vm._l(_vm.pages, function(page) {
+          return _c(
+            "li",
+            {
+              key: page,
+              staticClass: "paginate_button page-item",
+              class: { active: page == _vm.pagination.current }
+            },
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "page-link",
+                  on: {
+                    click: function($event) {
+                      return _vm.paginate(page)
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(page))]
+              )
+            ]
+          )
+        }),
+        _vm._v(" "),
+        _c("li", { staticClass: "paginate_button page-item next" }, [
+          _c(
+            "button",
+            {
+              staticClass: "page-link",
+              attrs: { disabled: _vm.disableNext },
+              on: {
+                click: function($event) {
+                  return _vm.paginate(_vm.pagination.current + 1)
+                }
+              }
+            },
+            [_vm._v("Next")]
+          )
+        ])
+      ],
+      2
+    )
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("this is the pagination component")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -38810,66 +38927,77 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "table-responsive card card-body" }, [
-    _c("table", { staticClass: "table table-hover" }, [
-      _c("thead", [
-        _c(
-          "tr",
-          [
-            _vm._l(_vm.columns, function(column) {
-              return _c("th", { key: column.property }, [
-                _vm._v("\n          " + _vm._s(column.label) + "\n        ")
-              ])
-            }),
-            _vm._v(" "),
-            _vm.editable || _vm.deleteable ? _c("th") : _vm._e()
-          ],
-          2
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.data, function(data) {
-          return _c(
+  return _c(
+    "div",
+    { staticClass: "table-responsive card card-body" },
+    [
+      _c("table", { staticClass: "table table-hover" }, [
+        _c("thead", [
+          _c(
             "tr",
-            { key: data.id },
             [
               _vm._l(_vm.columns, function(column) {
-                return _c("td", { key: column.property }, [
-                  _vm._v(
-                    "\n          " +
-                      _vm._s(_vm.getProperty(data, column.property)) +
-                      "\n        "
-                  )
+                return _c("th", { key: column.property }, [
+                  _vm._v("\n          " + _vm._s(column.label) + "\n        ")
                 ])
               }),
               _vm._v(" "),
-              _vm.editable || _vm.deleteable
-                ? _c("td", [
-                    _vm.editable
-                      ? _c("button", { staticClass: "btn btn-primary" }, [
-                          _c("i", { staticClass: "far fa-edit" })
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.deleteable
-                      ? _c(
-                          "button",
-                          { staticClass: "btn btn-outline-danger" },
-                          [_c("i", { staticClass: "far fa-trash-alt" })]
-                        )
-                      : _vm._e()
-                  ])
-                : _vm._e()
+              _vm.editable || _vm.deleteable ? _c("th") : _vm._e()
             ],
             2
           )
-        }),
-        0
-      )
-    ])
-  ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.data, function(data) {
+            return _c(
+              "tr",
+              { key: data.id },
+              [
+                _vm._l(_vm.columns, function(column) {
+                  return _c("td", { key: column.property }, [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(_vm.getProperty(data, column.property)) +
+                        "\n        "
+                    )
+                  ])
+                }),
+                _vm._v(" "),
+                _vm.editable || _vm.deleteable
+                  ? _c("td", [
+                      _vm.editable
+                        ? _c("button", { staticClass: "btn btn-primary" }, [
+                            _c("i", { staticClass: "far fa-edit" })
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.deleteable
+                        ? _c(
+                            "button",
+                            { staticClass: "btn btn-outline-danger" },
+                            [_c("i", { staticClass: "far fa-trash-alt" })]
+                          )
+                        : _vm._e()
+                    ])
+                  : _vm._e()
+              ],
+              2
+            )
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c("pagination-component", {
+        staticClass: "mt-3",
+        attrs: { pagination: _vm.pagination },
+        on: { paginate: _vm.fetchData }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

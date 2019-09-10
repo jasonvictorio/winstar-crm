@@ -1,6 +1,5 @@
 <template>
   <div class="table-responsive card card-body">
-    <!-- <pagination-component /> -->
     <table class="table table-hover">
       <thead>
         <tr>
@@ -23,6 +22,8 @@
         </tr>
       </tbody>
     </table>
+
+    <pagination-component class="mt-3" :pagination="pagination" @paginate="fetchData"/>
   </div>
 </template>
 
@@ -36,17 +37,30 @@
     },
     data: () => ({
       data: [],
+      pagination: {
+        total: 0,
+        current: 1,
+        limit: 15,
+      },
     }),
     mounted () {
       this.fetchData();
     },
     methods: {
-      async fetchData() {
-        const response = await axios.get(`/api/${this.apiEndpoint}`)
+      async fetchData(page = 1) {
+        const response = await axios.get(`/api/${this.apiEndpoint}?page=${page}`)
         this.data = response.data.data
+        this.updatePagination(response.data)
       },
       getProperty (data, property) {
         return _.get(data, property)
+      },
+      updatePagination (response) {
+        this.pagination = {
+          total: response.total,
+          current: response.current_page,
+          limit: response.per_page,
+        }
       },
     },
   }
