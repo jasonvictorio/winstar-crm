@@ -17,5 +17,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('companies', 'API\CompaniesController');
-Route::apiResource('users', 'API\UsersController');
+function createApiRoute ($route, $controller) {
+    return [
+        Route::get($route.'/all', $controller.'@all'),
+        Route::apiResource($route, $controller),
+    ];
+}
+
+createApiRoute('companies', 'API\CompaniesController');
+createApiRoute('users', 'API\UsersController');

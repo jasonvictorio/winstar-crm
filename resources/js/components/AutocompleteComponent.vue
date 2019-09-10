@@ -57,7 +57,7 @@
                 }
             },
             populateOptions () {
-                axios.get(`/api/${this.relation}`)
+                axios.get(`/api/${this.relation}/all`)
                     .then(response => (this.options = response.data))
             }
         },

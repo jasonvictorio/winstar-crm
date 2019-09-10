@@ -24,7 +24,7 @@ class BaseController extends Controller
      */
     public function index()
     {
-        return $this->model::all();
+        return $this->model::paginate(15);
     }
 
     /**
@@ -70,5 +70,9 @@ class BaseController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function all() {
+        return $this->model::all();
     }
 }
