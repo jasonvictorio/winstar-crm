@@ -13,9 +13,8 @@
       <tbody>
         <tr v-for="data in data" :key="data.id">
           <td v-for="column in computedColumns" :key="column.property">
-            <input type="text" class="form-control" :value="getProperty(data, column.property)" :disabled="!column.editable">
-            <!-- <input class="form-control" type="text" value="aaa"> -->
-            <!-- {{ getProperty(data, column.property) }} -->
+            <input v-if="!column.relation" type="text" class="form-control" :value="getProperty(data, column.property)" :disabled="!column.editable">
+            <autocomplete-component v-model="data[column.property]"  v-if="column.relation" css-class="form-control" name="company" relation="companies" displayColumn="name"/>
           </td>
           <td v-if="editable || deleteable">
             <button v-if="editable" class="btn btn-primary" @click="editData(data)"><i class="far fa-edit"></i></button>
@@ -90,19 +89,27 @@
 </script>
 
 <style scoped>
-  table input {
+  table >>> input {
     width: 100%;
     border: 0;
-    background: transparent;
+    background-color: transparent;
     margin-left: -13px;
     border: 1px solid transparent;
   }
 
-  table input:disabled {
+  table >>> input:disabled {
     background-color: transparent;
   }
 
-  table input:focus {
+  table >>> input:focus {
     border-color: #a1cbef;
+  }
+
+  table >>> input:read-only {
+    background: transparent;
+  }
+
+  table >>> .form-control:focus {
+    background-color: #fff;
   }
 </style>

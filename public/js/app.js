@@ -1733,6 +1733,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1752,6 +1753,7 @@ __webpack_require__.r(__webpack_exports__);
       this.selectedOption = option;
       this.selectedOptionDisplay = option[this.displayColumn];
       this.selectedOptionId = option.id;
+      this.$emit('input', this.selectedOption);
     },
     showOptions: function showOptions() {
       this.updateOptionsPosition();
@@ -1781,7 +1783,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: ['cssClass', 'placeholder', 'name', // model property name
   'relation', // api to use
-  'displayColumn']
+  'displayColumn', // column to be displayed as option
+  'value']
 });
 
 /***/ }),
@@ -1967,7 +1970,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -6596,7 +6598,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ntable input[data-v-8554570c] {\n  width: 100%;\n  border: 0;\n  background: transparent;\n  margin-left: -13px;\n  border: 1px solid transparent;\n}\ntable input[data-v-8554570c]:disabled {\n  background-color: transparent;\n}\ntable input[data-v-8554570c]:focus {\n  border-color: #a1cbef;\n}\n", ""]);
+exports.push([module.i, "\ntable[data-v-8554570c] input {\n  width: 100%;\n  border: 0;\n  background-color: transparent;\n  margin-left: -13px;\n  border: 1px solid transparent;\n}\ntable[data-v-8554570c] input:disabled {\n  background-color: transparent;\n}\ntable[data-v-8554570c] input:focus {\n  border-color: #a1cbef;\n}\ntable[data-v-8554570c] input:-moz-read-only {\n  background: transparent;\n}\ntable[data-v-8554570c] input:read-only {\n  background: transparent;\n}\ntable[data-v-8554570c] .form-control:focus {\n  background-color: #fff;\n}\n", ""]);
 
 // exports
 
@@ -39247,15 +39249,40 @@ var render = function() {
               { key: data.id },
               [
                 _vm._l(_vm.computedColumns, function(column) {
-                  return _c("td", { key: column.property }, [
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: { type: "text", disabled: !column.editable },
-                      domProps: {
-                        value: _vm.getProperty(data, column.property)
-                      }
-                    })
-                  ])
+                  return _c(
+                    "td",
+                    { key: column.property },
+                    [
+                      !column.relation
+                        ? _c("input", {
+                            staticClass: "form-control",
+                            attrs: { type: "text", disabled: !column.editable },
+                            domProps: {
+                              value: _vm.getProperty(data, column.property)
+                            }
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      column.relation
+                        ? _c("autocomplete-component", {
+                            attrs: {
+                              "css-class": "form-control",
+                              name: "company",
+                              relation: "companies",
+                              displayColumn: "name"
+                            },
+                            model: {
+                              value: data[column.property],
+                              callback: function($$v) {
+                                _vm.$set(data, column.property, $$v)
+                              },
+                              expression: "data[column.property]"
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  )
                 }),
                 _vm._v(" "),
                 _vm.editable || _vm.deleteable

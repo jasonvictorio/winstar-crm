@@ -10,6 +10,7 @@
         />
         <slot></slot>
         <input class="form-control" :name="name" hidden v-model="selectedOptionId">
+
         <ul class="list-group options" :style="optionsPosition" :class="{ active: isOptionsVisible }">
             <li v-for="option in options"
                 class="list-group-item"
@@ -40,6 +41,7 @@
                 this.selectedOption = option;
                 this.selectedOptionDisplay = option[this.displayColumn];
                 this.selectedOptionId = option.id
+                this.$emit('input', this.selectedOption)
             },
             showOptions () {
                 this.updateOptionsPosition()
@@ -63,6 +65,7 @@
         },
         mounted () {
             this.populateOptions()
+            this.selectOption(this.value)
         },
         props: [
             'cssClass',
@@ -70,6 +73,7 @@
             'name', // model property name
             'relation', // api to use
             'displayColumn', // column to be displayed as option
+            'value',
         ],
     }
 </script>

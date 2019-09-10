@@ -8,7 +8,7 @@
     display-property="name"
     :columns="[
       { property: 'name', label: 'Name' },
-      { property: 'company.name', label: 'Company' },
+      { property: 'company', label: 'Company', relation: 'companies', relationDisplay: 'name' },
       { property: 'email', label: 'Email' },
     ]"
   />
