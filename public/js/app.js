@@ -1788,7 +1788,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.selectOption(this.value, false);
+    if (this.value) {
+      this.selectOption(this.value, false);
+    }
   },
   props: ['cssClass', 'placeholder', 'name', // model property name
   'relation', // api to use
@@ -2016,12 +2018,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: (_props = {
     apiEndpoint: String,
     columns: Array,
     editable: Array,
-    displayProperty: String
+    displayProperty: String,
+    allowNew: {
+      type: Boolean,
+      "default": true
+    }
   }, _defineProperty(_props, "editable", {
     type: Boolean,
     "default": true
@@ -2049,6 +2056,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: {
+    apiRoute: function apiRoute() {
+      return "/api/".concat(this.apiEndpoint);
+    },
     computedColumns: function computedColumns() {
       var columns = [{
         property: 'id',
@@ -2065,10 +2075,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         label: 'Date updated',
         editable: false
       });
-      return columns.map(function (column) {
-        return _.assign({
-          editable: true
-        }, column);
+      return columns.map(this.assignColumnDefaults);
+    },
+    displayColumns: function displayColumns() {
+      return this.computedColumns.filter(function (column) {
+        return !column.hide;
       });
     },
     editableFields: function editableFields() {
@@ -2094,7 +2105,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 page = _args.length > 0 && _args[0] !== undefined ? _args[0] : 1;
                 _context.next = 3;
-                return axios.get("/api/".concat(this.apiEndpoint, "?page=").concat(page));
+                return axios.get("".concat(this.apiRoute, "?page=").concat(page));
 
               case 3:
                 response = _context.sent;
@@ -2115,12 +2126,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return fetchData;
     }(),
+    assignColumnDefaults: function assignColumnDefaults(column) {
+      return _.assign({
+        editable: true,
+        placeholder: column.label,
+        type: 'text',
+        hide: false
+      }, column);
+    },
     refreshData: function refreshData() {
       this.fetchData(this.pagination.current);
     },
     editData: function editData(data) {
-      this.modalTitle = "".concat(data.id, " - ").concat(this.getProperty(data, this.displayProperty));
       this.modalData = _.cloneDeep(data);
+      this.setModalTitle(data);
       this.showModal();
     },
     showModal: function showModal() {
@@ -2129,23 +2148,75 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     hideModal: function hideModal() {
       this.modalVisible = false;
     },
-    saveModal: function saveModal(data) {
+    setModalTitle: function setModalTitle(data) {
+      this.modalTitle = _.isNil(data.id) ? "Create New" : "".concat(data.id, " - ").concat(this.getProperty(data, this.displayProperty));
+    },
+    saveModal: function () {
+      var _saveModal = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
+        var isNewData, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                isNewData = _.isNil(data.id);
+
+                if (!isNewData) {
+                  _context2.next = 7;
+                  break;
+                }
+
+                _context2.next = 4;
+                return axios.post("".concat(this.apiRoute), data);
+
+              case 4:
+                _context2.t0 = _context2.sent;
+                _context2.next = 10;
+                break;
+
+              case 7:
+                _context2.next = 9;
+                return axios.put("".concat(this.apiRoute, "/").concat(data.id), data);
+
+              case 9:
+                _context2.t0 = _context2.sent;
+
+              case 10:
+                response = _context2.t0;
+                this.setModalTitle(data);
+                this.refreshData();
+                this.notificationSuccess('Update saved');
+
+              case 14:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function saveModal(_x) {
+        return _saveModal.apply(this, arguments);
+      }
+
+      return saveModal;
+    }(),
+    deleteData: function deleteData(data) {
       var _this = this;
 
-      axios.put("/api/".concat(this.apiEndpoint, "/").concat(data.id), data).then(function (response) {
+      axios["delete"]("".concat(this.apiRoute, "/").concat(data.id)).then(function (response) {
         _this.refreshData();
 
-        _this.notificationSuccess('Update saved');
+        _this.notificationSuccess('Delete success');
       });
     },
-    deleteData: function deleteData(data) {
-      var _this2 = this;
-
-      axios["delete"]("/api/".concat(this.apiEndpoint, "/").concat(data.id)).then(function (response) {
-        _this2.refreshData();
-
-        _this2.notificationSuccess('Delete success');
+    addNew: function addNew() {
+      var data = {};
+      this.editableFields.forEach(function (field) {
+        data[field.property] = null;
       });
+      this.editData(data);
     },
     getProperty: function getProperty(data, property) {
       return _.get(data, property);
@@ -39164,7 +39235,7 @@ var render = function() {
                               "div",
                               { staticClass: "col-sm-9" },
                               [
-                                !field.relation
+                                field.type === "checkbox" && !field.relation
                                   ? _c("input", {
                                       directives: [
                                         {
@@ -39176,9 +39247,99 @@ var render = function() {
                                       ],
                                       staticClass: "form-control",
                                       attrs: {
-                                        type: "email",
-                                        id: "inputEmail3",
-                                        placeholder: "Email"
+                                        placeholder: field.placeholder,
+                                        type: "checkbox"
+                                      },
+                                      domProps: {
+                                        checked: Array.isArray(
+                                          _vm.data[field.property]
+                                        )
+                                          ? _vm._i(
+                                              _vm.data[field.property],
+                                              null
+                                            ) > -1
+                                          : _vm.data[field.property]
+                                      },
+                                      on: {
+                                        change: function($event) {
+                                          var $$a = _vm.data[field.property],
+                                            $$el = $event.target,
+                                            $$c = $$el.checked ? true : false
+                                          if (Array.isArray($$a)) {
+                                            var $$v = null,
+                                              $$i = _vm._i($$a, $$v)
+                                            if ($$el.checked) {
+                                              $$i < 0 &&
+                                                _vm.$set(
+                                                  _vm.data,
+                                                  field.property,
+                                                  $$a.concat([$$v])
+                                                )
+                                            } else {
+                                              $$i > -1 &&
+                                                _vm.$set(
+                                                  _vm.data,
+                                                  field.property,
+                                                  $$a
+                                                    .slice(0, $$i)
+                                                    .concat($$a.slice($$i + 1))
+                                                )
+                                            }
+                                          } else {
+                                            _vm.$set(
+                                              _vm.data,
+                                              field.property,
+                                              $$c
+                                            )
+                                          }
+                                        }
+                                      }
+                                    })
+                                  : field.type === "radio" && !field.relation
+                                  ? _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.data[field.property],
+                                          expression: "data[field.property]"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        placeholder: field.placeholder,
+                                        type: "radio"
+                                      },
+                                      domProps: {
+                                        checked: _vm._q(
+                                          _vm.data[field.property],
+                                          null
+                                        )
+                                      },
+                                      on: {
+                                        change: function($event) {
+                                          return _vm.$set(
+                                            _vm.data,
+                                            field.property,
+                                            null
+                                          )
+                                        }
+                                      }
+                                    })
+                                  : !field.relation
+                                  ? _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.data[field.property],
+                                          expression: "data[field.property]"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        placeholder: field.placeholder,
+                                        type: field.type
                                       },
                                       domProps: {
                                         value: _vm.data[field.property]
@@ -39202,6 +39363,7 @@ var render = function() {
                                   ? _c("autocomplete-component", {
                                       attrs: {
                                         "css-class": "form-control",
+                                        placeholder: field.placeholder,
                                         name: field.property,
                                         relation: field.relation,
                                         displayColumn: field.relationDisplay
@@ -39363,12 +39525,25 @@ var render = function() {
     "div",
     { staticClass: "table-responsive card card-body" },
     [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          on: {
+            click: function($event) {
+              return _vm.addNew()
+            }
+          }
+        },
+        [_vm._v("New")]
+      ),
+      _vm._v(" "),
       _c("table", { staticClass: "table table-hover" }, [
         _c("thead", [
           _c(
             "tr",
             [
-              _vm._l(_vm.computedColumns, function(column) {
+              _vm._l(_vm.displayColumns, function(column) {
                 return _c("th", { key: column.property }, [
                   _vm._v("\n          " + _vm._s(column.label) + "\n        ")
                 ])
@@ -39387,7 +39562,7 @@ var render = function() {
               "tr",
               { key: data.id },
               [
-                _vm._l(_vm.computedColumns, function(column) {
+                _vm._l(_vm.displayColumns, function(column) {
                   return _c(
                     "td",
                     { key: column.property },

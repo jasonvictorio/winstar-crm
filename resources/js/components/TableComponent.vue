@@ -1,9 +1,10 @@
 <template>
   <div class="table-responsive card card-body">
+    <button class="btn btn-primary" @click="addNew()">New</button>
     <table class="table table-hover">
       <thead>
         <tr>
-          <th v-for="column in computedColumns" :key="column.property">
+          <th v-for="column in displayColumns" :key="column.property">
             {{ column.label }}
           </th>
           <th v-if="editable || deleteable">
@@ -12,7 +13,7 @@
       </thead>
       <tbody>
         <tr v-for="data in data" :key="data.id">
-          <td v-for="column in computedColumns" :key="column.property">
+          <td v-for="column in displayColumns" :key="column.property">
             <input v-if="!column.relation" type="text" class="form-control" :value="getProperty(data, column.property)" :disabled="!column.editable">
             <autocomplete-component v-model="data[column.property]"  v-if="column.relation" css-class="form-control" name="company" relation="companies" displayColumn="name"/>
           </td>
@@ -36,6 +37,7 @@
       columns: Array,
       editable: Array,
       displayProperty: String,
+      allowNew: { type: Boolean, default: true },
       editable: { type: Boolean, default: true },
       deleteable: { type: Boolean, default: true },
       showUpdatedAt: { type: Boolean, default: false },
@@ -53,11 +55,17 @@
       },
     }),
     computed: {
+      apiRoute () {
+        return `/api/${this.apiEndpoint}`
+      },
       computedColumns () {
         let columns = [{ property: 'id', label: 'ID', editable: false }, ...this.columns]
         if (this.showCreatedAt) columns.push({ property: 'created_at', label: 'Date created', editable: false })
         if (this.showUpdatedAt) columns.push({ property: 'updated_at', label: 'Date updated', editable: false })
         return columns.map(this.assignColumnDefaults)
+      },
+      displayColumns () {
+        return this.computedColumns.filter(column => !column.hide)
       },
       editableFields () {
         return this.computedColumns.filter(column => column.editable)
@@ -68,7 +76,7 @@
     },
     methods: {
       async fetchData(page = 1) {
-        const response = await axios.get(`/api/${this.apiEndpoint}?page=${page}`)
+        const response = await axios.get(`${this.apiRoute}?page=${page}`)
         this.data = response.data.data
         this.updatePagination(response.data)
       },
@@ -77,6 +85,7 @@
           editable: true,
           placeholder: column.label,
           type: 'text',
+          hide: false,
         }, column)
       },
       refreshData () {
@@ -98,20 +107,29 @@
           ? `Create New`
           : `${data.id} - ${this.getProperty(data, this.displayProperty)}`
       },
-      saveModal(data) {
-        axios.put(`/api/${this.apiEndpoint}/${data.id}`, data)
-          .then(response => {
-            this.setModalTitle(data)
-            this.refreshData()
-            this.notificationSuccess('Update saved')
-          })
+      async saveModal(data) {
+        const isNewData = _.isNil(data.id)
+        const response = isNewData
+          ? await axios.post(`${this.apiRoute}`, data)
+          : await axios.put(`${this.apiRoute}/${data.id}`, data)
+
+        this.setModalTitle(data)
+        this.refreshData()
+        this.notificationSuccess('Update saved')
       },
       deleteData(data) {
-        axios.delete(`/api/${this.apiEndpoint}/${data.id}`)
+        axios.delete(`${this.apiRoute}/${data.id}`)
           .then(response => {
             this.refreshData()
             this.notificationSuccess('Delete success')
           })
+      },
+      addNew () {
+        const data = {}
+        this.editableFields.forEach(field => {
+          data[field.property] = null
+        });
+        this.editData(data)
       },
       getProperty (data, property) {
         return _.get(data, property)

@@ -36,7 +36,8 @@ class BaseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $xx = $this->model::create($this->formatRequestModel($request->all()));
+        return $xx;
     }
 
     /**
@@ -60,15 +61,7 @@ class BaseController extends Controller
     public function update(Request $request, $id)
     {
         $model = $this->model::findOrFail($id);
-        $updatedModel = [];
-        foreach ($request->all() as $property => $value) {
-            if (is_array($value)) {
-                $updatedModel[$property.'_id'] = $value['id'];
-            } else {
-                $updatedModel[$property] = $value;
-            }
-        }
-        $model->update($updatedModel);
+        $model->update($this->formatRequestModel($request->all()));
         return $this->model::findOrFail($id);
     }
 
@@ -87,5 +80,17 @@ class BaseController extends Controller
 
     public function all() {
         return $this->model::all();
+    }
+
+    public function formatRequestModel ($requestModel) {
+        $updatedModel = [];
+        foreach ($requestModel as $property => $value) {
+            if (is_array($value)) {
+                $updatedModel[$property.'_id'] = $value['id'];
+            } else {
+                $updatedModel[$property] = $value;
+            }
+        }
+        return $updatedModel;
     }
 }

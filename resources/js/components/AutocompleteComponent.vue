@@ -71,7 +71,9 @@
             }
         },
         mounted () {
-            this.selectOption(this.value, false)
+            if (this.value) {
+                this.selectOption(this.value, false)
+            }
         },
         props: [
             'cssClass',
