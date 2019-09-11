@@ -57,7 +57,7 @@
         let columns = [{ property: 'id', label: 'ID', editable: false }, ...this.columns]
         if (this.showCreatedAt) columns.push({ property: 'created_at', label: 'Date created', editable: false })
         if (this.showUpdatedAt) columns.push({ property: 'updated_at', label: 'Date updated', editable: false })
-        return columns.map(column => _.assign({ editable: true }, column))
+        return columns.map(this.assignColumnDefaults)
       },
       editableFields () {
         return this.computedColumns.filter(column => column.editable)
@@ -72,12 +72,19 @@
         this.data = response.data.data
         this.updatePagination(response.data)
       },
+      assignColumnDefaults (column) {
+        return _.assign({
+          editable: true,
+          placeholder: column.label,
+          type: 'text',
+        }, column)
+      },
       refreshData () {
         this.fetchData(this.pagination.current)
       },
       editData (data) {
-        this.modalTitle = `${data.id} - ${this.getProperty(data, this.displayProperty)}`
         this.modalData = _.cloneDeep(data)
+        this.setModalTitle(data)
         this.showModal()
       },
       showModal () {
@@ -86,9 +93,15 @@
       hideModal () {
         this.modalVisible = false
       },
+      setModalTitle (data) {
+        this.modalTitle = _.isNil(data.id)
+          ? `Create New`
+          : `${data.id} - ${this.getProperty(data, this.displayProperty)}`
+      },
       saveModal(data) {
         axios.put(`/api/${this.apiEndpoint}/${data.id}`, data)
           .then(response => {
+            this.setModalTitle(data)
             this.refreshData()
             this.notificationSuccess('Update saved')
           })
