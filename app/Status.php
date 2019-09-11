@@ -17,6 +17,15 @@ class Status extends Model
         'status',
         'type'
     ];
+
+    protected $with = [
+        'company'
+    ];
+
+    public function company()
+    {
+        return $this->belongsTo('\WinstarCRM\Company');
+    }
 }
 
 ?>
