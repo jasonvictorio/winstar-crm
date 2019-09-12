@@ -11,10 +11,6 @@ class StatusType extends Model
         'company_id',
     ];
 
-    protected $with = [
-        'company'
-    ];
-
     public function company()
     {
         return $this->belongsTo('\WinstarCRM\Company');
