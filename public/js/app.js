@@ -39598,8 +39598,8 @@ var render = function() {
                             attrs: {
                               "css-class": "form-control",
                               name: "company",
-                              relation: "companies",
-                              displayColumn: "name"
+                              relation: column.relation,
+                              displayColumn: column.relationDisplay
                             },
                             model: {
                               value: data[column.property],
