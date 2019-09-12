@@ -3,10 +3,6 @@
       [ 'route' => 'companies', 'name' => 'Companies', 'icon' => 'building' ],
       [ 'route' => 'users', 'name' => 'Users', 'icon' => 'user-tie' ],
       [ 'route' => 'status', 'name' => 'Status', 'icon' => 'check-square' ],
-      [ 'route' => 'customers', 'name' => 'Customers', 'icon' => 'user-friends' ],
-      [ 'route' => 'projects', 'name' => 'Projects', 'icon' => 'folder' ],
-      [ 'route' => 'contacts', 'name' => 'Contacts', 'icon' => 'address-book' ],
-      [ 'route' => 'tasks', 'name' => 'Tasks', 'icon' => 'tasks' ],
     ]
 @endphp
 
