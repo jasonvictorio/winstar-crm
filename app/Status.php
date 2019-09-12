@@ -15,6 +15,7 @@ class Status extends Model
     protected $fillable = [
         'company_id',
         'status',
+        'status_type_id',
         'type'
     ];
 
@@ -33,7 +34,7 @@ class Status extends Model
         return $this->belongsTo('\WinstarCRM\Company');
     }
 
-    public function status_type_id()
+    public function status_type()
     {
         return $this->belongsTo('\WinstarCRM\StatusType');
     }
