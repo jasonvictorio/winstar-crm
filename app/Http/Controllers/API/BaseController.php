@@ -12,6 +12,7 @@ class BaseController extends Controller
 {
     protected $modelString;
     protected $model;
+    protected $with = [];
 
     function __construct() {
         $modelString = '\WinstarCRM\\'.$this->modelString;
@@ -25,7 +26,7 @@ class BaseController extends Controller
      */
     public function index()
     {
-        return $this->model::paginate(15);
+        return $this->model::with($this->with)->paginate(15);
     }
 
     /**
