@@ -13,10 +13,19 @@ class BaseController extends Controller
     protected $modelString;
     protected $model;
     protected $with = [];
+    protected $hidden = [];
 
     function __construct() {
         $modelString = '\WinstarCRM\\'.$this->modelString;
         $this->model = new $modelString;
+        $this->hidden = $this->mapWithAsHiddenId();
+    }
+
+    function mapWithAsHiddenId() {
+        $appendIdtoString = function($string) {
+            return $string.'_id';
+        };
+        return array_map($appendIdtoString, $this->with);
     }
 
     /**
