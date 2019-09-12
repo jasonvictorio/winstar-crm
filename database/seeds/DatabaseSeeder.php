@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,6 +15,8 @@ class DatabaseSeeder extends Seeder
         DB::table('companies')->insert([
             'name' => 'Winstar',
             'address' => 'Auckland, NZ',
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         DB::table('users')->insert([
             'access' => 0,
@@ -21,15 +24,21 @@ class DatabaseSeeder extends Seeder
             'name' => 'Super Admin',
             'email' => 'superadmin@winstar.com',
             'password' => bcrypt('password'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         DB::table('status_types')->insert([
             'name' => 'Status type 1',
             'company_id' => 1,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         DB::table('status')->insert([
             'status' => 'Status',
             'company_id' => 1,
             'status_type_id' => 1,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
     }
 }
