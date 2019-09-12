@@ -1,6 +1,5 @@
 @php
     $routes = [
-      [ 'route' => 'home2', 'name' => 'Home', 'icon' => 'home' ],
       [ 'route' => 'companies', 'name' => 'Companies', 'icon' => 'building' ],
       [ 'route' => 'users', 'name' => 'Users', 'icon' => 'user-tie' ],
       [ 'route' => 'status', 'name' => 'Status', 'icon' => 'check-square' ],
@@ -8,7 +7,6 @@
       [ 'route' => 'projects', 'name' => 'Projects', 'icon' => 'folder' ],
       [ 'route' => 'contacts', 'name' => 'Contacts', 'icon' => 'address-book' ],
       [ 'route' => 'tasks', 'name' => 'Tasks', 'icon' => 'tasks' ],
-      [ 'route' => 'table', 'name' => 'Table', 'icon' => 'tasks' ],
     ]
 @endphp
 

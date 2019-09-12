@@ -1933,20 +1933,20 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    lastPage: function lastPage() {
+      return Math.ceil(this.pagination.total / this.pagination.limit);
+    },
+    disableNext: function disableNext() {
+      return this.pagination.current == this.lastPage;
+    },
     pages: function pages() {
       var pages = [];
-      var lastPage = Math.round(this.pagination.total / this.pagination.limit);
 
-      for (var index = 0; index < lastPage; index++) {
+      for (var index = 0; index < this.lastPage; index++) {
         pages[index] = index + 1;
       }
 
       return pages;
-    },
-    disableNext: function disableNext() {
-      var lastPage = Math.round(this.pagination.total / this.pagination.limit);
-      var currentPage = this.pagination.current;
-      return currentPage == lastPage;
     }
   },
   methods: {
@@ -1987,6 +1987,9 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
 //
 //
 //
@@ -39526,16 +39529,29 @@ var render = function() {
     { staticClass: "table-responsive card card-body" },
     [
       _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          on: {
-            click: function($event) {
-              return _vm.addNew()
-            }
-          }
-        },
-        [_vm._v("New")]
+        "div",
+        { staticClass: "d-flex align-items-center justify-content-between" },
+        [
+          _c("pagination-component", {
+            staticClass: "mt-3",
+            attrs: { pagination: _vm.pagination },
+            on: { paginate: _vm.fetchData }
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary",
+              on: {
+                click: function($event) {
+                  return _vm.addNew()
+                }
+              }
+            },
+            [_c("i", { staticClass: "fa fa-plus" }), _vm._v(" Add new item")]
+          )
+        ],
+        1
       ),
       _vm._v(" "),
       _c("table", { staticClass: "table table-hover" }, [
