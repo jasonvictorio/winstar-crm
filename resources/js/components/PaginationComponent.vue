@@ -27,18 +27,18 @@
       },
     },
     computed: {
+      lastPage () {
+        return Math.ceil(this.pagination.total / this.pagination.limit)
+      },
+      disableNext () {
+        return this.pagination.current == this.lastPage
+      },
       pages () {
         let pages = []
-        const lastPage = Math.round(this.pagination.total / this.pagination.limit)
-        for (let index = 0; index < lastPage; index++) {
+        for (let index = 0; index < this.lastPage; index++) {
           pages[index] = index + 1
         }
         return pages
-      },
-      disableNext () {
-        const lastPage = Math.round(this.pagination.total / this.pagination.limit)
-        const currentPage = this.pagination.current
-        return currentPage == lastPage
       },
     },
     methods: {
