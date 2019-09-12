@@ -29,3 +29,4 @@ createApiRoute('users', 'API\UsersController');
 createApiRoute('status', 'API\StatusController');
 createApiRoute('customers', 'API\CustomerController');
 createApiRoute('status-types', 'API\StatusTypesController');
+createApiRoute('access', 'API\AccessController');
