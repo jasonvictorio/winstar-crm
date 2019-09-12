@@ -11,7 +11,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $companies = factory(WinstarCRM\Company::class, 30)->create();
-        $users = factory(WinstarCRM\User::class, 30)->create();
+        DB::table('companies')->insert([
+            'name' => 'Winstar',
+            'address' => 'Auckland, NZ',
+        ]);
+        DB::table('users')->insert([
+            'access' => 0,
+            'company_id' => 1,
+            'name' => 'Super Admin',
+            'email' => 'admin@winstar.com',
+            'password' => bcrypt('password'),
+        ]);
     }
 }
