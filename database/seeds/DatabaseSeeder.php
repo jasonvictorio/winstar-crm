@@ -19,8 +19,12 @@ class DatabaseSeeder extends Seeder
             'access' => 0,
             'company_id' => 1,
             'name' => 'Super Admin',
-            'email' => 'admin@winstar.com',
+            'email' => 'superadmin@winstar.com',
             'password' => bcrypt('password'),
+        ]);
+        DB::table('status_types')->insert([
+            'name' => 'Status type 1',
+            'company_id' => 1,
         ]);
     }
 }
