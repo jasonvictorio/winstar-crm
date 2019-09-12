@@ -26,5 +26,10 @@ class DatabaseSeeder extends Seeder
             'name' => 'Status type 1',
             'company_id' => 1,
         ]);
+        DB::table('status')->insert([
+            'status' => 'Status',
+            'company_id' => 1,
+            'status_type_id' => 1,
+        ]);
     }
 }

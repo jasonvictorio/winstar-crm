@@ -18,14 +18,24 @@ class Status extends Model
         'type'
     ];
 
+    protected $hidden = [
+        'company_id',
+        'status_type_id',
+    ];
+
     protected $with = [
-        'company'
+        'company',
+        'status_type',
     ];
 
     public function company()
     {
         return $this->belongsTo('\WinstarCRM\Company');
     }
-}
 
+    public function status_type_id()
+    {
+        return $this->belongsTo('\WinstarCRM\StatusType');
+    }
+}
 ?>
