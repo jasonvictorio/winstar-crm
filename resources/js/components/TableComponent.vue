@@ -1,6 +1,9 @@
 <template>
   <div class="table-responsive card card-body">
-    <button class="btn btn-primary" @click="addNew()">New</button>
+    <div class="d-flex align-items-center justify-content-between">
+      <pagination-component class="mt-3" :pagination="pagination" @paginate="fetchData"/>
+      <button class="btn btn-primary" @click="addNew()"><i class="fa fa-plus"></i> Add new item</button>
+    </div>
     <table class="table table-hover">
       <thead>
         <tr>
