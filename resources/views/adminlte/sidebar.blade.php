@@ -3,6 +3,7 @@
       [ 'route' => 'companies', 'name' => 'Companies', 'icon' => 'building' ],
       [ 'route' => 'users', 'name' => 'Users', 'icon' => 'user-tie' ],
       [ 'route' => 'status', 'name' => 'Status', 'icon' => 'check-square' ],
+      [ 'route' => 'status-types', 'name' => 'Status Types', 'icon' => 'check-square' ],
     ]
 @endphp
 
