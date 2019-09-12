@@ -26,6 +26,7 @@ function createApiRoute ($route, $controller) {
 
 createApiRoute('companies', 'API\CompaniesController');
 createApiRoute('users', 'API\UsersController');
+createApiRoute('accesses', 'API\AccessController');
 createApiRoute('status', 'API\StatusController');
 createApiRoute('customers', 'API\CustomerController');
 createApiRoute('status-types', 'API\StatusTypesController');

@@ -16,8 +16,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'access',
         'company_id',
+        'access_id',
         'name',
         'email',
         'password',
@@ -51,5 +51,10 @@ class User extends Authenticatable
     public function company()
     {
         return $this->belongsTo('\WinstarCRM\Company');
+    }
+
+    public function access()
+    {
+        return $this->belongsTo('\WinstarCRM\Access');
     }
 }
