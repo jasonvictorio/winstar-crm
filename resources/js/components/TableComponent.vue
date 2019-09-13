@@ -17,7 +17,7 @@
       <tbody>
         <tr v-for="data in data" :key="data.id">
           <td v-for="column in displayColumns" :key="column.property">
-            <input v-if="!column.relation" type="text" class="form-control" :value="getProperty(data, column.property)" :disabled="!column.editable">
+            <input v-if="!column.relation" type="text" @blur="onInputBlur($event, data, column)" class="form-control" :value="data[column.property]" :disabled="!column.editable">
             <autocomplete-component v-model="data[column.property]"  v-if="column.relation" css-class="form-control" name="company" :relation="column.relation" :displayColumn="column.relationDisplay"/>
           </td>
           <td v-if="editable || deleteable">
@@ -29,7 +29,7 @@
     </table>
 
     <pagination-component class="mt-3" :pagination="pagination" @paginate="fetchData"/>
-    <modal-component :visible="modalVisible" @hideModal="hideModal" @save="saveModal" :title="modalTitle" :fields="editableFields" :data="modalData" />
+    <modal-component :visible="modalVisible" @hideModal="hideModal" @save="saveData" :title="modalTitle" :fields="editableFields" :data="modalData" />
   </div>
 </template>
 
@@ -83,6 +83,16 @@
         this.data = response.data.data
         this.updatePagination(response.data)
       },
+      onInputBlur(event, data, column) {
+        const newValue = event.target.value
+        const oldValue = data[column.property]
+        if (_.isEqual(newValue, oldValue)) return
+
+        const updatedData = _.merge(data, {
+          [column.property]: newValue
+        })
+        this.saveData(updatedData)
+      },
       assignColumnDefaults (column) {
         return _.assign({
           editable: true,
@@ -108,9 +118,9 @@
       setModalTitle (data) {
         this.modalTitle = _.isNil(data.id)
           ? `Create New`
-          : `${data.id} - ${this.getProperty(data, this.displayProperty)}`
+          : `${data.id} - ${data[this.displayProperty]}`
       },
-      async saveModal(data) {
+      async saveData(data) {
         const isNewData = _.isNil(data.id)
         const response = isNewData
           ? await axios.post(`${this.apiRoute}`, data)
@@ -133,9 +143,6 @@
           data[field.property] = null
         });
         this.editData(data)
-      },
-      getProperty (data, property) {
-        return _.get(data, property)
       },
       updatePagination (response) {
         this.pagination = {
