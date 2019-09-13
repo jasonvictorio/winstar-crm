@@ -8,7 +8,13 @@
       <thead>
         <tr>
           <th v-for="column in displayColumns" :key="column.property">
-            {{ column.label }}
+            <div class="d-flex align-items-center">
+              <span>{{ column.label }}</span>
+              <div class="ml-auto" v-if="column.sort">
+                <button class="btn btn-sm" @click="sortColumn(column, 'asc')"><i class="fa fa-arrow-up"></i></button>
+                <button class="btn btn-sm" @click="sortColumn(column, 'desc')"><i class="fa fa-arrow-down"></i></button>
+              </div>
+            </div>
           </th>
           <th v-if="editable || deleteable">
           </th>
@@ -51,6 +57,8 @@
       modalTitle: '',
       modalVisible: false,
       modalData: null,
+      sortBy: 'id',
+      sortOrder: 'asc',
       pagination: {
         total: 0,
         current: 1,
@@ -73,18 +81,37 @@
       editableFields () {
         return this.computedColumns.filter(column => column.editable)
       },
+      sortHeaders () {
+        return {
+          sortBy: this.sortBy,
+          sortOrder: this.sortOrder,
+        }
+      },
     },
     mounted () {
       this.fetchData();
     },
     methods: {
       async fetchData(page = 1) {
-        const response = await axios.get(`${this.apiRoute}?page=${page}`)
+        const response = await axios.get(`${this.apiRoute}?page=${page}`, {
+          headers: this.sortHeaders
+        })
         this.data = response.data.data
         this.updatePagination(response.data)
       },
       clone(data) {
         return _.clone(data)
+      },
+      sortColumn(column, sortOrder) {
+        const sortBy = column.relation
+          ? `${column.property}_id`
+          : column.property
+        this.sort(sortBy, sortOrder)
+      },
+      sort(sortBy, sortOrder) {
+        this.sortBy = sortBy
+        this.sortOrder = sortOrder
+        this.refreshData()
       },
       onInputBlur(newValue, data, column) {
         const oldValue = data[column.property]
@@ -101,6 +128,7 @@
           placeholder: column.label,
           type: 'text',
           hide: false,
+          sort: true,
         }, column)
       },
       refreshData () {

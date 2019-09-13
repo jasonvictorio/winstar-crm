@@ -33,9 +33,11 @@ class BaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->model::with($this->with)->paginate(15);
+        $sortBy = $request->header('sortBy');
+        $sortOrder = $request->header('sortOrder');
+        return $this->model::with($this->with)->orderBy($sortBy, $sortOrder)->paginate(15);
     }
 
     /**
