@@ -55,6 +55,7 @@
                 this.isOptionsVisible = true
             },
             hideOptions () {
+                this.$emit('blur', this.selectedOption)
                 this.isOptionsVisible = false
             },
             updateOptionsPosition () {

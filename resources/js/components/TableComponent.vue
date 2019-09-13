@@ -17,8 +17,8 @@
       <tbody>
         <tr v-for="data in data" :key="data.id">
           <td v-for="column in displayColumns" :key="column.property">
-            <input v-if="!column.relation" type="text" @blur="onInputBlur($event, data, column)" class="form-control" :value="data[column.property]" :disabled="!column.editable">
-            <autocomplete-component v-model="data[column.property]"  v-if="column.relation" css-class="form-control" name="company" :relation="column.relation" :displayColumn="column.relationDisplay"/>
+            <input v-if="!column.relation" type="text" @blur="onInputBlur($event.target.value, data, column)" class="form-control" :value="data[column.property]" :disabled="!column.editable">
+            <autocomplete-component :value="clone(data[column.property])" @blur="(newValue) => onInputBlur(newValue, data, column)"  v-if="column.relation" css-class="form-control" name="company" :relation="column.relation" :displayColumn="column.relationDisplay"/>
           </td>
           <td v-if="editable || deleteable">
             <button v-if="editable" class="btn btn-primary" @click="editData(data)"><i class="far fa-edit"></i></button>
@@ -83,8 +83,10 @@
         this.data = response.data.data
         this.updatePagination(response.data)
       },
-      onInputBlur(event, data, column) {
-        const newValue = event.target.value
+      clone(data) {
+        return _.clone(data)
+      },
+      onInputBlur(newValue, data, column) {
         const oldValue = data[column.property]
         if (_.isEqual(newValue, oldValue)) return
 
