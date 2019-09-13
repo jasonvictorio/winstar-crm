@@ -13,10 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::post('login', 'API\AuthController@login');
 Route::post('register', 'API\AuthController@register');
 
@@ -27,10 +23,15 @@ function createApiRoute ($route, $controller) {
     ];
 }
 
-createApiRoute('companies', 'API\CompaniesController');
-createApiRoute('users', 'API\UsersController');
-createApiRoute('accesses', 'API\AccessController');
-createApiRoute('status', 'API\StatusController');
-createApiRoute('customers', 'API\CustomerController');
-createApiRoute('status-types', 'API\StatusTypesController');
-createApiRoute('access', 'API\AccessController');
+Route::group(['middleware' => 'auth:api'], function() {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+    createApiRoute('companies', 'API\CompaniesController');
+    createApiRoute('users', 'API\UsersController');
+    createApiRoute('accesses', 'API\AccessController');
+    createApiRoute('status', 'API\StatusController');
+    createApiRoute('customers', 'API\CustomerController');
+    createApiRoute('status-types', 'API\StatusTypesController');
+    createApiRoute('access', 'API\AccessController');
+});
