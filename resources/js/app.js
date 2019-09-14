@@ -23,6 +23,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('business-module-component', require('./components/BusinessModuleComponent.vue').default);
 Vue.component('autocomplete-component', require('./components/AutocompleteComponent.vue').default);
 Vue.component('table-component', require('./components/TableComponent.vue').default);
 Vue.component('pagination-component', require('./components/PaginationComponent.vue').default);
