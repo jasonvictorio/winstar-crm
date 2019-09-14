@@ -10,9 +10,13 @@
           <th v-for="column in displayColumns" :key="column.property">
             <div class="d-flex align-items-center">
               <span>{{ column.label }}</span>
-              <div class="ml-auto" v-if="column.sort">
-                <button class="btn btn-sm" @click="sortColumn(column, 'asc')"><i class="fa fa-arrow-up"></i></button>
-                <button class="btn btn-sm" @click="sortColumn(column, 'desc')"><i class="fa fa-arrow-down"></i></button>
+              <div class="ml-auto sort" :class="{ active: sortBy.property == column.property }" v-if="column.sort">
+                <button class="btn btn-sm sort-button" @click="sort(column, 'asc')" :class="{ active: sortOrder == 'asc' }">
+                  <i class="fa fa-arrow-up"></i>
+                </button>
+                <button class="btn btn-sm sort-button" @click="sort(column, 'desc')" :class="{ active: sortOrder == 'desc' }">
+                  <i class="fa fa-arrow-down"></i>
+                </button>
               </div>
             </div>
           </th>
@@ -57,7 +61,7 @@
       modalTitle: '',
       modalVisible: false,
       modalData: null,
-      sortBy: 'id',
+      sortBy: { property: 'id' },
       sortOrder: 'asc',
       pagination: {
         total: 0,
@@ -82,8 +86,11 @@
         return this.computedColumns.filter(column => column.editable)
       },
       sortHeaders () {
+        const sortBy = this.sortBy.relation
+          ? `${this.sortBy.property}_id`
+          : this.sortBy.property
         return {
-          sortBy: this.sortBy,
+          sortBy: sortBy,
           sortOrder: this.sortOrder,
         }
       },
@@ -101,12 +108,6 @@
       },
       clone(data) {
         return _.clone(data)
-      },
-      sortColumn(column, sortOrder) {
-        const sortBy = column.relation
-          ? `${column.property}_id`
-          : column.property
-        this.sort(sortBy, sortOrder)
       },
       sort(sortBy, sortOrder) {
         this.sortBy = sortBy
@@ -218,5 +219,19 @@
 
   table >>> .form-control:focus {
     background-color: #fff;
+  }
+
+  .sort-button {
+    opacity: 0.2;
+    padding: 0;
+    transition: opacity 200ms ease-in-out;
+  }
+
+  .sort-button:hover {
+    opacity: 0.5;
+  }
+
+  .sort.active .sort-button.active {
+    opacity: 1;
   }
 </style>
