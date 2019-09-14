@@ -1,6 +1,6 @@
-@extends('adminlte.layout   ')
+@extends('adminlte.layout')
 
-@section('title', 'Companies')
+@section('title', 'Status')
 
 @section('content')
   <business-module-component

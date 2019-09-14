@@ -1,5 +1,7 @@
 @extends('auth.guest')
 
+@section('title', 'Reset Password')
+
 @section('content')
 <div class="login-box" style="width: 500px">
     <div class="login-logo">
