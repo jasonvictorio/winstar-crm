@@ -8,4 +8,5 @@ class StatusTypesController extends BaseController
 {
     protected $modelString = 'StatusType';
     protected $with = ['company'];
+    protected $appendUserCompany = true;
 }

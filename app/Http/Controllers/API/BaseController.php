@@ -14,6 +14,7 @@ class BaseController extends Controller
     protected $model;
     protected $with = [];
     protected $hidden = [];
+    protected $appendUserCompany = false;
 
     function __construct() {
         $modelString = '\WinstarCRM\\'.$this->modelString;
@@ -51,7 +52,7 @@ class BaseController extends Controller
      */
     public function store(Request $request)
     {
-        $xx = $this->model::create($this->formatRequestModel($request->all()));
+        $xx = $this->model::create($this->formatRequestModel($request));
         return $xx;
     }
 
@@ -76,7 +77,7 @@ class BaseController extends Controller
     public function update(Request $request, $id)
     {
         $model = $this->model::findOrFail($id);
-        $model->update($this->formatRequestModel($request->all()));
+        $model->update($this->formatRequestModel($request));
         return $this->model::findOrFail($id);
     }
 
@@ -97,15 +98,18 @@ class BaseController extends Controller
         return $this->model::all();
     }
 
-    public function formatRequestModel ($requestModel) {
-        $updatedModel = [];
-        foreach ($requestModel as $property => $value) {
+    public function formatRequestModel ($request) {
+        $model = [];
+        foreach ($request->all() as $property => $value) {
             if (is_array($value)) {
-                $updatedModel[$property.'_id'] = $value['id'];
+                $model[$property.'_id'] = $value['id'];
             } else {
-                $updatedModel[$property] = $value;
+                $model[$property] = $value;
             }
         }
-        return $updatedModel;
+        if ($this->appendUserCompany) {
+            $model['company_id'] = isset($model['company_id']) ? $model['company_id'] : $request->user()->company_id;
+        }
+        return $model;
     }
 }
