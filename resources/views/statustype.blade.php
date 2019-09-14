@@ -3,7 +3,7 @@
 @section('title', 'Status Type')
 
 @section('content')
-  <table-component
+  <business-module-component
     api-endpoint="status-types"
     display-property="name"
     :columns="[

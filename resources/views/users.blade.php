@@ -3,7 +3,7 @@
 @section('title', 'Users')
 
 @section('content')
-  <table-component
+  <business-module-component
     api-endpoint="users"
     display-property="name"
     :columns="[
