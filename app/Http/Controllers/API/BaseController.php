@@ -35,9 +35,12 @@ class BaseController extends Controller
      */
     public function index(Request $request)
     {
-        $sortBy = $request->header('sortBy');
-        $sortOrder = $request->header('sortOrder');
-        return $this->model::with($this->with)->orderBy($sortBy, $sortOrder)->paginate(15);
+        $sortBy = $request->header('sortBy') ?: 'id';
+        $sortOrder = $request->header('sortOrder') ?: 'asc';
+        $result = $this->model::with($this->with)->orderBy($sortBy, $sortOrder)->paginate(15);
+        $data = $result->makeHidden($this->hidden);
+        $result->data = $data;
+        return $result;
     }
 
     /**

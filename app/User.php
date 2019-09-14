@@ -32,7 +32,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'company_id',
         'email_verified_at',
     ];
 
@@ -44,10 +43,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    // protected $with = [
-    //     'company'
-    // ];
 
     public function company()
     {
