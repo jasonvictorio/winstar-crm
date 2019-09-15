@@ -12,7 +12,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form @submit="save">
+              <form @submit.prevent="save">
                 <div class="form-group row" v-for="field in fields" :key="field.property">
                   <label for="inputEmail3" class="col-sm-3 col-form-label">{{ field.label }}</label>
                   <div class="col-sm-9">
