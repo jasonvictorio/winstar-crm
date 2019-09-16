@@ -44,6 +44,9 @@ class DatabaseSeeder extends Seeder
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
+
+        \WinstarCRM\User::find(1)->sendEmailVerificationNotification();
+
         DB::table('status_types')->insert([
             'name' => 'Status type 1',
             'company_id' => 1,
