@@ -4,13 +4,13 @@
 
 @section('content')
   <business-module-component
-    api-endpoint="users"
+    api-endpoint="user"
     display-property="name"
     :columns="[
       { property: 'name', label: 'Name' },
-      { property: 'company', label: 'Company', relation: 'companies', relationDisplay: 'name' },
+      { property: 'company', label: 'Company', relation: 'company', relationDisplay: 'name' },
       { property: 'email', label: 'Email', type: 'email' },
-      { property: 'access', label: 'Access', relation: 'accesses', relationDisplay: 'name' },
+      { property: 'access', label: 'Access', relation: 'access', relationDisplay: 'name' },
     ]"
   />
 @endsection

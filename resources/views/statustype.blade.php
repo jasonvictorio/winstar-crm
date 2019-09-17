@@ -4,7 +4,7 @@
 
 @section('content')
   <business-module-component
-    api-endpoint="status-types"
+    api-endpoint="status-type"
     display-property="name"
     :columns="[
         { property: 'name', label: 'name' },

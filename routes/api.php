@@ -27,12 +27,11 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-    createApiRoute('companies', 'API\CompaniesController');
-    createApiRoute('users', 'API\UsersController');
-    createApiRoute('accesses', 'API\AccessController');
-    createApiRoute('status', 'API\StatusController');
-    createApiRoute('customers', 'API\CustomerController');
-    createApiRoute('status-types', 'API\StatusTypesController');
+    createApiRoute('company', 'API\CompanyController');
+    createApiRoute('user', 'API\UserController');
     createApiRoute('access', 'API\AccessController');
+    createApiRoute('status', 'API\StatusController');
+    createApiRoute('customer', 'API\CustomerController');
+    createApiRoute('status-type', 'API\StatusTypeController');
     createApiRoute('nature-of-contact', 'API\NatureOfContactController');
 });

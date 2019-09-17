@@ -15,9 +15,9 @@ Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => ['auth']], function () {
   Route::view('/', 'home')->name('home');
-  Route::view('/users', 'users')->name('users');
-  Route::view('/companies', 'companies')->name('companies');
+  Route::view('/user', 'user')->name('user');
+  Route::view('/company', 'company')->name('company');
   Route::view('/status', 'status')->name('status');
-  Route::view('/status-types', 'statustype')->name('statusTypes');
+  Route::view('/status-type', 'statustype')->name('statusType');
   Route::view('/nature-of-contact', 'natureofcontact')->name('natureOfContact');
 });

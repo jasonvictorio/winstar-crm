@@ -1,9 +1,9 @@
 @php
     $routes = [
-      [ 'route' => 'companies', 'name' => 'Companies', 'icon' => 'building' ],
-      [ 'route' => 'users', 'name' => 'Users', 'icon' => 'user-tie' ],
+      [ 'route' => 'company', 'name' => 'Company', 'icon' => 'building' ],
+      [ 'route' => 'user', 'name' => 'User', 'icon' => 'user-tie' ],
       [ 'route' => 'status', 'name' => 'Status', 'icon' => 'check-square' ],
-      [ 'route' => 'status-types', 'name' => 'Status Types', 'icon' => 'check-square' ],
+      [ 'route' => 'status-type', 'name' => 'Status Type', 'icon' => 'check-square' ],
       [ 'route' => 'nature-of-contact', 'name' => 'Nature of Contact', 'icon' => 'check-square' ],
     ]
 @endphp

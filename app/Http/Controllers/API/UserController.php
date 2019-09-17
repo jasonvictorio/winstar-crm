@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 use WinstarCRM\Http\Controllers\API\BaseController;
 
-class UsersController extends BaseController
+class UserController extends BaseController
 {
     protected $modelString = 'User';
     protected $with = ['company', 'access'];

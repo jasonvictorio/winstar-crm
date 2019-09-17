@@ -4,7 +4,7 @@
 
 @section('content')
   <business-module-component
-    api-endpoint="companies"
+    api-endpoint="company"
     display-property="name"
     :columns="[
       { property: 'name', label: 'Name' },
