@@ -4,6 +4,7 @@
       [ 'route' => 'users', 'name' => 'Users', 'icon' => 'user-tie' ],
       [ 'route' => 'status', 'name' => 'Status', 'icon' => 'check-square' ],
       [ 'route' => 'status-types', 'name' => 'Status Types', 'icon' => 'check-square' ],
+      [ 'route' => 'nature-of-contact', 'name' => 'Nature of Contact', 'icon' => 'check-square' ],
     ]
 @endphp
 
