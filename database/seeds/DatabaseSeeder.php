@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         DB::table('status')->insert([
-            'status' => 'Status',
+            'name' => 'Status 1',
             'company_id' => 1,
             'status_type_id' => 1,
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
