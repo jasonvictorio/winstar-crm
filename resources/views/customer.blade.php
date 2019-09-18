@@ -11,6 +11,8 @@
       { property: 'company', label: 'Company', relation: 'company', relationDisplay: 'name' },
       { property: 'status', label: 'Status', relation: 'status', relationDisplay: 'status' },
       { property: 'nature_of_contact', label: 'Nature of Contact', relation: 'nature-of-contact', relationDisplay: 'name' },
+      { property: 'first_contacted', label: 'First Contacted', type: 'date' },
+      { property: 'last_contacted', label: 'Last Contacted', type: 'date' },
     ]"
   />
 @endsection
