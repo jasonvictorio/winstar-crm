@@ -102,9 +102,10 @@
       },
       assignColumnDefaults (column) {
         return _.assign({
-          editable: true,
-          placeholder: column.label,
+          label: _.startCase(column.property),
+          placeholder: column.property,
           type: 'text',
+          editable: true,
           hide: false,
           sort: true,
         }, column)
