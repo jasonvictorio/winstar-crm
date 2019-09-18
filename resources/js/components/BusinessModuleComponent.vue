@@ -103,7 +103,7 @@
       assignColumnDefaults (column) {
         return _.assign({
           label: _.startCase(column.property),
-          placeholder: column.property,
+          placeholder: column.label || _.startCase(column.property),
           type: 'text',
           editable: true,
           hide: false,
