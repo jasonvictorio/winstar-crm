@@ -34,4 +34,5 @@ Route::group(['middleware' => 'auth:api'], function() {
     createApiRoute('customer', 'API\CustomerController');
     createApiRoute('status-type', 'API\StatusTypeController');
     createApiRoute('nature-of-contact', 'API\NatureOfContactController');
+    createApiRoute('customer', 'API\CustomerController');
 });
