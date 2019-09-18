@@ -19,7 +19,7 @@ class UserController extends BaseController
             'access_id' => $requestModel['access_id'],
             'name' => $requestModel['name'],
             'email' => $requestModel['email'],
-            'password' => Hash::make(Str::random(10)),
+            'password' => Hash::make($requestModel['password']),
         ]);
         $model->sendEmailVerificationNotification();
         return $model;

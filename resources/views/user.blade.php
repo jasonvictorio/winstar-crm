@@ -11,6 +11,7 @@
       { property: 'company', label: 'Company', relation: 'company', relationDisplay: 'name' },
       { property: 'email', label: 'Email', type: 'email' },
       { property: 'access', label: 'Access', relation: 'access', relationDisplay: 'name' },
+      { property: 'password', label: 'Password', type: 'password', hide: true, editable: false },
     ]"
   />
 @endsection

@@ -52,8 +52,8 @@ class BaseController extends Controller
      */
     public function store(Request $request)
     {
-        $xx = $this->model::create($this->formatRequestModel($request));
-        return $xx;
+        $model = $this->model::create($this->formatRequestModel($request));
+        return $model;
     }
 
     /**

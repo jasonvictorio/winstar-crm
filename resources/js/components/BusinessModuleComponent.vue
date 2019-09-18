@@ -63,7 +63,7 @@
         return this.computedColumns.filter(column => !column.hide)
       },
       editableFields () {
-        return this.computedColumns.filter(column => column.editable)
+        return this.computedColumns.filter(column => column.editable || (!column.editable && column.hide))
       },
       sortHeaders () {
         const sortBy = this.sortBy.relation
