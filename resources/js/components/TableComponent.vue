@@ -6,7 +6,7 @@
           <div class="d-flex align-items-center">
             <span>{{ column.label }}</span>
             <div class="ml-auto sort" :class="{ active: sortBy.property == column.property }" v-if="column.sort">
-              <button class="btn btn-sm sort-button" @click="sort(column)" :class="{ active: sortOrder == 'asc' }">
+              <button class="btn btn-sm sort-button active" @click="sort(column)">
                 <template v-if="sortBy.property == column.property">
                   <i class="fa fa-sort-up" v-if="sortOrder == 'asc'" ></i>
                   <i class="fa fa-sort-down" v-if="sortOrder == 'desc'" ></i>
