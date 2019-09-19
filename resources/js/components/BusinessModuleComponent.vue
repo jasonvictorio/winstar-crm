@@ -20,7 +20,7 @@
     <pagination-component class="mt-3"
       :from="pagination.from"
       :to="pagination.to"
-      :total="pagination.to"
+      :total="pagination.total"
       :perPage="pagination.perPage"
       :currentPage="pagination.currentPage"
       :lastPage="pagination.lastPage"
@@ -51,14 +51,13 @@
       modalData: null,
       sortBy: { property: 'id' },
       sortOrder: 'asc',
-      limit: 10,
       pagination: {
         currentPage: 1,
         lastPage: 1,
         from: 1,
         to: 1,
         total: 1,
-        perPage: 1,
+        perPage: 10,
       },
     }),
     computed: {
@@ -84,7 +83,7 @@
         return {
           sortBy: sortBy,
           sortOrder: this.sortOrder,
-          perPage: this.limit,
+          perPage: this.pagination.perPage,
         }
       },
     },
@@ -174,7 +173,7 @@
           from: response.from,
           to: response.to,
           total: response.total,
-          perPage: response.per_page,
+          perPage: Number(response.per_page),
         }
       },
       notificationSuccess (message) {
@@ -185,7 +184,7 @@
         })
       },
       onLimitChange(limit) {
-        this.limit = limit
+        this.pagination.perPage = limit
         this.fetchData(1)
       }
     },

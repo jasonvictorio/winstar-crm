@@ -14,7 +14,7 @@
     <span>{{ display }}</span>
     <div class="d-flex align-items-center ml-auto">
       <p class="mb-0 mr-2">Show</p>
-      <select class="custom-select custom-select-sm" value="perPage" @input="onLimitChange($event)">
+      <select class="custom-select custom-select-sm" value="perPage" @change="onLimitChange($event)">
         <option v-for="limit in limits" :value="limit" :key="limit">{{limit}}</option>
       </select>
     </div>
@@ -47,7 +47,7 @@
         this.$emit('paginate', page)
       },
       onLimitChange(event) {
-        this.$emit('limitChange', event.target.value)
+        this.$emit('limitChange', Number(event.target.value))
       }
     },
   }
