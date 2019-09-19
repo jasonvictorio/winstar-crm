@@ -1,7 +1,7 @@
 <template>
   <div class="table-responsive card card-body">
     <div class="d-flex align-items-center justify-content-between">
-      <pagination-component class="mt-3" :pagination="pagination" @paginate="fetchData"/>
+      <pagination-component class="mt-3" :pagination="pagination" @paginate="fetchData" @limitChange="onLimitChange" />
       <button class="btn btn-primary" @click="addNew()"><i class="fa fa-plus"></i> Add new item</button>
     </div>
     <table-component
@@ -43,6 +43,7 @@
       modalData: null,
       sortBy: { property: 'id' },
       sortOrder: 'asc',
+      limit: 10,
       pagination: {
         total: 0,
         current: 1,
@@ -72,6 +73,7 @@
         return {
           sortBy: sortBy,
           sortOrder: this.sortOrder,
+          perPage: this.limit,
         }
       },
     },
@@ -168,6 +170,10 @@
           type: 'success',
         })
       },
+      onLimitChange(limit) {
+        this.limit = limit
+        this.fetchData(1)
+      }
     },
   }
 </script>

@@ -11,6 +11,9 @@
         <button class="page-link" @click="paginate(pagination.current+1)" :disabled="disableNext">Next</button>
       </li>
     </ul>
+    <select class="form-control" value="pagination.limit" @input="onLimitChange($event)">
+      <option v-for="limit in limits" :value="limit" :key="limit">{{limit}}</option>
+    </select>
   </div>
 </template>
 
@@ -26,6 +29,9 @@
         },
       },
     },
+    data: () => ({
+      limits: [10, 20, 40, 80],
+    }),
     computed: {
       lastPage () {
         return Math.ceil(this.pagination.total / this.pagination.limit)
@@ -45,10 +51,9 @@
       paginate: function (page) {
         this.$emit('paginate', page)
       },
+      onLimitChange(event) {
+        this.$emit('limitChange', event.target.value)
+      }
     },
   }
 </script>
-
-<style scoped>
-
-</style>
