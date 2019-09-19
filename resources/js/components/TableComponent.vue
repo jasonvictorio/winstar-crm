@@ -6,12 +6,16 @@
           <div class="d-flex align-items-center">
             <span>{{ column.label }}</span>
             <div class="ml-auto sort" :class="{ active: sortBy.property == column.property }" v-if="column.sort">
-              <button class="btn btn-sm sort-button" @click="$emit('sort', column, 'asc')" :class="{ active: sortOrder == 'asc' }">
-                <i class="fa fa-arrow-up"></i>
+              <button class="btn btn-sm sort-button" @click="sort(column)" :class="{ active: sortOrder == 'asc' }">
+                <template v-if="sortBy.property == column.property">
+                  <i class="fa fa-sort-up" v-if="sortOrder == 'asc'" ></i>
+                  <i class="fa fa-sort-down" v-if="sortOrder == 'desc'" ></i>
+                </template>
+                <i class="fa fa-sort" v-if="sortBy.property != column.property"></i>
               </button>
-              <button class="btn btn-sm sort-button" @click="$emit('sort', column, 'desc')" :class="{ active: sortOrder == 'desc' }">
+              <!-- <button class="btn btn-sm sort-button" @click="$emit('sort', column, 'desc')" :class="{ active: sortOrder == 'desc' }">
                 <i class="fa fa-arrow-down"></i>
-              </button>
+              </button> -->
             </div>
           </div>
         </th>
@@ -56,6 +60,12 @@
       clone(data) {
         return _.clone(data)
       },
+      sort(column) {
+        const sortOrder = column.property == this.sortBy.property
+          ? (this.sortOrder == 'asc' ? 'desc' : 'asc')
+          : 'asc'
+        this.$emit('sort', column, sortOrder)
+      }
     },
   }
 </script>
