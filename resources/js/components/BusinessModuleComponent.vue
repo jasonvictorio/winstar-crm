@@ -108,6 +108,7 @@
           editable: true,
           hide: false,
           sort: true,
+          required: false,
         }, column)
       },
       refreshData () {

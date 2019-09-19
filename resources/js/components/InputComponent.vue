@@ -6,6 +6,7 @@
       :class="cssClass"
       :disabled="disabled"
       :placeholder="placeholder"
+      :required="required"
       @input="onInput($event.target.value)"
       @blur="onBlur($event)"
     />
@@ -15,6 +16,7 @@
       :relation="relation"
       :displayColumn="relationDisplay"
       :placeholder="placeholder"
+      :required="required"
       @input="onInput($event)"
       @blur="onBlur($event)"
     />
@@ -31,6 +33,7 @@
       cssClass: { type: String, default: null },
       disabled: { type: Boolean, default: false },
       placeholder: { type: String, default: '' },
+      required: { type: Boolean, default: false },
     },
     computed: {
 
@@ -40,7 +43,7 @@
         this.$emit('input', event)
       },
       onBlur(event) {
-        const newValue = event.srcElement
+        const newValue = _.get(event, 'srcElement')
           ? event.target.value
           :event
         this.$emit('blur', newValue)

@@ -22,13 +22,12 @@
                       :relation="field.relation"
                       :relationDisplay="field.relationDisplay"
                       :placeholder="field.placeholder"
+                      :required="field.required"
                     />
                   </div>
                 </div>
+                <button class="btn btn-success d-block ml-auto" type="submit">Save</button>
               </form>
-            </div>
-            <div class="modal-footer">
-              <button class="btn btn-success" type="submit" @click="save">Save</button>
             </div>
           </div>
         </div>

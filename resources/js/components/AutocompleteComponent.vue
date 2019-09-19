@@ -1,15 +1,15 @@
 <template>
     <div class="autocomplete-container">
         <input v-model="selectedOptionDisplay"
-            readonly
             ref="textbox"
             :class="cssClass"
             :placeholder="placeholder"
+            :required="required"
             @focus="showOptions()"
             @blur="hideOptions()"
         />
         <slot></slot>
-        <input class="form-control" :name="name" hidden v-model="selectedOptionId">
+        <input class="form-control" hidden v-model="selectedOptionId">
         <ul class="list-group options" :style="optionsPosition" :class="{ active: isOptionsVisible }">
             <li v-for="option in options"
                 class="list-group-item"
@@ -79,7 +79,7 @@
         props: [
             'cssClass',
             'placeholder',
-            'name', // model property name
+            'required',
             'relation', // api to use
             'displayColumn', // column to be displayed as option
             'value',
