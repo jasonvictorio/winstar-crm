@@ -28,6 +28,7 @@ Vue.component('autocomplete-component', require('./components/AutocompleteCompon
 Vue.component('table-component', require('./components/TableComponent.vue').default);
 Vue.component('pagination-component', require('./components/PaginationComponent.vue').default);
 Vue.component('modal-component', require('./components/ModalComponent.vue').default);
+Vue.component('input-component', require('./components/InputComponent.vue').default);
 
 Vue.use(require('vue-toast-notification'))
 

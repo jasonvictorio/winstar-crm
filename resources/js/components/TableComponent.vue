@@ -22,8 +22,14 @@
     <tbody>
       <tr v-for="data in data" :key="data.id">
         <td v-for="column in columns" :key="column.property">
-          <input v-if="!column.relation" :type="column.type" @blur="$emit('inlineEdit', $event.target.value, data, column)" class="form-control" :value="data[column.property]" :disabled="!column.editable">
-          <autocomplete-component :value="clone(data[column.property])" @blur="(newValue) => $emit('inlineEdit', newValue, data, column)"  v-if="column.relation" css-class="form-control" name="company" :relation="column.relation" :displayColumn="column.relationDisplay"/>
+          <input-component :value="clone(data[column.property])"
+            @blur="(newValue) => $emit('inlineEdit', newValue, data, column)"
+            :type="column.type"
+            :disabled="!column.editable"
+            css-class="form-control"
+            :relation="column.relation"
+            :relationDisplay="column.relationDisplay"
+          />
         </td>
         <td v-if="editable || deleteable">
           <button v-if="editable" class="btn btn-primary" @click="$emit('editData', data)"><i class="far fa-edit"></i></button>
