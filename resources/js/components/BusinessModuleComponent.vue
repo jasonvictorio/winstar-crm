@@ -27,7 +27,14 @@
       @paginate="fetchData"
       @limitChange="onLimitChange"
     />
-    <modal-component :visible="modalVisible" @hideModal="hideModal" @save="saveData" :title="modalTitle" :fields="editableFields" :data="modalData" />
+    <modal-component
+      :data="modalData"
+      :fields="modalFields"
+      :title="modalTitle"
+      :visible="modalVisible"
+      @hideModal="hideModal"
+      @save="saveData"
+    />
   </div>
 </template>
 
@@ -74,7 +81,15 @@
         return this.computedColumns.filter(column => !column.hide)
       },
       editableFields () {
+        return this.computedColumns.filter(column => column.editable)
+      },
+      addNewFields () {
         return this.computedColumns.filter(column => column.editable || (!column.editable && column.hide))
+      },
+      modalFields () {
+        return _.isNil(_.get(this.modalData, 'id'))
+          ? this.addNewFields
+          : this.editableFields
       },
       headers () {
         const sortBy = this.sortBy.relation
