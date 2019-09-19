@@ -38,7 +38,8 @@ class BaseController extends Controller
     {
         $sortBy = $request->header('sortBy') ?: 'id';
         $sortOrder = $request->header('sortOrder') ?: 'asc';
-        $result = $this->model::with($this->with)->orderBy($sortBy, $sortOrder)->paginate(15);
+        $perPage = $request->header('perPage') ?: 15;
+        $result = $this->model::with($this->with)->orderBy($sortBy, $sortOrder)->paginate($perPage);
         $data = $result->makeHidden($this->hidden);
         $result->data = $data;
         return $result;

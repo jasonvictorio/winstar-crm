@@ -65,7 +65,7 @@
       editableFields () {
         return this.computedColumns.filter(column => column.editable || (!column.editable && column.hide))
       },
-      sortHeaders () {
+      headers () {
         const sortBy = this.sortBy.relation
           ? `${this.sortBy.property}_id`
           : this.sortBy.property
@@ -81,7 +81,7 @@
     methods: {
       async fetchData(page = 1) {
         const response = await axios.get(`${this.apiRoute}?page=${page}`, {
-          headers: this.sortHeaders
+          headers: this.headers
         })
         this.data = response.data.data
         this.updatePagination(response.data)

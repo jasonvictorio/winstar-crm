@@ -44,8 +44,8 @@
     methods: {
       paginate: function (page) {
         this.$emit('paginate', page)
-      }
-    }
+      },
+    },
   }
 </script>
 
