@@ -1,7 +1,6 @@
 <template>
   <div class="table-responsive card card-body">
     <div class="d-flex align-items-center justify-content-between">
-      <pagination-component class="mt-3" :pagination="pagination" @paginate="fetchData" @limitChange="onLimitChange" />
       <button class="btn btn-primary" @click="addNew()"><i class="fa fa-plus"></i> Add new item</button>
     </div>
     <table-component
@@ -18,7 +17,16 @@
       @deleteData="deleteData"
       @inlineEdit="inlineEdit"
     />
-    <pagination-component class="mt-3" :pagination="pagination" @paginate="fetchData"/>
+    <pagination-component class="mt-3"
+      :from="pagination.from"
+      :to="pagination.to"
+      :total="pagination.to"
+      :perPage="pagination.perPage"
+      :currentPage="pagination.currentPage"
+      :lastPage="pagination.lastPage"
+      @paginate="fetchData"
+      @limitChange="onLimitChange"
+    />
     <modal-component :visible="modalVisible" @hideModal="hideModal" @save="saveData" :title="modalTitle" :fields="editableFields" :data="modalData" />
   </div>
 </template>
@@ -45,9 +53,12 @@
       sortOrder: 'asc',
       limit: 10,
       pagination: {
-        total: 0,
-        current: 1,
-        limit: 15,
+        currentPage: 1,
+        lastPage: 1,
+        from: 1,
+        to: 1,
+        total: 1,
+        perPage: 1,
       },
     }),
     computed: {
@@ -114,7 +125,7 @@
         }, column)
       },
       refreshData () {
-        this.fetchData(this.pagination.current)
+        this.fetchData(this.pagination.currentPage)
       },
       editData (data) {
         this.modalData = _.cloneDeep(data)
@@ -158,9 +169,12 @@
       },
       updatePagination (response) {
         this.pagination = {
+          currentPage: response.current_page,
+          lastPage: response.last_page,
+          from: response.from,
+          to: response.to,
           total: response.total,
-          current: response.current_page,
-          limit: response.per_page,
+          perPage: response.per_page,
         }
       },
       notificationSuccess (message) {

@@ -1,50 +1,45 @@
 <template>
-  <div>
-    <ul class="pagination">
-      <li class="paginate_button page-item previous">
-        <button class="page-link" @click="paginate(pagination.current-1)" :disabled="this.pagination.current == 1">Previous</button>
+  <div class="d-flex align-items-center">
+    <ul class="pagination mb-0 mr-3">
+      <li class="paginate_button page-item previous" :class="{ disabled: currentPage == 1 }">
+        <button class="page-link" @click="paginate(currentPage-1)">Previous</button>
       </li>
-      <li v-for="page in pages" :key="page" class="paginate_button page-item" :class="{ active: page == pagination.current }">
+      <li v-for="page in pages" :key="page" class="paginate_button page-item" :class="{ active: page == currentPage }">
         <button class="page-link" @click="paginate(page)">{{ page }}</button>
       </li>
-      <li class="paginate_button page-item next">
-        <button class="page-link" @click="paginate(pagination.current+1)" :disabled="disableNext">Next</button>
+      <li class="paginate_button page-item next" :class="{ disabled: currentPage == lastPage}">
+        <button class="page-link" @click="paginate(currentPage+1)">Next</button>
       </li>
     </ul>
-    <select class="form-control" value="pagination.limit" @input="onLimitChange($event)">
-      <option v-for="limit in limits" :value="limit" :key="limit">{{limit}}</option>
-    </select>
+    <span>{{ display }}</span>
+    <div class="d-flex align-items-center ml-auto">
+      <p class="mb-0 mr-2">Show</p>
+      <select class="custom-select custom-select-sm" value="perPage" @input="onLimitChange($event)">
+        <option v-for="limit in limits" :value="limit" :key="limit">{{limit}}</option>
+      </select>
+    </div>
   </div>
 </template>
 
 <script>
   export default {
     props: {
-      pagination: {
-        type: Object,
-        default: {
-          current: 1,
-          total: 1,
-          limit: 1,
-        },
-      },
+      currentPage: { type: Number, default: 1 },
+      lastPage: { type: Number, default: 1 },
+      from: { type: Number, default: 1 },
+      to: { type: Number, default: 1 },
+      total: { type: Number, default: 1 },
+      perPage: { type: Number, default: 10 },
     },
     data: () => ({
       limits: [10, 20, 40, 80],
     }),
     computed: {
-      lastPage () {
-        return Math.ceil(this.pagination.total / this.pagination.limit)
-      },
-      disableNext () {
-        return this.pagination.current == this.lastPage
-      },
       pages () {
-        let pages = []
-        for (let index = 0; index < this.lastPage; index++) {
-          pages[index] = index + 1
-        }
-        return pages
+        return _.range(1, this.lastPage+1)
+      },
+      display () {
+        return `Showing ${this.from} to ${this.to} of ${this.total} entries`
       },
     },
     methods: {
