@@ -3,10 +3,10 @@
 namespace WinstarCRM\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use WinstarCRM\Http\Controllers\Controller;
 use \WinstarCRM\Company;
-use Illuminate\Support\Facades\DB;
-use Log;
+use Illuminate\Support\Facades\Validator;
 
 class BaseController extends Controller
 {
@@ -14,6 +14,7 @@ class BaseController extends Controller
     protected $model;
     protected $with = [];
     protected $hidden = [];
+    protected $validationRules = [];
     protected $appendUserCompany = false;
 
     function __construct() {
@@ -53,8 +54,9 @@ class BaseController extends Controller
      */
     public function store(Request $request)
     {
-        $model = $this->model::create($this->formatRequestModel($request));
-        return $model;
+        return $this->validateRequest($request, function ($data) {
+            return $this->model::create($data);
+        });
     }
 
     /**
@@ -77,9 +79,11 @@ class BaseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $model = $this->model::findOrFail($id);
-        $model->update($this->formatRequestModel($request));
-        return $this->model::findOrFail($id);
+        return $this->validateRequest($request, function ($data) {
+            $toBeUpdated = $this->model::findOrFail($id);
+            $toBeUpdated->update($data);
+            return $toBeUpdated;
+        });
     }
 
     /**
@@ -112,5 +116,24 @@ class BaseController extends Controller
             $model['company_id'] = isset($model['company_id']) ? $model['company_id'] : $request->user()->company_id;
         }
         return $model;
+    }
+
+    public function validateData ($data) {
+        return Validator::make($data, $this->validationRules);
+    }
+
+    public function getValidationError($data) {
+        $validator = $this->validateData($data);
+        if ($validator->fails()) {
+            return Response::make($validator->errors(), 422);
+        }
+    }
+
+    public function validateRequest($request, $callback) {
+        $formatedRequestData = $this->formatRequestModel($request);
+        $validationError = $this->getValidationError($formatedRequestData);
+        if ($validationError) return $validationError;
+        $data = $callback($formatedRequestData);
+        return $this->model::with($this->with)->findOrFail($data->id);
     }
 }
