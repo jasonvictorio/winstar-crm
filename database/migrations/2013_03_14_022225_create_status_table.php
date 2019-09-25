@@ -18,6 +18,8 @@ class CreateStatusTable extends Migration
             $table->string('name');
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->integer('status_type_id')->unsigned();
             $table->foreign('status_type_id')->references('id')->on('status_types');
             $table->timestamps();
