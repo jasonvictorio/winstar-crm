@@ -144,6 +144,7 @@
         this.fetchData(this.pagination.currentPage)
       },
       editData (data) {
+        this.clearError()
         this.modalData = _.cloneDeep(data)
         this.setModalTitle(data)
         this.showModal()
@@ -169,7 +170,7 @@
           const response = isNewData
             ? await axios.post(`${this.apiRoute}`, data)
             : await axios.put(`${this.apiRoute}/${data.id}`, data)
-          this.setModalTitle(data)
+          this.editData(response.data)
           this.refreshData()
           this.notificationSuccess('Update saved')
         } catch (error) {
