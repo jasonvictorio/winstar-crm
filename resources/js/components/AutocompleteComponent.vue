@@ -9,6 +9,9 @@
             @blur="hideOptions()"
         />
         <slot></slot>
+        <div class="col-12 invalid-feedback" v-if="error">
+            {{ error }}
+        </div>
         <input class="form-control" hidden v-model="selectedOptionId">
         <ul class="list-group options" :style="optionsPosition" :class="{ active: isOptionsVisible }">
             <li v-for="option in options"
@@ -83,6 +86,7 @@
             'relation', // api to use
             'displayColumn', // column to be displayed as option
             'value',
+            'error',
         ],
     }
 </script>

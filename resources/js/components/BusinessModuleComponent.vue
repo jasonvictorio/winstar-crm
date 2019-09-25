@@ -32,6 +32,7 @@
       :fields="modalFields"
       :title="modalTitle"
       :visible="modalVisible"
+      :error="error"
       @hideModal="hideModal"
       @save="saveData"
     />
@@ -58,6 +59,7 @@
       modalData: null,
       sortBy: { property: 'id' },
       sortOrder: 'asc',
+      error: null,
       pagination: {
         currentPage: 1,
         lastPage: 1,
@@ -135,7 +137,7 @@
           editable: true,
           hide: false,
           sort: true,
-          required: false,
+          required: true,
         }, column)
       },
       refreshData () {
@@ -159,13 +161,23 @@
       },
       async saveData(data) {
         const isNewData = _.isNil(data.id)
-        const response = isNewData
-          ? await axios.post(`${this.apiRoute}`, data)
-          : await axios.put(`${this.apiRoute}/${data.id}`, data)
-
-        this.setModalTitle(data)
-        this.refreshData()
-        this.notificationSuccess('Update saved')
+        try {
+          const response = isNewData
+            ? await axios.post(`${this.apiRoute}`, data)
+            : await axios.put(`${this.apiRoute}/${data.id}`, data)
+          this.setModalTitle(data)
+          this.refreshData()
+          this.notificationSuccess('Update saved')
+        } catch (error) {
+          this.error = this.formatError(error.response.data)
+        }
+      },
+      formatError (error) {
+        return _.mapKeys(error, (value, key) => {
+          return _.endsWith(key, '_id')
+            ? _.replace(key, '_id', '')
+            : key
+        })
       },
       deleteData(data) {
         axios.delete(`${this.apiRoute}/${data.id}`)

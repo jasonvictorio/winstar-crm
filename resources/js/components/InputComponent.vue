@@ -1,22 +1,28 @@
 <template>
   <div>
-    <input v-if="!relation"
-      :value="value"
-      :type="type"
-      :class="cssClass"
-      :disabled="disabled"
-      :placeholder="placeholder"
-      :required="required"
-      @input="onInput($event.target.value)"
-      @blur="onBlur($event)"
-    />
+    <template v-if="!relation">
+      <input
+        :value="value"
+        :type="type"
+        :class="computedClass"
+        :disabled="disabled"
+        :placeholder="placeholder"
+        :required="required"
+        @input="onInput($event.target.value)"
+        @blur="onBlur($event)"
+      />
+      <div class="col-12 invalid-feedback" v-if="error">
+        {{ error }}
+      </div>
+    </template>
     <autocomplete-component v-if="relation"
       :value="value"
-      :css-class="cssClass"
+      :css-class="computedClass"
       :relation="relation"
       :displayColumn="relationDisplay"
       :placeholder="placeholder"
       :required="required"
+      :error="error"
       @input="onInput($event)"
       @blur="onBlur($event)"
     />
@@ -34,9 +40,12 @@
       disabled: { type: Boolean, default: false },
       placeholder: { type: String, default: '' },
       required: { type: Boolean, default: false },
+      error: { type: String, default: null },
     },
     computed: {
-
+      computedClass () {
+        return `${this.cssClass} ${this.error ? 'is-invalid' : ''}`
+      },
     },
     methods: {
       onInput(event) {

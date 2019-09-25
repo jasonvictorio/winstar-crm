@@ -11,17 +11,22 @@ class UserController extends BaseController
 {
     protected $modelString = 'User';
     protected $with = ['company', 'access'];
+    protected $validationRules = [
+        'name' => 'required',
+        'company_id' => 'required',
+    ];
 
     public function store(Request $request) {
-        $requestModel = $this->formatRequestModel($request);
-        $model = $this->model::create([
-            'company_id' => $requestModel['company_id'],
-            'access_id' => $requestModel['access_id'],
-            'name' => $requestModel['name'],
-            'email' => $requestModel['email'],
-            'password' => Hash::make($requestModel['password']),
-        ]);
-        $model->sendEmailVerificationNotification();
-        return $model;
+        return $this->validateRequest($request, function ($data) {
+            $model = $this->model::create([
+                'company_id' => $data['company_id'],
+                'access_id' => $data['access_id'],
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+            $model->sendEmailVerificationNotification();
+            return $model;
+        });
     }
 }
