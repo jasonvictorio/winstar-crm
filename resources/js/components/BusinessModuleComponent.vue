@@ -13,7 +13,7 @@
       :showUpdatedAt="showUpdatedAt"
       :showCreatedAt="showCreatedAt"
       @sort="sort"
-      @editData="editData"
+      @editData="modalSetData"
       @deleteData="deleteData"
       @inlineEdit="inlineEdit"
     />
@@ -33,8 +33,8 @@
       :title="modalTitle"
       :visible="modalVisible"
       :error="error"
-      @hideModal="hideModal"
-      @save="saveData"
+      @hideModal="modalHide"
+      @save="modalSave"
     />
   </div>
 </template>
@@ -143,7 +143,7 @@
       refreshData () {
         this.fetchData(this.pagination.currentPage)
       },
-      editData (data) {
+      modalSetData (data) {
         this.clearError()
         this.modalData = _.cloneDeep(data)
         this.setModalTitle(data)
@@ -152,9 +152,13 @@
       showModal () {
         this.modalVisible = true
       },
-      hideModal () {
+      modalHide () {
         this.modalVisible = false
         this.clearError()
+      },
+      async modalSave (data) {
+        const responseData = await this.saveData(data)
+        this.modalSetData(data)
       },
       clearError () {
         this.error = null
@@ -170,9 +174,9 @@
           const response = isNewData
             ? await axios.post(`${this.apiRoute}`, data)
             : await axios.put(`${this.apiRoute}/${data.id}`, data)
-          this.editData(response.data)
           this.refreshData()
           this.notificationSuccess('Update saved')
+          return response.data
         } catch (error) {
           this.error = this.formatError(error.response.data)
         }
@@ -196,7 +200,7 @@
         this.editableFields.forEach(field => {
           data[field.property] = null
         });
-        this.editData(data)
+        this.modalSetData(data)
       },
       updatePagination (response) {
         this.pagination = {
