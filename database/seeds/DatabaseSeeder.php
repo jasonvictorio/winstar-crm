@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
-        DB::table('accesses')->insert([[
+        DB::table('roles')->insert([[
             'name' => 'Superadmin',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
         ]]);
         DB::table('users')->insert([[
             'company_id' => 1,
-            'access_id' => 1,
+            'role_id' => 1,
             'name' => 'Super Admin',
             'email' => 'superadmin@winstar.com',
             'password' => bcrypt('password'),
@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ],[
             'company_id' => 1,
-            'access_id' => 2,
+            'role_id' => 2,
             'name' => 'Just Admin',
             'email' => 'admin@winstar.com',
             'password' => bcrypt('password'),
@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ],[
             'company_id' => 1,
-            'access_id' => 3,
+            'role_id' => 3,
             'name' => 'Staff 01',
             'email' => 'staff@winstar.com',
             'password' => bcrypt('password'),
@@ -61,7 +61,7 @@ class DatabaseSeeder extends Seeder
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ],[
             'company_id' => 1,
-            'access_id' => 4,
+            'role_id' => 4,
             'name' => 'John Wayne',
             'email' => 'customer@winstar.com',
             'password' => bcrypt('password'),

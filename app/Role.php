@@ -4,7 +4,7 @@ namespace WinstarCRM;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Access extends Model
+class Role extends Model
 {
     protected $fillable = [
         'name',

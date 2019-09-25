@@ -10,19 +10,19 @@ use WinstarCRM\Http\Controllers\API\BaseController;
 class UserController extends BaseController
 {
     protected $modelString = 'User';
-    protected $with = ['company', 'access'];
+    protected $with = ['company', 'role'];
     protected $validationRules = [
         'name' => 'required',
         'company_id' => 'required',
         'email' => 'required|unique:users',
-        'access_id' => 'required',
+        'role_id' => 'required',
     ];
 
     public function store(Request $request) {
         return $this->validateRequest($request, function ($data) {
             $model = $this->model::create([
                 'company_id' => $data['company_id'],
-                'access_id' => $data['access_id'],
+                'role_id' => $data['role_id'],
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
