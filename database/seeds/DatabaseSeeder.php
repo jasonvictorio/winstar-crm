@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]]);
-        DB::table('users')->insert([
+        DB::table('users')->insert([[
             'company_id' => 1,
             'access_id' => 1,
             'name' => 'Super Admin',
@@ -43,7 +43,31 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-        ]);
+        ],[
+            'company_id' => 1,
+            'access_id' => 2,
+            'name' => 'Just Admin',
+            'email' => 'admin@winstar.com',
+            'password' => bcrypt('password'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ],[
+            'company_id' => 1,
+            'access_id' => 3,
+            'name' => 'Staff 01',
+            'email' => 'staff@winstar.com',
+            'password' => bcrypt('password'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ],[
+            'company_id' => 1,
+            'access_id' => 4,
+            'name' => 'John Wayne',
+            'email' => 'customer@winstar.com',
+            'password' => bcrypt('password'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]]);
 
         // \WinstarCRM\User::find(1)->sendEmailVerificationNotification();
 
