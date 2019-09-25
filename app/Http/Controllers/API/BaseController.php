@@ -79,7 +79,7 @@ class BaseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $this->validateRequest($request, function ($data) {
+        return $this->validateRequest($request, function ($data) use ($id) {
             $toBeUpdated = $this->model::findOrFail($id);
             $toBeUpdated->update($data);
             return $toBeUpdated;
