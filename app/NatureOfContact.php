@@ -9,6 +9,7 @@ class NatureOfContact extends Model
     protected $fillable = [
         'name',
         'company_id',
+        'user_id',
     ];
 
     public function company()
