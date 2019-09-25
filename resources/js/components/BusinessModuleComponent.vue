@@ -153,6 +153,10 @@
       },
       hideModal () {
         this.modalVisible = false
+        this.clearError()
+      },
+      clearError () {
+        this.error = null
       },
       setModalTitle (data) {
         this.modalTitle = _.isNil(data.id)
