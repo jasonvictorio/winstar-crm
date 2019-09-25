@@ -18,7 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'company_id',
-        'access_id',
+        'role_id',
         'name',
         'email',
         'password',
@@ -49,8 +49,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo('\WinstarCRM\Company');
     }
 
-    public function access()
+    public function role()
     {
-        return $this->belongsTo('\WinstarCRM\Access');
+        return $this->belongsTo('\WinstarCRM\Role');
     }
 }
