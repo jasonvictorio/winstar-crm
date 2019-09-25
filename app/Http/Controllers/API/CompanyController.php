@@ -7,4 +7,8 @@ use WinstarCRM\Http\Controllers\API\BaseController;
 class CompanyController extends BaseController
 {
     protected $modelString = 'Company';
+    protected $validationRules = [
+        'name' => 'required',
+        'address' => 'required',
+    ];
 }

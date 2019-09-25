@@ -11,6 +11,6 @@ class StatusController extends BaseController
     protected $appendUserCompany = true;
     protected $validationRules = [
         'name' => 'required',
-        'company_id' => 'required',
+        'status_type_id' => 'required',
     ];
 }

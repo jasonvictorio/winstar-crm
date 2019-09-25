@@ -8,4 +8,7 @@ class NatureOfContactController extends BaseController
 {
     protected $modelString = 'NatureOfContact';
     protected $appendUserCompany = true;
+    protected $validationRules = [
+        'name' => 'required',
+    ];
 }
