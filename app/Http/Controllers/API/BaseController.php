@@ -16,10 +16,14 @@ class BaseController extends Controller
     protected $hidden = [];
     protected $validationRules = [];
     protected $appendUserCompany = false;
+    protected $appendUser = true;
 
     function __construct() {
+        // create an instance of the model to be used
         $modelString = '\WinstarCRM\\'.$this->modelString;
         $this->model = new $modelString;
+
+        // eg: with="[company]" hidden="[company_id]"
         $this->hidden = $this->mapWithAsHiddenId();
     }
 
@@ -37,9 +41,12 @@ class BaseController extends Controller
      */
     public function index(Request $request)
     {
+        // sort and pagination
         $sortBy = $request->header('sortBy') ?: 'id';
         $sortOrder = $request->header('sortOrder') ?: 'asc';
         $perPage = $request->header('perPage') ?: 15;
+
+        // pagination with sort and relation($this->with)
         $result = $this->model::with($this->with)->orderBy($sortBy, $sortOrder)->paginate($perPage);
         $data = $result->makeHidden($this->hidden);
         $result->data = $data;
@@ -99,10 +106,14 @@ class BaseController extends Controller
         return $model;
     }
 
+    // returns all entries
+    // used in autocomplete
     public function all() {
         return $this->model::all();
     }
 
+    // converts relation fields(array) to *_id
+    // append company and user if applicable
     public function formatRequestModel ($request) {
         $model = [];
         foreach ($request->all() as $property => $value) {
@@ -112,23 +123,34 @@ class BaseController extends Controller
                 $model[$property] = $value;
             }
         }
+
+        // add company_id from user making the request
         if ($this->appendUserCompany) {
-            $model['company_id'] = isset($model['company_id']) ? $model['company_id'] : $request->user()->company_id;
+            $model['company_id'] = isset($model['company_id'])
+                ? $model['company_id']
+                : $request->user()->company_id;
         }
+
+        // add user_id from user making the request
+        if ($this->appendUser) {
+            $model['user_id'] = isset($model['user_id'])
+                ? $model['user_id']
+                : $request->user()->id;
+
+        }
+
         return $model;
     }
 
-    public function validateData ($data) {
-        return Validator::make($data, $this->validationRules);
-    }
-
     public function getValidationError($data) {
-        $validator = $this->validateData($data);
+        $validator = Validator::make($data, $this->validationRules);
         if ($validator->fails()) {
             return Response::make($validator->errors(), 422);
         }
     }
 
+    //  accepts a function that runs when request is valid
+    // function parameter must accept 'data' and return 'data'
     public function validateRequest($request, $callback) {
         $formatedRequestData = $this->formatRequestModel($request);
         $validationError = $this->getValidationError($formatedRequestData);
