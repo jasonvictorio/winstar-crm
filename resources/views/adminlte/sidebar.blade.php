@@ -1,5 +1,6 @@
 @php
     $routes = [
+      [ 'route' => '', 'name' => 'Dashboard', 'icon' => 'tachometer-alt' ],
       [ 'route' => 'company', 'name' => 'Company', 'icon' => 'building' ],
       [ 'route' => 'user', 'name' => 'User', 'icon' => 'user-tie' ],
       [ 'route' => 'status', 'name' => 'Status', 'icon' => 'check-square' ],
