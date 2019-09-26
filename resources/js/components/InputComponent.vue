@@ -8,6 +8,7 @@
         :disabled="disabled"
         :placeholder="placeholder"
         :required="required"
+        :autocomplete="type=='password' ? 'new-password' : 'false'"
         @input="onInput($event.target.value)"
         @blur="onBlur($event)"
       />
