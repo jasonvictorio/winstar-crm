@@ -11,6 +11,7 @@ class UserController extends BaseController
 {
     protected $modelString = 'User';
     protected $with = ['company', 'role'];
+    protected $files = ['avatar'];
     protected $validationRules = [
         'name' => 'required',
         'company_id' => 'required',
@@ -18,17 +19,4 @@ class UserController extends BaseController
         'role_id' => 'required',
     ];
 
-    public function store(Request $request) {
-        return $this->validateRequest($request, function ($data) {
-            $model = $this->model::create([
-                'company_id' => $data['company_id'],
-                'role_id' => $data['role_id'],
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
-            ]);
-            $model->sendEmailVerificationNotification();
-            return $model;
-        });
-    }
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-if="!relation">
+    <template v-if="inputType == 'default'">
       <input
         :value="value"
         :type="type"
@@ -16,13 +16,20 @@
         {{ error }}
       </div>
     </template>
-    <autocomplete-component v-if="relation"
+    <autocomplete-component v-if="inputType == 'autocomplete'"
       :value="value"
       :css-class="computedClass"
       :relation="relation"
       :displayColumn="relationDisplay"
       :placeholder="placeholder"
       :required="required"
+      :error="error"
+      @input="onInput($event)"
+      @blur="onBlur($event)"
+    />
+    <file-component v-if="inputType == 'file'"
+      :value="value"
+      :css-class="computedClass"
       :error="error"
       @input="onInput($event)"
       @blur="onBlur($event)"
@@ -46,6 +53,12 @@
     computed: {
       computedClass () {
         return `${this.cssClass} ${this.error ? 'is-invalid' : ''}`
+      },
+      inputType () {
+        if (!_.isNil(this.relation)) return 'autocomplete'
+        if (this.type == 'file') return 'file'
+
+        return 'default'
       },
     },
     methods: {

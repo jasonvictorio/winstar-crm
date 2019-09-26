@@ -24,7 +24,7 @@
         <button class="d-flex align-items-center navbar-user-button" data-toggle="dropdown">
             <span class="mr-2">{{ Auth::user()->name }}</span>
             <div class="navbar-avatar">
-                <img src="{{ URL::to('/') }}/storage/{{ Auth::user()->avatar }}" alt="">
+                <img src="{{ URL::to('/') }}/storage/uploads/user/{{ Auth::user()->avatar }}" alt="">
             </div>
         </button>
         <div class="dropdown-menu dropdown-menu-right">
