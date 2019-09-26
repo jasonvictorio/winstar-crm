@@ -19,7 +19,11 @@ Route::post('register', 'API\AuthController@register');
 function createApiRoute ($route, $controller) {
     return [
         Route::get($route.'/all', $controller.'@all'),
-        Route::apiResource($route, $controller),
+        Route::get($route, $controller.'@index'),
+        Route::post($route, $controller.'@store'),
+        Route::put($route.'/{id}', $controller.'@update'),
+        Route::get($route.'/{id}', $controller.'@show'),
+        Route::delete($route.'/{id}', $controller.'@destroy'),
     ];
 }
 
