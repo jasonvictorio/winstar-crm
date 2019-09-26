@@ -157,8 +157,15 @@
         this.clearError()
       },
       async modalSave (data) {
-        const responseData = await this.saveData(data)
-        this.modalSetData(data)
+        // const data = _.pickBy(modalData, !_.isEmpty)
+        try {
+          const responseData = await this.saveData(data)
+          this.notificationSuccess('Update saved')
+          this.refreshData()
+          this.modalSetData(data)
+        } catch (error) {
+          this.error = error
+        }
       },
       clearError () {
         this.error = null
@@ -174,11 +181,9 @@
           const response = isNewData
             ? await axios.post(`${this.apiRoute}`, data)
             : await axios.put(`${this.apiRoute}/${data.id}`, data)
-          this.refreshData()
-          this.notificationSuccess('Update saved')
           return response.data
         } catch (error) {
-          this.error = this.formatError(error.response.data)
+          throw this.formatError(error.response.data)
         }
       },
       formatError (error) {

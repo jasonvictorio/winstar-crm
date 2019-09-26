@@ -15,7 +15,7 @@ class UserController extends BaseController
     protected $validationRules = [
         'name' => 'required',
         'company_id' => 'required',
-        'email' => 'required|unique:users',
+        'email' => 'required',
         'role_id' => 'required',
     ];
 
