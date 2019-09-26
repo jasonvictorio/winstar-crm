@@ -28605,3 +28605,20 @@ THEMES:
   background-color: #fff;
 }
 
+.navbar-user-button {
+  background: transparent;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 9999px;
+}
+
+.navbar-avatar {
+  max-width: 40px;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.navbar-avatar img {
+  max-width: 100%;
+}
+

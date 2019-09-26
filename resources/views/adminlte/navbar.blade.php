@@ -20,22 +20,28 @@
             </div>
         </div>
     </form>
-
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-        <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
-            <a class="nav-link d-flex align-items-center" data-toggle="dropdown" href="#">
-                <span class="mr-2">{{ Auth::user()->name }}</span> <i class="fas fa-2x fa-user-circle"></i>
-                {{-- <span class="badge badge-warning navbar-badge">7</span> --}}
-            </a>
-            <div class="dropdown-menu dropdown-menu-right">
-                <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="{{ route('logout') }}">
-                    <i class="fas fa-sign-out-alt mr-2"></i> {{ __('Logout') }}
-                </a>
+    <div class="position-relative ml-auto mr-2">
+        <button class="d-flex align-items-center navbar-user-button" data-toggle="dropdown">
+            <span class="mr-2">{{ Auth::user()->name }}</span>
+            <div class="navbar-avatar">
+                <img src="{{ URL::to('/') }}/storage/{{ Auth::user()->avatar }}" alt="">
             </div>
-        </li>
-    </ul>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+            <span class="dropdown-item">
+                Company: {{ Auth::user()->company_id }}
+            </span>
+            <span class="dropdown-item mb-2">
+                Role: {{ Auth::user()->role_id }}
+            </span>
+            <a href="#" class="dropdown-item">
+                <i class="fas fa-lock mr-2"></i> {{ __('Change Password') }}
+            </a>
+            <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="{{ route('logout') }}">
+                <i class="fas fa-sign-out-alt mr-2"></i> {{ __('Logout') }}
+            </a>
+        </div>
+    </div>
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
     </form>
