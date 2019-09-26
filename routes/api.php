@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     });
     createApiRoute('company', 'API\CompanyController');
     createApiRoute('user', 'API\UserController');
-    createApiRoute('access', 'API\RoleController');
+    createApiRoute('role', 'API\RoleController');
     createApiRoute('status', 'API\StatusController');
     createApiRoute('customer', 'API\CustomerController');
     createApiRoute('status-type', 'API\StatusTypeController');
