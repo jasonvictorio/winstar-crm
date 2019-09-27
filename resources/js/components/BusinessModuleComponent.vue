@@ -162,7 +162,7 @@
           const responseData = await this.saveData(data)
           this.notificationSuccess('Update saved')
           this.refreshData()
-          this.modalSetData(data)
+          this.modalSetData(responseData)
         } catch (error) {
           this.error = error
         }
