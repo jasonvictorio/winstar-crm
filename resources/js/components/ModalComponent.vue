@@ -12,7 +12,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form @submit.prevent="validate" novalidate>
+              <form @submit.prevent="save" novalidate>
                 <div class="form-group row" v-for="field in fields" :key="field.property">
                   <label for="inputEmail3" class="col-sm-3 col-form-label">{{ field.label }}</label>
                   <div class="col-sm-9">
@@ -23,7 +23,8 @@
                       :relationDisplay="field.relationDisplay"
                       :placeholder="field.placeholder"
                       :required="field.required"
-                      :error="head(get(error, field.property))"
+                      :error="head(get(errorLocal, field.property))"
+                      @input="inputChange(field.property)"
                     />
                   </div>
                 </div>
@@ -39,9 +40,6 @@
 
 <script>
   export default {
-    data: () => ({
-      isValidated: false,
-    }),
     props: {
       visible: Boolean,
       title: String,
@@ -52,7 +50,15 @@
     computed: {
       requiredFields () {
         return this.fields.filter(field => field.required)
-      }
+      },
+    },
+    data: () => ({
+      errorLocal: null,
+    }),
+    watch: {
+      error: function(error) { // watch it
+        this.errorLocal = error
+      },
     },
     methods: {
       get (object, property) {
@@ -65,16 +71,10 @@
         this.$emit('hideModal')
       },
       save () {
-        this.isValidated = false
         this.$emit('save', this.data)
       },
-      validate () {
-        // this.requiredFields.forEach(requiredField => {
-        //   const property = requiredField.property
-
-        // });
-        // this.isValidated = true
-        this.save()
+      inputChange (inputProperty) {
+        this.errorLocal = _.omit(this.errorLocal, inputProperty)
       },
     }
   }
