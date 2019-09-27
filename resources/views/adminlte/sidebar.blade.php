@@ -9,6 +9,8 @@
       [ 'route' => 'customer', 'name' => 'Customer', 'icon' => 'check-square' ],
       [ 'route' => 'project', 'name' => 'Project', 'icon' => 'check-square' ],
       [ 'route' => 'task-type', 'name' => 'Task Type', 'icon' => 'check-square' ],
+      [ 'route' => 'task', 'name' => 'Task', 'icon' => 'check-square' ],
+      [ 'route' => 'task-category', 'name' => 'Task Category', 'icon' => 'check-square' ],
     ]
 @endphp
 

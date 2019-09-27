@@ -4,7 +4,7 @@
       <tr>
         <th v-for="column in columns" :key="column.property">
           <div class="d-flex align-items-center">
-            <span>{{ column.label }}</span>
+            <span class="text-nowrap mr-3">{{ column.label }}</span>
             <div class="ml-auto sort" :class="{ active: sortBy.property == column.property }" v-if="column.sort">
               <button class="btn btn-sm sort-button active" @click="sort(column)">
                 <template v-if="sortBy.property == column.property">
@@ -13,9 +13,6 @@
                 </template>
                 <i class="fa fa-sort" v-if="sortBy.property != column.property"></i>
               </button>
-              <!-- <button class="btn btn-sm sort-button" @click="$emit('sort', column, 'desc')" :class="{ active: sortOrder == 'desc' }">
-                <i class="fa fa-arrow-down"></i>
-              </button> -->
             </div>
           </div>
         </th>

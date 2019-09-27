@@ -13,12 +13,15 @@ class CreateTaskCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('task_category', function (Blueprint $table) {
+        Schema::create('task_categories', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->integer('company_id')->unsigned();
-            $table->foreign('company_id')->references('id')->on('companies');
-            $table->string('category_name');
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('user_id')->references('id')->on('users');
 
         });
     }
@@ -30,6 +33,6 @@ class CreateTaskCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task_category');
+        Schema::dropIfExists('task_categories');
     }
 }

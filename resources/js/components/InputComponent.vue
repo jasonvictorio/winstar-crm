@@ -74,3 +74,9 @@
     }
   }
 </script>
+
+<style scoped>
+  >>> ::placeholder {
+    color: #cacaca !important;
+  }
+</style>

@@ -41,4 +41,6 @@ Route::group(['middleware' => 'auth:api'], function() {
     createApiRoute('customer', 'API\CustomerController');
     createApiRoute('project', 'API\ProjectController');
     createApiRoute('task-type', 'API\TaskTypeController');
+    createApiRoute('task-category', 'API\TaskCategoryController');
+    createApiRoute('task', 'API\TaskController');
 });

@@ -122,7 +122,28 @@ class DatabaseSeeder extends Seeder
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         DB::table('task_types')->insert([
-            'name' => 'Project 1',
+            'name' => 'Task Type 1',
+            'company_id' => 1,
+            'user_id' => 1,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+        DB::table('task_categories')->insert([
+            'name' => 'Task Category 1',
+            'company_id' => 1,
+            'user_id' => 1,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+        DB::table('tasks')->insert([
+            'name' => 'Task 1',
+            'description' => 'this is the task 1',
+            'created_date' => Carbon::now()->format('Y-m-d H:i:s'),
+            'deadline_date' => Carbon::now()->format('Y-m-d H:i:s'),
+            'project_id' => 1,
+            'status_id' => 1,
+            'task_type_id' => 1,
+            'task_category_id' => 1,
             'company_id' => 1,
             'user_id' => 1,
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
