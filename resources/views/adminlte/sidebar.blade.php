@@ -7,6 +7,8 @@
       [ 'route' => 'status-type', 'name' => 'Status Type', 'icon' => 'check-square' ],
       [ 'route' => 'nature-of-contact', 'name' => 'Nature of Contact', 'icon' => 'check-square' ],
       [ 'route' => 'customer', 'name' => 'Customer', 'icon' => 'check-square' ],
+      [ 'route' => 'project', 'name' => 'Project', 'icon' => 'check-square' ],
+      [ 'route' => 'task-type', 'name' => 'Task Type', 'icon' => 'check-square' ],
     ]
 @endphp
 

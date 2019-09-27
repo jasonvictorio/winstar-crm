@@ -15,17 +15,20 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('company_id')->unsigned();
-            $table->foreign('company_id')->references('id')->on('companies');
             $table->string('name');
-            $table->date('start_date');
-            $table->date('estimated_end_date');
-            $table->integer('status_id')->unsigned();
-            $table->foreign('status_id')->references('id')->on('status');
+            $table->date('start_date')->nullable();
+            $table->date('estimated_end_date')->nullable();
+            $table->integer('company_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->integer('status_id')->nullable()->unsigned();
             $table->integer('customer_id')->unsigned();
-            $table->foreign('customer_id')->references('id')->on('customers');
             $table->timestamps();
-            
+
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('status_id')->references('id')->on('status');
+            $table->foreign('customer_id')->references('id')->on('customers');
+
         });
     }
 
