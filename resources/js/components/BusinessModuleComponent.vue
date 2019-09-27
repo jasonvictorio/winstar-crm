@@ -120,14 +120,20 @@
         this.sortOrder = sortOrder
         this.refreshData()
       },
-      inlineEdit(newValue, data, column) {
+      async inlineEdit(newValue, data, column) {
         const oldValue = data[column.property]
         if (_.isEqual(newValue, oldValue)) return
 
         const updatedData = _.merge(data, {
           [column.property]: newValue
         })
-        this.saveData(updatedData)
+        try {
+          const responseData = await this.saveData(updatedData)
+          this.notificationSuccess('Update saved')
+        } catch (error) {
+          data[column.property] = oldValue
+          this.notificationError(_.head(error[column.property]))
+        }
       },
       assignColumnDefaults (column) {
         return _.assign({
@@ -222,6 +228,13 @@
           message: message,
           position: 'top-right',
           type: 'success',
+        })
+      },
+      notificationError (message) {
+        Vue.$toast.open({
+          message: message,
+          position: 'top-right',
+          type: 'error',
         })
       },
       onLimitChange(limit) {
