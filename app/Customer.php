@@ -25,6 +25,8 @@ class Customer extends Model
         'notes',
     ];
 
+    protected $appends = ['name'];
+
     public function company()
     {
         return $this->belongsTo('\WinstarCRM\Company');
@@ -36,6 +38,10 @@ class Customer extends Model
     public function nature_of_contact()
     {
         return $this->belongsTo('\WinstarCRM\NatureOfContact');
+    }
+    public function getNameAttribute()
+    {
+        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
     }
 }
 
