@@ -11,6 +11,7 @@
       [ 'route' => 'task-type', 'name' => 'Task Type', 'icon' => 'check-square' ],
       [ 'route' => 'task', 'name' => 'Task', 'icon' => 'check-square' ],
       [ 'route' => 'task-category', 'name' => 'Task Category', 'icon' => 'check-square' ],
+      [ 'route' => 'chart', 'name' => 'Chart', 'icon' => 'check-square' ],
     ]
 @endphp
 
