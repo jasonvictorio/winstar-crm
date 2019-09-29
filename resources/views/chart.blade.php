@@ -3,5 +3,5 @@
 @section('title', 'Chart')
 
 @section('content')
-  <chart-component />
+  <report-component />
 @endsection

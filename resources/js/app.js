@@ -8,6 +8,7 @@
 require('./bootstrap');
 require('./adminlte');
 require('./scrollbar');
+require('chart.js');
 
 window.Vue = require('vue');
 
@@ -31,6 +32,7 @@ Vue.component('modal-component', require('./components/ModalComponent.vue').defa
 Vue.component('input-component', require('./components/InputComponent.vue').default);
 Vue.component('file-component', require('./components/FileComponent.vue').default);
 Vue.component('chart-component', require('./components/ChartComponent.vue').default);
+Vue.component('report-component', require('./components/ReportComponent.vue').default);
 
 Vue.use(require('vue-toast-notification'))
 

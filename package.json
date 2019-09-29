@@ -25,7 +25,6 @@
     },
     "dependencies": {
         "chart.js": "^2.8.0",
-        "vue-chartjs": "^3.4.2",
         "vue-toast-notification": "0.0.3"
     }
 }
