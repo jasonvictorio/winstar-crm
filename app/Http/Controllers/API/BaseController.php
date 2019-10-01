@@ -43,13 +43,32 @@ class BaseController extends Controller
      */
     public function index(Request $request)
     {
+        $user = $request->user()->id;
+        $userRole = $request->user()->role_id;
+        $userCompany = $request->user()->company_id;
         // sort and pagination
         $sortBy = $request->header('sortBy') ?: 'id';
         $sortOrder = $request->header('sortOrder') ?: 'asc';
         $perPage = $request->header('perPage') ?: 15;
 
+        /*
+            1,superadmin can view all
+            2,admin can view from his own company
+            3,staff can view from his own company
+            4,
+        */
+        if ($userRole == 1) {
+            $result = $this->model::where([]);
+        } elseif ($userRole == 2) {
+            $result = $this->model::where('company_id', $userCompany);
+        } elseif ($userRole == 3) {
+            $result = $this->model::where('company_id', $userCompany);
+        } elseif ($userRole == 4) {
+            $result = $this->model::where('user_id', $user);
+        }
+        
         // pagination with sort and relation($this->with)
-        $result = $this->model::with($this->with)->orderBy($sortBy, $sortOrder)->paginate($perPage);
+        $result = $result->with($this->with)->orderBy($sortBy, $sortOrder)->paginate($perPage);
         $data = $result->makeHidden($this->hidden);
         $result->data = $data;
         return $result;
