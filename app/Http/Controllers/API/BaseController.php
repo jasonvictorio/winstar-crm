@@ -133,6 +133,10 @@ class BaseController extends Controller
         return $this->model::all();
     }
 
+    public function report (Request $request) {
+        return $this->model::with($this->with)->get()->makeHidden($this->hidden);
+    }
+
     // converts relation fields(array) to *_id
     // append company and user if applicable
     public function formatRequestModel ($request) {
