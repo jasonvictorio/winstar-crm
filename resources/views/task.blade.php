@@ -13,8 +13,8 @@
         { property: 'deadline_date', type: 'date' },
         { property: 'project', relation: 'project', relationDisplay: 'name' },
         { property: 'status', relation: 'status', relationDisplay: 'name' },
-        { property: 'task_type', relation: 'task_type', relationDisplay: 'name' },
-        { property: 'task_category', relation: 'task_category', relationDisplay: 'name' },
+        { property: 'task_type', relation: 'task-type', relationDisplay: 'name' },
+        { property: 'task_category', relation: 'task-category', relationDisplay: 'name' },
         { property: 'company', relation: 'company', relationDisplay: 'name' },
     ]"
   />
