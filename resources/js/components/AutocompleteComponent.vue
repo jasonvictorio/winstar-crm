@@ -5,6 +5,7 @@
             :class="cssClass"
             :placeholder="placeholder"
             :required="required"
+            @input="search($event.target.value)"
             @focus="showOptions()"
             @blur="hideOptions()"
         />
@@ -14,7 +15,7 @@
         </div>
         <input class="form-control" hidden v-model="selectedOptionId">
         <ul class="list-group options" :style="optionsPosition" :class="{ active: isOptionsVisible }">
-            <li v-for="option in options"
+            <li v-for="option in filteredOptions"
                 class="list-group-item"
                 :key="option.id"
                 @mousedown="selectOption(option)"
@@ -22,6 +23,7 @@
                 {{ option[displayColumn] }}
             </li>
         </ul>
+        <button type="button" @click="clearSelected()" class="autocomplete-delete" :class="{ 'active': isOptionsVisible }"><i class="fas fa-backspace"></i></button>
     </div>
 </template>
 
@@ -32,6 +34,7 @@
             selectedOptionId: null,
             selectedOption: null,
             options: [],
+            searchWord: '',
             isOptionsVisible: false,
             optionsPosition: {
                 top: 0,
@@ -43,21 +46,37 @@
                 this.selectOption(newValue, false)
             },
         },
+        computed: {
+            filteredOptions () {
+                return this.options.filter(option => {
+                    const haystack = _.lowerCase(_.get(option, this.displayColumn))
+                    const needle = _.lowerCase(this.searchWord)
+                    return _.includes(haystack, needle)
+                })
+            },
+        },
         methods: {
             selectOption (option, emit = true) {
                 this.selectedOption = option;
-                this.selectedOptionDisplay = option[this.displayColumn];
-                this.selectedOptionId = option.id
+                this.selectedOptionId = _.get(option, 'id')
                 if (emit) {
                     this.$emit('input', this.selectedOption)
                 }
             },
+            clearSelected () {
+                this.selectOption(null)
+            },
+            search (searchWord) {
+                this.searchWord = searchWord
+            },
             showOptions () {
+                this.search('')
                 this.populateOptions()
                 this.updateOptionsPosition()
                 this.isOptionsVisible = true
             },
             hideOptions () {
+                this.selectedOptionDisplay = _.get(this.selectedOption, this.displayColumn)
                 this.$emit('blur', this.selectedOption)
                 this.isOptionsVisible = false
             },
@@ -123,5 +142,28 @@
 
     input:read-only {
         background: #fff;
+    }
+
+    .autocomplete-delete {
+        position: absolute;
+        background: none;
+        padding: 0;
+        border: 0;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: all 250ms ease-in-out;
+
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .autocomplete-delete.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .autocomplete-container {
+        position: relative;
     }
 </style>
