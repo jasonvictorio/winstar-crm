@@ -33,8 +33,10 @@
           />
         </td>
         <td v-if="editable || deleteable">
-          <button v-if="editable" class="btn btn-primary" @click="$emit('editData', data)"><i class="far fa-edit"></i></button>
-          <button v-if="deleteable" class="btn btn-outline-danger" @click="$emit('deleteData', data)"><i class="far fa-trash-alt"></i></button>
+          <div class="d-flex">
+            <button v-if="editable" class="btn btn-primary mr-2" @click="$emit('editData', data)"><i class="far fa-edit"></i></button>
+            <button v-if="deleteable" class="btn btn-outline-danger" @click="$emit('deleteData', data)"><i class="far fa-trash-alt"></i></button>
+          </div>
         </td>
       </tr>
     </tbody>
