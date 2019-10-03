@@ -37,7 +37,6 @@ Route::group(['middleware' => 'auth:api'], function() {
     createApiRoute('role', 'API\RoleController');
     createApiRoute('status', 'API\StatusController');
     createApiRoute('customer', 'API\CustomerController');
-    createApiRoute('nature-of-contact', 'API\NatureOfContactController');
     createApiRoute('customer', 'API\CustomerController');
     createApiRoute('project', 'API\ProjectController');
     createApiRoute('task-type', 'API\TaskTypeController');

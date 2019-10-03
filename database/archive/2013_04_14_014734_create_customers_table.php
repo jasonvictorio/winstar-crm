@@ -19,7 +19,6 @@ class CreateCustomersTable extends Migration
             $table->foreign('company_id')->references('id')->on('companies');
             $table->date('next_follow_up_date');
             $table->string('latest_contact_or_actions');
-            $table->string('nature_of_contact');
             $table->string('notes');
             $table->date('first_contacted');
             $table->date('last_contacted');

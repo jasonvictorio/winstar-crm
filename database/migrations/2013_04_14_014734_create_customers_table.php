@@ -21,8 +21,6 @@ class CreateCustomersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('status');
-            $table->integer('nature_of_contact_id')->unsigned();
-            $table->foreign('nature_of_contact_id')->references('id')->on('nature_of_contacts');
             $table->string('first_name');
             $table->string('last_name')->nullable();
             $table->string('hear_about_us')->nullable();
