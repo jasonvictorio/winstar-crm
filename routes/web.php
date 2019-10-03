@@ -18,7 +18,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::view('/user', 'user')->name('user');
   Route::view('/company', 'company')->name('company');
   Route::view('/status', 'status')->name('status');
-  Route::view('/status-type', 'statustype')->name('statusType');
   Route::view('/nature-of-contact', 'natureofcontact')->name('natureOfContact');
   Route::view('/customer', 'customer')->name('customer');
   Route::view('/project', 'project')->name('project');

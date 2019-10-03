@@ -4,7 +4,6 @@
       [ 'route' => 'company', 'name' => 'Company', 'icon' => 'building' ],
       [ 'route' => 'user', 'name' => 'User', 'icon' => 'user-tie' ],
       [ 'route' => 'status', 'name' => 'Status', 'icon' => 'check-square' ],
-      [ 'route' => 'status-type', 'name' => 'Status Type', 'icon' => 'check-square' ],
       [ 'route' => 'nature-of-contact', 'name' => 'Nature of Contact', 'icon' => 'check-square' ],
       [ 'route' => 'customer', 'name' => 'Customer', 'icon' => 'check-square' ],
       [ 'route' => 'project', 'name' => 'Project', 'icon' => 'check-square' ],

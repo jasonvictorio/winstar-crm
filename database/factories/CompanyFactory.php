@@ -28,27 +28,14 @@ $factory->define(WinstarCRM\User::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(WinstarCRM\StatusType::class, function (Faker $faker) {
-    $company_ids = WinstarCRM\Company::all()->pluck('id')->toArray();
-    $user_ids = WinstarCRM\User::all()->pluck('id')->toArray();
-    return [
-        'name' => $faker->numerify('Status type ##'),
-        'company_id' => $faker->randomElement($company_ids),
-        'user_id' => $faker->randomElement($user_ids),
-        'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-        'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-    ];
-});
 
 $factory->define(WinstarCRM\Status::class, function (Faker $faker) {
     $company_ids = WinstarCRM\Company::all()->pluck('id')->toArray();
     $user_ids = WinstarCRM\User::all()->pluck('id')->toArray();
-    $status_type_ids = WinstarCRM\StatusType::all()->pluck('id')->toArray();
     return [
         'name' => $faker->numerify('Status ##'),
         'company_id' => $faker->randomElement($company_ids),
-        'user_id' => $faker->randomElement($status_type_ids),
-        'status_type_id' => $faker->randomElement($status_type_ids),
+        'user_id' => $faker->randomElement($user_ids),
         'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
     ];

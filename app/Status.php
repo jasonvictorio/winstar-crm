@@ -16,18 +16,12 @@ class Status extends Model
         'company_id',
         'user_id',
         'name',
-        'status_type_id',
         'type'
     ];
 
     public function company()
     {
         return $this->belongsTo('\WinstarCRM\Company');
-    }
-
-    public function status_type()
-    {
-        return $this->belongsTo('\WinstarCRM\StatusType');
     }
 }
 ?>

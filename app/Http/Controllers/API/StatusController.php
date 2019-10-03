@@ -7,10 +7,9 @@ use WinstarCRM\Http\Controllers\API\BaseController;
 class StatusController extends BaseController
 {
     protected $modelString = 'Status';
-    protected $with = ['company', 'status_type'];
+    protected $with = ['company'];
     protected $appendUserCompany = true;
     protected $validationRules = [
         'name' => 'required',
-        'status_type_id' => 'required',
     ];
 }
