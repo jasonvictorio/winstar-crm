@@ -30,7 +30,7 @@
               </div>
             </div>
           </div>
-            <autocomplete-component class="input-group mb-3" css-class="form-control" placeholder="company" display-column="name" name="company_id" relation="companies">
+            <autocomplete-component class="input-group mb-3" :show-delete="false" css-class="form-control" placeholder="company" display-column="name" name="company_id" relation="companies">
                 <div class="input-group-append">
                   <div class="input-group-text">
                     <span class="fas fa-building"></span>

@@ -23,7 +23,7 @@
                 {{ option[displayColumn] }}
             </li>
         </ul>
-        <button type="button" @click="clearSelected()" class="autocomplete-delete" :class="{ 'active': isOptionsVisible }"><i class="fas fa-backspace"></i></button>
+        <button v-if="showDelete && this.selectedOption" type="button" @mousedown="clearSelected()" class="autocomplete-delete" :class="{ 'active': isOptionsVisible }"><i class="fas fa-backspace"></i></button>
     </div>
 </template>
 
@@ -58,6 +58,7 @@
         methods: {
             selectOption (option, emit = true) {
                 this.selectedOption = option;
+                this.selectedOptionDisplay = _.get(option, this.displayColumn)
                 this.selectedOptionId = _.get(option, 'id')
                 if (emit) {
                     this.$emit('input', this.selectedOption)
@@ -85,7 +86,7 @@
                 this.optionsPosition = {
                     top: `${inputBoundingClient.top + inputBoundingClient.height}px `,
                     left: `${inputBoundingClient.left}px `,
-                    width: `${inputBoundingClient.width}px `,
+                    'min-width': `${inputBoundingClient.width}px `,
                 }
             },
             populateOptions () {
@@ -98,15 +99,16 @@
                 this.selectOption(this.value, false)
             }
         },
-        props: [
-            'cssClass',
-            'placeholder',
-            'required',
-            'relation', // api to use
-            'displayColumn', // column to be displayed as option
-            'value',
-            'error',
-        ],
+        props: {
+            cssClass: { type: String },
+            placeholder: { type: String },
+            required: { type: Boolean, default: false },
+            relation: { type: String },
+            displayColumn: { type: String },
+            value: { type: Object },
+            error: { type: String },
+            showDelete: { type: Boolean, default: true },
+        },
     }
 </script>
 
@@ -134,6 +136,7 @@
 
     .options li {
         cursor: pointer;
+        white-space: nowrap;
     }
 
     .options li:hover {
