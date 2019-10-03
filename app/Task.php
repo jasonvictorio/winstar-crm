@@ -18,7 +18,6 @@ class Task extends Model
         'deadline_date',
         'project_id',
         'status_id',
-        'task_type_id',
         'task_category_id',
 
         'user_id',
@@ -36,10 +35,6 @@ class Task extends Model
     public function project()
     {
         return $this->belongsTo('\WinstarCRM\Project');
-    }
-    public function task_type()
-    {
-        return $this->belongsTo('\WinstarCRM\TaskType');
     }
     public function task_category()
     {

@@ -77,7 +77,6 @@ class DatabaseSeeder extends Seeder
         factory(WinstarCRM\Status::class, 5)->create();
         factory(WinstarCRM\Customer::class, 50)->create();
         factory(WinstarCRM\Project::class, 50)->create();
-        factory(WinstarCRM\TaskType::class, 5)->create();
         factory(WinstarCRM\TaskCategory::class, 5)->create();
         factory(WinstarCRM\Task::class, 50)->create();
 

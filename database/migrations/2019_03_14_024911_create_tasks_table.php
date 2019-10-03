@@ -21,7 +21,6 @@ class CreateTasksTable extends Migration
             $table->date('deadline_date')->nullable();
             $table->integer('project_id')->unsigned();
             $table->integer('status_id')->unsigned()->nullable();
-            $table->integer('task_type_id')->unsigned()->nullable();
             $table->integer('task_category_id')->unsigned()->nullable();
             $table->integer('user_id')->unsigned();
             $table->integer('company_id')->unsigned();
@@ -29,7 +28,6 @@ class CreateTasksTable extends Migration
 
             $table->foreign('project_id')->references('id')->on('projects');
             $table->foreign('status_id')->references('id')->on('status');
-            $table->foreign('task_type_id')->references('id')->on('task_types');
             $table->foreign('task_category_id')->references('id')->on('task_categories');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('company_id')->references('id')->on('companies');

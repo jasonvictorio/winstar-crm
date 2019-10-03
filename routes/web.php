@@ -20,7 +20,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::view('/status', 'status')->name('status');
   Route::view('/customer', 'customer')->name('customer');
   Route::view('/project', 'project')->name('project');
-  Route::view('/task-type', 'tasktype')->name('taskType');
   Route::view('/task', 'task')->name('task');
   Route::view('/task-category', 'taskcategory')->name('taskCategory');
   Route::view('/chart', 'chart')->name('chart');

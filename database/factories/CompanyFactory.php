@@ -76,18 +76,6 @@ $factory->define(WinstarCRM\Project::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(WinstarCRM\TaskType::class, function (Faker $faker) {
-    $company_ids = WinstarCRM\Company::all()->pluck('id')->toArray();
-    $user_ids = WinstarCRM\User::all()->pluck('id')->toArray();
-    return [
-        'name' => $faker->numerify('Task type ##'),
-        'company_id' => $faker->randomElement($company_ids),
-        'user_id' => $faker->randomElement($user_ids),
-        'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-        'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-    ];
-});
-
 $factory->define(WinstarCRM\TaskCategory::class, function (Faker $faker) {
     $company_ids = WinstarCRM\Company::all()->pluck('id')->toArray();
     $user_ids = WinstarCRM\User::all()->pluck('id')->toArray();
@@ -105,7 +93,6 @@ $factory->define(WinstarCRM\Task::class, function (Faker $faker) {
     $user_ids = WinstarCRM\User::all()->pluck('id')->toArray();
     $project_ids = WinstarCRM\Project::all()->pluck('id')->toArray();
     $status_ids = WinstarCRM\Status::all()->pluck('id')->toArray();
-    $task_type_ids = WinstarCRM\TaskType::all()->pluck('id')->toArray();
     $task_category_ids = WinstarCRM\TaskCategory::all()->pluck('id')->toArray();
     return [
         'name' => $faker->numerify('Task ##'),
@@ -116,7 +103,6 @@ $factory->define(WinstarCRM\Task::class, function (Faker $faker) {
         'user_id' => $faker->randomElement($user_ids),
         'project_id' => $faker->randomElement($project_ids),
         'status_id' => $faker->randomElement($status_ids),
-        'task_type_id' => $faker->randomElement($task_type_ids),
         'task_category_id' => $faker->randomElement($task_category_ids),
         'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
