@@ -13,7 +13,7 @@
         <div class="col-12 invalid-feedback" v-if="error">
             {{ error }}
         </div>
-        <input class="form-control" hidden v-model="selectedOptionId">
+        <input class="form-control" hidden :name="name" v-model="selectedOptionId">
         <ul class="list-group options" :style="optionsPosition" :class="{ active: isOptionsVisible }">
             <li v-for="option in filteredOptions"
                 class="list-group-item"
@@ -107,6 +107,7 @@
             displayColumn: { type: String },
             value: { type: Object },
             error: { type: String },
+            name: { type: String },
             showDelete: { type: Boolean, default: true },
         },
     }
