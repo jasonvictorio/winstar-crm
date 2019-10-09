@@ -16,6 +16,18 @@
         {{ error }}
       </div>
     </template>
+    <dropdown-component v-if="inputType == 'dropdown'"
+      :value="value"
+      :css-class="computedClass"
+      :relation="relation"
+      :displayColumn="relationDisplay"
+      :placeholder="placeholder"
+      :required="required"
+      :error="error"
+      :options="options"
+      @input="onInput($event)"
+      @blur="onBlur($event)"
+    />
     <autocomplete-component v-if="inputType == 'autocomplete'"
       :value="value"
       :css-class="computedClass"
@@ -49,6 +61,7 @@
       placeholder: { type: String, default: '' },
       required: { type: Boolean, default: false },
       error: { type: String, default: null },
+      options: { type: Array, default: null },
     },
     computed: {
       computedClass () {
@@ -57,6 +70,7 @@
       inputType () {
         if (!_.isNil(this.relation)) return 'autocomplete'
         if (this.type == 'file') return 'file'
+        if (this.type == 'dropdown') return 'dropdown'
 
         return 'default'
       },

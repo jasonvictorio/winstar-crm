@@ -17,6 +17,12 @@
     mounted () {
       this.renderChart()
     },
+    watch: {
+        data (newValue) {
+          console.log('watch data')
+          this.renderChart()
+        },
+    },
     methods: {
       renderChart () {
         this.chart = new Chart(this.$refs['chart'], {

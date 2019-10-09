@@ -66,7 +66,6 @@ class BaseController extends Controller
         } elseif ($userRole == 4) {
             $result = $this->model::where('user_id', $user);
         }
-        
         // pagination with sort and relation($this->with)
         $result = $result->with($this->with)->orderBy($sortBy, $sortOrder)->paginate($perPage);
         $data = $result->makeHidden($this->hidden);
@@ -134,7 +133,19 @@ class BaseController extends Controller
     }
 
     public function report (Request $request) {
-        return $this->model::with($this->with)->get()->makeHidden($this->hidden);
+        $from = $request->header('from');
+        $to = $request->header('to');
+        $xxx = $this->model::with($this->with);
+
+        if (!empty($from) || !empty($to)) {
+            if (!empty($to)) {
+                $xxx = $xxx->whereBetween('created_at', [$from, $to]);
+            } else {
+                $xxx = $xxx->where('created_at', '<=',$from);
+            }
+        }
+
+        return $xxx->get()->makeHidden($this->hidden);
     }
 
     // converts relation fields(array) to *_id

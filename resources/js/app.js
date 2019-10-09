@@ -9,6 +9,7 @@ require('./bootstrap');
 require('./adminlte');
 require('./scrollbar');
 require('chart.js');
+require('chartjs-plugin-colorschemes');
 
 window.Vue = require('vue');
 
@@ -33,6 +34,7 @@ Vue.component('input-component', require('./components/InputComponent.vue').defa
 Vue.component('file-component', require('./components/FileComponent.vue').default);
 Vue.component('chart-component', require('./components/ChartComponent.vue').default);
 Vue.component('report-component', require('./components/ReportComponent.vue').default);
+Vue.component('dropdown-component', require('./components/DropdownComponent.vue').default);
 
 Vue.use(require('vue-toast-notification'))
 
