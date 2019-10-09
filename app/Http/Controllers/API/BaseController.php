@@ -44,7 +44,7 @@ class BaseController extends Controller
     public function index(Request $request)
     {
         $user = $request->user()->id;
-        $userRole = $request->user()->role_id;
+        $userRole = 1;
         $userCompany = $request->user()->company_id;
         // sort and pagination
         $sortBy = $request->header('sortBy') ?: 'id';
