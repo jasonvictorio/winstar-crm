@@ -9,7 +9,7 @@
     props: {
       type: { type: String },
       data: { type: Object },
-      option: { type: Object },
+      options: { type: Object },
     },
     data: () => ({
       chart: null,

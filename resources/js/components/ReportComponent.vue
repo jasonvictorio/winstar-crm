@@ -6,26 +6,19 @@
           <div class="form-group row">
             <label for="inputEmail3" class="col-sm-3 col-form-label">Type</label>
             <div class="col-sm-9">
-              <select name="pets" id="pet-select">
-                  <option value="">--Please choose an option--</option>
-                  <option value="dog">Dog</option>
-                  <option value="cat">Cat</option>
-                  <option value="hamster">Hamster</option>
-                  <option value="parrot">Parrot</option>
-                  <option value="spider">Spider</option>
-                  <option value="goldfish">Goldfish</option>
+              <select class="form-control" v-model="chartType">
+                  <option value="line">Line</option>
+                  <option value="bar">Bar</option>
+                  <option value="pie">Pie</option>
               </select>
             </div>
           </div>
           <div class="form-group row">
             <label for="inputEmail3" class="col-sm-3 col-form-label">Group by</label>
             <div class="col-sm-9">
-              <input-component v-model="groupBy"
-                :type="'dropdown'"
-                css-class="form-control"
-                :relationDisplay="'label'"
-                :options="groups"
-              />
+              <select class="form-control" v-model="groupBy">
+                  <option :value="group.value" v-for="group in groups" :key="group.label">{{ group.label }}</option>
+              </select>
             </div>
           </div>
           <div class="form-group row">
@@ -82,6 +75,7 @@
     data: () => ({
       type: 'bar',
       rawData: null,
+      chartType: 'Bar',
       groupBy: null,
       filtersData: {},
       from: null,
@@ -91,18 +85,24 @@
         datasets: [{
             label: '# of Votes',
             data: [12, 19, 3, 5, 2, 3],
-            borderWidth: 1
+            borderWidth: 1,
+            backgroundColor: Chart['colorschemes'].tableau.Tableau10,
         }],
-        options: {
-          scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero: true
-                  }
-              }]
+      },
+      options: {
+        plugins: {
+          colorschemes: {
+            scheme: 'office.Breeze6'
           }
-        }
         },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
     }),
     computed: {
       apiRoute () {
@@ -130,15 +130,31 @@
               : false
           }, true)
         })
-        const groupedData = _.groupBy(filteredData, `${this.groupBy.property}.id`)
+        const groupedData = _.groupBy(filteredData, this.groupBy.groupBy)
         this.data.labels = []
         this.data.datasets = [{
           label: this.groupBy.label,
           data: [],
           borderWidth: 1,
+          backgroundColor: [...Chart['colorschemes'].office.Breeze6,
+          ...Chart['colorschemes'].office.Breeze6,
+          ...Chart['colorschemes'].office.Breeze6,
+          ...Chart['colorschemes'].office.Breeze6,
+          ...Chart['colorschemes'].office.Breeze6,
+          ...Chart['colorschemes'].office.Breeze6,
+          ...Chart['colorschemes'].office.Breeze6,
+          ...Chart['colorschemes'].office.Breeze6,
+          ...Chart['colorschemes'].office.Breeze6,
+          ...Chart['colorschemes'].office.Breeze6,
+          ...Chart['colorschemes'].office.Breeze6,
+          ...Chart['colorschemes'].office.Breeze6,
+          ...Chart['colorschemes'].office.Breeze6,
+          ...Chart['colorschemes'].office.Breeze6,
+          ...Chart['colorschemes'].office.Breeze6,
+          ...Chart['colorschemes'].office.Breeze6,],
         }]
         Object.keys(groupedData).forEach(group => {
-          this.data.labels.push(_.head(groupedData[group])[this.groupBy.relationDisplay])
+          this.data.labels.push(_.get(_.head(groupedData[group]), this.groupBy.name))
           _.head(this.data.datasets).data.push(groupedData[group].length)
         });
         this.data = _.clone(this.data)
