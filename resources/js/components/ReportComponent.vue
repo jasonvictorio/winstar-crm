@@ -58,7 +58,7 @@
       </div>
     </form>
     <chart-component
-      :type="type"
+      :type="chartType"
       :data="data"
       :options="options"
     />
@@ -73,21 +73,13 @@
       groups: null,
     },
     data: () => ({
-      type: 'bar',
       rawData: null,
-      chartType: 'Bar',
+      chartType: 'bar',
       groupBy: null,
       filtersData: {},
       from: null,
       to: null,
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            borderWidth: 1,
-            backgroundColor: Chart['colorschemes'].tableau.Tableau10,
-        }],
       },
       options: {
         plugins: {
@@ -108,6 +100,10 @@
       apiRoute () {
         return `/api/${this.apiEndpoint}`
       },
+    },
+    mounted () {
+      this.groupBy = _.head(this.groups).value
+      this.generateChart()
     },
     methods: {
       async fetchData () {

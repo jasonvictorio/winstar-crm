@@ -19,11 +19,19 @@
     },
     watch: {
         data (newValue) {
-          console.log('watch data')
-          this.renderChart()
+          this.updateChart()
+        },
+        type (newValue) {
+          this.updateChart()
         },
     },
     methods: {
+      updateChart () {
+        if (this.chart) {
+          this.chart.destroy()
+        }
+        this.renderChart()
+      },
       renderChart () {
         this.chart = new Chart(this.$refs['chart'], {
           type: this.type,

@@ -1,6 +1,6 @@
 @extends('adminlte.layout')
 
-@section('title', 'Chart')
+@section('title', 'Task Report')
 
 @section('content')
   <report-component
