@@ -44,13 +44,11 @@ $factory->define(WinstarCRM\Status::class, function (Faker $faker) {
 $factory->define(WinstarCRM\Customer::class, function (Faker $faker) {
     $company_ids = WinstarCRM\Company::all()->pluck('id')->toArray();
     $user_ids = WinstarCRM\User::all()->pluck('id')->toArray();
-    $status_ids = WinstarCRM\Status::all()->pluck('id')->toArray();
     return [
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'company_id' => $faker->randomElement($company_ids),
         'user_id' => $faker->randomElement($user_ids),
-        'status_id' => $faker->randomElement($status_ids),
         'first_contacted' => $faker->dateTimeBetween('-2 months', 'now'),
         'last_contacted' => $faker->dateTimeBetween('now', '2 months'),
         'created_at' => Carbon::now()->format('Y-m-d H:i:s'),

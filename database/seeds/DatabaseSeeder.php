@@ -72,9 +72,39 @@ class DatabaseSeeder extends Seeder
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]]);
+        DB::table('status')->insert([[
+            'name' => 'Pending',
+            'company_id' => 1,
+            'user_id'=> 1,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ],[
+            'name' => 'Done',
+            'company_id' => 1,
+            'user_id'=> 1,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ],[
+            'name' => 'On progress',
+            'company_id' => 1,
+            'user_id'=> 1,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ],[
+            'name' => 'On hold',
+            'company_id' => 1,
+            'user_id'=> 1,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ],[
+            'name' => 'To be reviewed',
+            'company_id' => 1,
+            'user_id'=> 1,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]]);
         factory(WinstarCRM\Company::class, 4)->create();
         factory(WinstarCRM\User::class, 4)->create();
-        factory(WinstarCRM\Status::class, 5)->create();
         factory(WinstarCRM\Customer::class, 50)->create();
         factory(WinstarCRM\Project::class, 50)->create();
         factory(WinstarCRM\TaskCategory::class, 5)->create();

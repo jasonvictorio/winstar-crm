@@ -14,7 +14,6 @@ class Customer extends Model
     protected $fillable = [
         'company_id',
         'user_id',
-        'status_id',
         'next_follow_up_date',
         'first_name',
         'last_name',
@@ -29,10 +28,6 @@ class Customer extends Model
     public function company()
     {
         return $this->belongsTo('\WinstarCRM\Company');
-    }
-    public function status()
-    {
-        return $this->belongsTo('\WinstarCRM\Status');
     }
     public function getNameAttribute()
     {

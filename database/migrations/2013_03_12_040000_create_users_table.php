@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('company_id')->unsigned();
-            $table->string('avatar')->default('default.png');
+            $table->string('avatar')->default('default.png')->nullable();
             $table->foreign('company_id')->references('id')->on('companies');
             $table->integer('role_id')->unsigned();
             $table->foreign('role_id')->references('id')->on('roles');
